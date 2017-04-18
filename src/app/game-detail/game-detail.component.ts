@@ -12,6 +12,6 @@ export class GameDetailComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 }

@@ -5,8 +5,7 @@ import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
 @Component({
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
-  styleUrls: ['./game-list.component.css'],
-  providers: [MahjongMayhemApiService]
+  styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent implements OnInit {
   private errorMessage: string;
@@ -18,17 +17,17 @@ export class GameListComponent implements OnInit {
   constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getGames();
   }
 
-  getGames() {
+  getGames(): void {
     this.mahjongMayhemApiService.getGames().subscribe(
       games => this.games = games,
       error => this.errorMessage = <any>error);
   }
 
-  gameSelect(game: Game) {
+  gameSelect(game: Game): void {
     this.selectedGame = game;
     this.gameSelected.emit(game);
   }
