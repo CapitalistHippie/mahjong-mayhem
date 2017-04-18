@@ -1,0 +1,10 @@
+<div *ngIf="game">
+  <h2>{{game.id}} details!</h2>
+  <div>
+    <label>id: </label>{{game.id}}
+  </div>
+  <div>
+    <label>min players: </label>
+    <input [(ngModel)]="game.minPlayers" placeholder="min players" />
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<ul class="games">
+  <li *ngFor="let game of games" [class.selected]="game === selectedGame" (click)="gameSelect(game)">
+    <span class="badge">{{game.id}}</span> {{game.minPlayers}}/{{game.maxPlayers}}
+  </li>
+</ul>
