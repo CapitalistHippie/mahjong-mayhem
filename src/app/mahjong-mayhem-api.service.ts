@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
-import { Game, GameTemplate, Tile, User, UserInGame, PostGame, PostMatch } from '../models';
-import { MOCK_GAMES } from './mock-games';
+import { Game, GameTemplate, Tile, User, UserInGame, PostGame, PostMatch } from './models';
+import { MOCK_GAMES } from './mock-models';
 
 @Injectable()
 export class MahjongMayhemApiService {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Game } from '../../models';
+import { Game } from '../models';
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
 
 @Component({
