@@ -5,7 +5,10 @@ import { MOCK_GAMES } from './mock-models';
 
 @Injectable()
 export class MahjongMayhemApiService {
-  constructor() {
+  domain: string;
+
+  constructor(private http: Http) {
+    this.domain = 'http://mahjongmayhem.herokuapp.com';
   }
 
   /**
@@ -17,7 +20,7 @@ export class MahjongMayhemApiService {
 	* @param {string} createdBy - Degene die de game heeft gemaakt. Let op, gebruik de username hier!
 	* @param {string} player - Degene die meedoet in de game. Let op, gebruik de username hier!
 	* @param {string} gameTemplate - Het id van de template van de game.
-	* @param {string} state - In welke staat de game moet zijn
+	* @param {string} state - In welke staat de game moet zijn.
 	* 
 	*/
   public getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: string = undefined) {
@@ -64,6 +67,6 @@ export class MahjongMayhemApiService {
     //     return res;
     //   });
 
-    return MOCK_GAMES;
+    return Promise.resolve(MOCK_GAMES);
   }
 }

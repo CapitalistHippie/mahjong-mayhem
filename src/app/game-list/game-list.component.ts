@@ -21,11 +21,11 @@ export class GameListComponent implements OnInit {
     this.getGames();
   }
 
-  getGames(): void {
-    this.games = this.mahjongMayhemApiService.getGames();
+  getGames() {
+    this.mahjongMayhemApiService.getGames().then(games => this.games = games);
   }
 
-  gameSelect(game: Game): void {
+  gameSelect(game: Game) {
     this.selectedGame = game;
     this.gameSelected.emit(game);
   }
