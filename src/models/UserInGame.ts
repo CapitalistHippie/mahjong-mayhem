@@ -1,5 +1,3 @@
-/* tslint:disable */
-
 export class UserInGame {
 	_id: string;
 	name: string;

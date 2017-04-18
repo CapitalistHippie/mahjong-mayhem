@@ -1,4 +1,3 @@
-/* tslint:disable */
 import { Tile } from "./Tile"
 
 export class GameTemplate {

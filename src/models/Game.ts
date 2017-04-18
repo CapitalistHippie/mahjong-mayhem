@@ -1,4 +1,3 @@
-/* tslint:disable */
 import { User } from "./User"
 
 export class Game {

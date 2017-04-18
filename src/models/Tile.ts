@@ -1,5 +1,3 @@
-/* tslint:disable */
-
 export class Tile {
 	_id: number;
 	id: string;
