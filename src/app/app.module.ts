@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppComponent } from './app.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
@@ -25,7 +27,8 @@ import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
         path: 'games',
         component: GameListComponent
       }
-    ])
+    ]),
+    NgbModule.forRoot(),
   ],
   providers: [MahjongMayhemApiService],
   bootstrap: [AppComponent]
