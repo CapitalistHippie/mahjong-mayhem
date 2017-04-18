@@ -9,8 +9,9 @@ import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
   providers: [MahjongMayhemApiService]
 })
 export class GameListComponent implements OnInit {
-  public games: Game[];
-  public selectedGame: Game;
+  private errorMessage: string;
+  private games: Game[];
+  private selectedGame: Game;
 
   @Output() gameSelected = new EventEmitter();
 
@@ -22,7 +23,9 @@ export class GameListComponent implements OnInit {
   }
 
   getGames() {
-    this.mahjongMayhemApiService.getGames().then(games => this.games = games);
+    this.mahjongMayhemApiService.getGames().subscribe(
+      games => this.games = games,
+      error => this.errorMessage = <any>error);
   }
 
   gameSelect(game: Game) {
