@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppAngularMaterialModule } from './app-angular-material.module';
 
 import { AppComponent } from './app.component';
 import { GameListComponent } from './game-list/game-list.component';
@@ -25,7 +27,9 @@ import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
         path: 'games',
         component: GameListComponent
       }
-    ])
+    ]),
+    BrowserAnimationsModule,
+    AppAngularMaterialModule
   ],
   providers: [MahjongMayhemApiService],
   bootstrap: [AppComponent]
