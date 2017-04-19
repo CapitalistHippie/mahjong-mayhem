@@ -6,7 +6,17 @@
     <h1>{{title}}</h1>
 </md-toolbar>
 
-<app-game-list>
-</app-game-list>
-<app-game-detail>
-</app-game-detail>
+<div class="container">
+    <div fxLayout="row" class="content">
+        <md-card>
+            <md-card-title>Games</md-card-title>
+            <app-game-list>
+            </app-game-list>
+        </md-card>
+        <md-card fxFlex>
+            <md-card-title>Game</md-card-title>
+            <app-game-detail>
+            </app-game-detail>
+        </md-card>
+    </div>
+</div>

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { MdButtonModule, MdCheckboxModule, MdListModule, MdToolbarModule } from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdListModule, MdToolbarModule, MdSidenavModule, MdCardModule } from '@angular/material';
 
 import 'hammerjs';
 
 @NgModule({
-  imports: [MdButtonModule, MdCheckboxModule, MdListModule, MdToolbarModule],
-  exports: [MdButtonModule, MdCheckboxModule, MdListModule, MdToolbarModule],
+  imports: [MdButtonModule, MdCheckboxModule, MdListModule, MdToolbarModule, MdSidenavModule, MdCardModule],
+  exports: [MdButtonModule, MdCheckboxModule, MdListModule, MdToolbarModule, MdSidenavModule, MdCardModule],
 })
 export class AppAngularMaterialModule { }

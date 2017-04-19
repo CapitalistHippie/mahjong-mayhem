@@ -1,5 +1,7 @@
 <md-list>
   <md-list-item *ngFor="let game of games" [class.selected]="game === selectedGame" (click)="gameSelect(game)">
-    <span class="badge">{{game.id}}</span> {{game.minPlayers}}/{{game.maxPlayers}}
+    <md-icon md-list-icon class="material-icons">folder</md-icon>
+    <h3 md-line>{{ game.id }}</h3>
+    <h4 md-line>{{ game.minPlayers }}/{{ game.maxPlayers }} players</h4>
   </md-list-item>
 </md-list>
