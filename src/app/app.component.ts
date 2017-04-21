@@ -11,7 +11,7 @@ export class AppComponent {
 
   @ViewChild('gameDetail') gameDetail;
 
-  private onGameSelected(event): void {
-    this.gameDetail.game = event;
+  private onGameSelected(game): void {
+    this.gameDetail.game = game;
   }
 }

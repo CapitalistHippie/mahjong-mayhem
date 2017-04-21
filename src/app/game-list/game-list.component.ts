@@ -12,7 +12,7 @@ export class GameListComponent implements OnInit {
   private games: Game[];
   private selectedGame: Game;
 
-  @Output() gameSelected = new EventEmitter();
+  @Output() gameSelected: EventEmitter<Game> = new EventEmitter();
 
   constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
   }
