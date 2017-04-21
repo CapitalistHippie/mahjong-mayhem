@@ -5,14 +5,15 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { AppAngularMaterialModule } from './app-angular-material.module';
+import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
 
 import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
+
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
       }
     ]),
     BrowserAnimationsModule,
-    AppAngularMaterialModule,
+    MaterialModule,
     FlexLayoutModule
   ],
   providers: [MahjongMayhemApiService],

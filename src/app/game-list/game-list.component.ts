@@ -9,6 +9,7 @@ import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
 })
 export class GameListComponent implements OnInit {
   private errorMessage: string;
+  private isLoadingGames: boolean;
   private games: Game[];
   private selectedGame: Game;
 
@@ -22,9 +23,13 @@ export class GameListComponent implements OnInit {
   }
 
   getGames(): void {
+    this.isLoadingGames = true;
     this.mahjongMayhemApiService.getGames().subscribe(
-      games => this.games = games,
-      error => this.errorMessage = <any>error);
+      games => {
+        this.games = games;
+        this.isLoadingGames = false;
+      },
+      error => this.errorMessage = <any>error, );
   }
 
   gameSelect(game: Game): void {

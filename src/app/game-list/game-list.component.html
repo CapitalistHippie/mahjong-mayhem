@@ -1,8 +1,13 @@
-<md-list>
-  <md-list-item *ngFor="let game of games" [class.selected]="game === selectedGame" (click)="gameSelect(game)">
-    <md-icon md-list-icon class="material-icons">folder</md-icon>
-    <h3 md-line>{{game.id}}</h3>
-    <h4 md-line>{{game.minPlayers}}/{{game.maxPlayers}} players</h4>
-    <md-divider *ngIf="!$last"></md-divider>
-  </md-list-item>
-</md-list>
+<div *ngIf="isLoadingGames">
+  <md-spinner>Loading...</md-spinner>
+</div>
+<div *ngIf="!isLoadingGames">
+  <md-list>
+    <md-list-item *ngFor="let game of games" [class.selected]="game === selectedGame" (click)="gameSelect(game)">
+      <md-icon md-list-icon class="material-icons">folder</md-icon>
+      <h3 md-line>{{game.id}}</h3>
+      <h4 md-line>{{game.minPlayers}}/{{game.maxPlayers}} players</h4>
+      <md-divider *ngIf="!$last"></md-divider>
+    </md-list-item>
+  </md-list>
+</div>
