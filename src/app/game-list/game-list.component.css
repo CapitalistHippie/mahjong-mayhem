@@ -1,0 +1,7 @@
+.item:hover .icon {
+  background-color: pink;
+}
+
+.selected md-icon {
+  color: purple;
+} 
