@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { GameListComponent } from './game-list/game-list.component';
 
 @Component({
@@ -8,4 +8,10 @@ import { GameListComponent } from './game-list/game-list.component';
 })
 export class AppComponent {
   title = 'Mahjong Mayhem';
+
+  @ViewChild('gameDetail') gameDetail;
+
+  private onGameSelected(event): void {
+    this.gameDetail.game = event;
+  }
 }

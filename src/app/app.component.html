@@ -11,14 +11,14 @@
         <md-card>
             <md-card-title>Games</md-card-title>
             <md-card-content>
-                <app-game-list>
+                <app-game-list (gameSelected)="onGameSelected($event)">
                 </app-game-list>
             </md-card-content>
         </md-card>
         <md-card fxFlex>
             <md-card-title>Game</md-card-title>
             <md-card-content>
-                <app-game-detail>
+                <app-game-detail #gameDetail>
                 </app-game-detail>
             </md-card-content>
         </md-card>
