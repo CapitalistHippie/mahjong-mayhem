@@ -8,10 +8,21 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class MahjongMayhemApiService {
-  domain: string;
+  public readonly domain: string;
 
   constructor(private http: Http) {
     this.domain = 'http://mahjongmayhem.herokuapp.com';
+  }
+
+  /**
+   * 
+   * @method
+   * @name getAuthenticationUri
+   * @description Returns the API's authentication URI including callback URL parameter.
+   * 
+   */
+  public getAuthenticationUri(): string {
+    return this.domain + '/auth/avans?callbackUrl=http://localhost:4200/authcallback';
   }
 
   /**

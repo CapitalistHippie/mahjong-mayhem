@@ -1,3 +1,11 @@
+<md-toolbar color="primary" class="bgc-blue-600">
+  <h1 fxFlex>Games</h1>
+
+  <button md-icon-button (click)="gameAdd()">
+    <md-icon class="material-icons">add</md-icon>
+  </button>
+</md-toolbar>
+
 <div *ngIf="isLoadingGames">
   <md-spinner>Loading...</md-spinner>
 </div>
