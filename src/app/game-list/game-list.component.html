@@ -4,6 +4,11 @@
   <button md-icon-button (click)="gameAdd()">
     <md-icon class="material-icons">add</md-icon>
   </button>
+
+  <button md-icon-button (click)="getGames()">
+    <md-icon class="material-icons">refresh</md-icon>
+  </button>
+
 </md-toolbar>
 
 <div *ngIf="isLoadingGames">
