@@ -1,7 +1,7 @@
-.item:hover .icon {
-  background-color: pink;
-}
-
 .selected md-icon {
   color: purple;
 } 
+
+.secondary-text {
+  color: rgba(0, 0, 0, 0.54);
+}
