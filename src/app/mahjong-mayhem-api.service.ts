@@ -26,6 +26,17 @@ export class MahjongMayhemApiService {
   }
 
   /**
+   * 
+   * @method
+   * @name isAuthenticated
+   * @description Returns a boolean value indicating whether the service has been authenticated.
+   * 
+   */
+  public isAuthenticated(): boolean {
+    return false;
+  }
+
+  /**
   *
 	* @method
 	* @name getGames

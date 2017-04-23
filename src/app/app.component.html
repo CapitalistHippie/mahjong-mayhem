@@ -1,13 +1,20 @@
 <md-toolbar color="primary">
     <button md-icon-button>
-        <md-icon class="material-icons">menu</md-icon>
+        <md-icon>menu</md-icon>
     </button>
 
     <h1 fxFlex>{{title}}</h1>
 
-    <a href="{{mahjongMayhemApiService.getAuthenticationUri()}}">
-        <button md-button>Login</button>
-    </a>
+    <!--Login link or link to account page.-->
+    <div>
+        <div *ngIf="!mahjongMayhemApiService.isAuthenticated()">
+            <a md-button href="{{mahjongMayhemApiService.getAuthenticationUri()}}">Login</a>
+        </div>
+
+        <div *ngIf="mahjongMayhemApiService.isAuthenticated()">
+            <button md-button><md-icon>account_circle</md-icon> Account</button>
+        </div>
+    </div>
 </md-toolbar>
 
 <div class="container">
