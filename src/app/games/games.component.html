@@ -1,10 +1,10 @@
-<div class="container">
-  <div fxLayout="row" class="content">
-    <div>
+<div>
+  <div fxLayout="row">
+    <div fxLayout="column">
       <app-game-list (gameSelected)="onGameSelected($event)">
       </app-game-list>
     </div>
-    <div fxFlex>
+    <div fxLayout="column" fxFlex>
       <app-game-detail #gameDetail>
       </app-game-detail>
     </div>

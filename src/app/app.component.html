@@ -1,21 +1,27 @@
-<md-toolbar color="primary">
-    <button md-icon-button>
-        <md-icon>menu</md-icon>
-    </button>
+<div>
+    <div fxLayout="row">
+        <md-toolbar color="primary">
+            <button md-icon-button>
+                <md-icon>menu</md-icon>
+            </button>
 
-    <h1 fxFlex>{{title}}</h1>
+            <h1 fxFlex>{{title}}</h1>
 
-    <!--Login link or link to account page.-->
-    <div>
-        <div *ngIf="!mahjongMayhemApiService.isAuthenticated()">
-            <a md-button href="{{mahjongMayhemApiService.getAuthenticationUri()}}">
-                <md-icon>account_circle</md-icon> Login</a>
-        </div>
+            <!--Login link or link to account page.-->
+            <div>
+                <div *ngIf="!mahjongMayhemApiService.isAuthenticated()">
+                    <a md-button href="{{mahjongMayhemApiService.getAuthenticationUri()}}">
+                        <md-icon>account_circle</md-icon> Login</a>
+                </div>
 
-        <div *ngIf="mahjongMayhemApiService.isAuthenticated()">
-            <button md-button><md-icon>account_circle</md-icon> Account ({{mahjongMayhemApiService.getUsername()}})</button>
-        </div>
+                <div *ngIf="mahjongMayhemApiService.isAuthenticated()">
+                    <button md-button><md-icon>account_circle</md-icon> Account ({{mahjongMayhemApiService.getUsername()}})</button>
+                </div>
+            </div>
+        </md-toolbar>
     </div>
-</md-toolbar>
 
-<router-outlet></router-outlet>
+    <div fxLayout="row">
+        <router-outlet></router-outlet>
+    </div>
+</div>
