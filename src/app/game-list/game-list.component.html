@@ -1,11 +1,11 @@
 <md-toolbar color="primary" class="bgc-blue-600">
   <h1 fxFlex>Games</h1>
 
-  <button md-icon-button (click)="gameAdd()">
+  <a md-icon-button routerLink="/creategame">
     <md-icon>add</md-icon>
-  </button>
+  </a>
 
-  <button md-icon-button (click)="getGames()">
+  <button md-icon-button (click)="onRefreshGamesClicked()">
     <md-icon>refresh</md-icon>
   </button>
 
@@ -16,7 +16,7 @@
 </div>
 <div *ngIf="!isLoadingGames">
   <md-nav-list>
-    <md-list-item *ngFor="let game of games" (click)="gameSelect(game)" class="item" [class.selected]="game === selectedGame">
+    <md-list-item *ngFor="let game of games" (click)="onGameSelected(game)" class="item" [class.selected]="game === selectedGame">
       <md-icon md-list-icon>lens</md-icon>
       <span md-line>{{game.id}}</span>
       <span md-line class="secondary-text">{{game.minPlayers}}/{{game.maxPlayers}} players</span>

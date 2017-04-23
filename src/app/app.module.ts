@@ -10,6 +10,8 @@ import { MaterialModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
+import { GamesComponent } from './games/games.component';
+import { GameCreateComponent } from './game-create/game-create.component';
 
 import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
 
@@ -19,7 +21,9 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     GameListComponent,
-    GameDetailComponent
+    GameDetailComponent,
+    GamesComponent,
+    GameCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +31,17 @@ import 'hammerjs';
     HttpModule,
     RouterModule.forRoot([
       {
+        path: '',
+        redirectTo: '/games',
+        pathMatch: 'full'
+      },
+      {
         path: 'games',
-        component: GameListComponent
+        component: GamesComponent
+      },
+      {
+        path: 'creategame',
+        component: GameCreateComponent
       }
     ]),
     BrowserAnimationsModule,

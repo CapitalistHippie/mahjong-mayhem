@@ -17,15 +17,4 @@
     </div>
 </md-toolbar>
 
-<div class="container">
-    <div fxLayout="row" class="content">
-        <div>
-            <app-game-list (gameAddClicked)="onGameAddClicked()" (gameSelected)="onGameSelected($event)">
-            </app-game-list>
-        </div>
-        <div fxFlex>
-            <app-game-detail #gameDetail>
-            </app-game-detail>
-        </div>
-    </div>
-</div>
+<router-outlet></router-outlet>

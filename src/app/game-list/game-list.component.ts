@@ -14,7 +14,6 @@ export class GameListComponent implements OnInit {
   private selectedGame: Game;
 
   @Output() gameSelected: EventEmitter<Game> = new EventEmitter();
-  @Output() gameAddClicked = new EventEmitter();
 
   constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
   }
@@ -33,11 +32,11 @@ export class GameListComponent implements OnInit {
       error => this.errorMessage = <any>error, );
   }
 
-  gameAdd(): void {
-    this.gameAddClicked.emit();
+  onRefreshGamesClicked(): void {
+    this.getGames();
   }
 
-  gameSelect(game: Game): void {
+  onGameSelected(game: Game): void {
     this.selectedGame = game;
     this.gameSelected.emit(game);
   }

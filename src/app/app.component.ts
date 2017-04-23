@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { GameListComponent } from './game-list/game-list.component';
+import { Component } from '@angular/core';
 import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
 
 @Component({
@@ -10,16 +9,6 @@ import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
 export class AppComponent {
   title = 'Mahjong Mayhem';
 
-  @ViewChild('gameDetail') gameDetail;
-
   constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
-  }
-
-  private onGameAddClicked(): void {
-
-  }
-
-  private onGameSelected(game): void {
-    this.gameDetail.game = game;
   }
 }
