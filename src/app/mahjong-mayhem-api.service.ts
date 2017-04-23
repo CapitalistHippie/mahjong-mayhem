@@ -18,11 +18,33 @@ export class MahjongMayhemApiService {
    * 
    * @method
    * @name getAuthenticationUri
-   * @description Returns the API's authentication URI including callback URL parameter.
+   * @description Returns the API's authentication URI including callback URL query string parameter.
    * 
    */
   public getAuthenticationUri(): string {
     return this.domain + '/auth/avans?callbackUrl=http://localhost:4200/authcallback';
+  }
+
+  /**
+   * @method
+   * @name authenticate
+   * @description Authenticates the service.
+   * @param token The authentication token.
+   * @param username The username of the user that's authenticated us.
+   */
+  public authenticate(token: string, username: string): void {
+    localStorage.setItem('token', token);
+    localStorage.setItem('username', username);
+  }
+
+  /**
+   * @method
+   * @name unauthenticate
+   * @description Unauthenticates the service.
+   */
+  public unauthenticate(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
   }
 
   /**
@@ -33,7 +55,15 @@ export class MahjongMayhemApiService {
    * 
    */
   public isAuthenticated(): boolean {
-    return false;
+    return this.getToken() !== null;
+  }
+
+  public getToken(): string {
+    return localStorage.getItem('token');
+  }
+
+  public getUsername(): string {
+    return localStorage.getItem('username');
   }
 
   /**

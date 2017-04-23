@@ -8,11 +8,12 @@
     <!--Login link or link to account page.-->
     <div>
         <div *ngIf="!mahjongMayhemApiService.isAuthenticated()">
-            <a md-button href="{{mahjongMayhemApiService.getAuthenticationUri()}}">Login</a>
+            <a md-button href="{{mahjongMayhemApiService.getAuthenticationUri()}}">
+                <md-icon>account_circle</md-icon> Login</a>
         </div>
 
         <div *ngIf="mahjongMayhemApiService.isAuthenticated()">
-            <button md-button><md-icon>account_circle</md-icon> Account</button>
+            <button md-button><md-icon>account_circle</md-icon> Account ({{mahjongMayhemApiService.getUsername()}})</button>
         </div>
     </div>
 </md-toolbar>
