@@ -20,7 +20,14 @@
       <md-list-item *ngFor="let game of games" (click)="onGameSelected(game)" class="item" [class.selected]="game === selectedGame">
         <md-icon md-list-icon>lens</md-icon>
         <span md-line>{{game.id}}</span>
-        <span md-line class="secondary-text">{{game.minPlayers}}/{{game.maxPlayers}} players</span>
+        <span md-line class="secondary-text">
+          <div fxLayout="row">
+            Players: {{game.minPlayers}}/{{game.maxPlayers}}
+            <div fxFlex></div>
+            {{game.state}}
+          </div>
+        </span>
+        <span md-line class="secondary-text">Template: {{game.gameTemplate.id}}</span>
         <md-divider *ngIf="!$last"></md-divider>
       </md-list-item>
     </md-nav-list>
