@@ -44,6 +44,7 @@ export class GameListComponent implements OnInit {
     let dialogReference = this.dialog.open(GameCreateComponent);
     dialogReference.componentInstance.gameCreated.subscribe((createdGame) => {
       dialogReference.close();
+      this.getGames();
     })
   }
 
