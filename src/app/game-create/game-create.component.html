@@ -1,19 +1,31 @@
-<div>
+<div fxLayout="column">
   <form (ngSubmit)="onSubmit()" #form>
-    <md-input-container style="width: 100%">
-      <input mdInput type="number" name="minPlayers" placeholder="Minimum amount of players." required [(ngModel)]="model.minPlayers">
-    </md-input-container>
+    <div fxLayout="row">
+      <md-input-container fxFlex="300px">
+        <input mdInput type="number" name="minPlayers" placeholder="Minimum amount of players." required [(ngModel)]="model.minPlayers">
+      </md-input-container>
+    </div>
 
-    <md-input-container style="width: 100%">
-      <input mdInput type="number" name="maxPlayers" placeholder="Maximum amount of players." required [(ngModel)]="model.maxPlayers">
-    </md-input-container>
+    <div fxLayout="row">
+      <md-input-container fxFlex="300px">
+        <input mdInput type="number" name="maxPlayers" placeholder="Maximum amount of players." required [(ngModel)]="model.maxPlayers">
+      </md-input-container>
+    </div>
 
-    <md-select mdInput fxFlex name="templateName" placeholder="Template" required [(ngModel)]="model.templateName">
-      <md-option *ngFor="let gameTemplate of gameTemplates" [value]="gameTemplate.id">
-        {{ gameTemplate.id }}
-      </md-option>
-    </md-select>
+    <div fxLayout="row">
+      <md-select mdInput name="templateName" placeholder="Template" required [(ngModel)]="model.templateName">
+        <md-option *ngFor="let gameTemplate of gameTemplates" [value]="gameTemplate.id">
+          {{ gameTemplate.id }}
+        </md-option>
+      </md-select>
 
-    <button md-raised-button type="submit">Submit</button>
+      <div fxFlex></div>
+
+      <div *ngIf="isCreatingGame">
+        <md-spinner style="height: 36px; width: 36px">Loading...</md-spinner>
+      </div>
+
+      <button md-raised-button type="submit" [disabled]="isCreatingGame">Submit</button>
+    </div>
   </form>
 </div>

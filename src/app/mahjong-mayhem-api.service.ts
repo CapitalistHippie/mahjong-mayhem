@@ -112,22 +112,21 @@ export class MahjongMayhemApiService {
       .catch(this.handleError);
   }
 
-
   private extractData(res: Response) {
     let body = res.json();
     return body || {};
   }
 
   private handleError(error: Response | any) {
-    let errMsg: string;
+    let errorMessage: string;
     if (error instanceof Response) {
       const body = error.json() || '';
       const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      errorMessage = `${error.status} - ${error.statusText || ''} ${err}`;
     } else {
-      errMsg = error.message ? error.message : error.toString();
+      errorMessage = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+    console.error(errorMessage);
+    return Observable.throw(errorMessage);
   }
 }

@@ -15,9 +15,9 @@ import { GameTemplate } from '../models';
   styleUrls: ['./game-create.component.css']
 })
 export class GameCreateComponent implements OnInit {
-  private errorMessage: string;
   private gameTemplates: GameTemplate[];
   private model: PostGame;
+  private isCreatingGame: boolean;
 
   @Output() gameCreated: EventEmitter<Game> = new EventEmitter();
 
@@ -32,6 +32,8 @@ export class GameCreateComponent implements OnInit {
       maxPlayers: 32,
       templateName: ""
     };
+
+    this.isCreatingGame = false;
   }
 
   getGameTemplates(): void {
@@ -39,10 +41,16 @@ export class GameCreateComponent implements OnInit {
       gameTemplates => {
         this.gameTemplates = gameTemplates;
       },
-      error => this.errorMessage = <any>error, );
+      error => {
+        this.snackBar.open("An error occured while retrieving the game templates.", "Close", {
+          duration: 3000
+        });
+      });
   }
 
   onSubmit(): void {
+    this.isCreatingGame = true;
+
     this.mahjongMayhemApiService.postGame(this.model).subscribe(
       createdGame => {
         this.snackBar.open("Successfully created a new game!", "Close", {
@@ -50,7 +58,16 @@ export class GameCreateComponent implements OnInit {
         });
 
         this.gameCreated.emit(createdGame);
+
+        this.isCreatingGame = false;
       },
-      error => this.errorMessage = <any>error, );
+      error => {
+        this.isCreatingGame = false;
+
+        this.snackBar.open("An error occured while creating a new game.", "Close", {
+          duration: 3000
+        });
+      }
+    );
   }
 }

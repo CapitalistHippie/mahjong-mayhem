@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '@angular/material';
+import { AngularMaterialModule } from './angular-material/angular-material.module';
 
 // Components.
 import { AppComponent } from './app.component';
@@ -62,7 +62,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
-    MaterialModule,
+    AngularMaterialModule,
     FlexLayoutModule
   ],
   providers: [
