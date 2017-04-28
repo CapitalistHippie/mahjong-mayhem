@@ -2,3 +2,8 @@
 @import './cssreset.css';
 @import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+.mat-elevation-z5 {
+   position: relative;
+   z-index: 2;
+}
