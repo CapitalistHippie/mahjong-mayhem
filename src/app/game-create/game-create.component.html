@@ -1,14 +1,14 @@
 <div>
   <form (ngSubmit)="onSubmit()" #form>
     <md-input-container style="width: 100%">
-      <input mdInput type="number" name="minPlayers" placeholder="Minimum amount of players." required [(ngModel)]="newGame.minPlayers">
+      <input mdInput type="number" name="minPlayers" placeholder="Minimum amount of players." required [(ngModel)]="model.minPlayers">
     </md-input-container>
 
     <md-input-container style="width: 100%">
-      <input mdInput type="number" name="maxPlayers" placeholder="Maximum amount of players." required [(ngModel)]="newGame.maxPlayers">
+      <input mdInput type="number" name="maxPlayers" placeholder="Maximum amount of players." required [(ngModel)]="model.maxPlayers">
     </md-input-container>
 
-    <md-select mdInput fxFlex name="templateName" placeholder="Template" required [(ngModel)]="newGame.templateName">
+    <md-select mdInput fxFlex name="templateName" placeholder="Template" required [(ngModel)]="model.templateName">
       <md-option *ngFor="let gameTemplate of gameTemplates" [value]="gameTemplate.id">
         {{ gameTemplate.id }}
       </md-option>

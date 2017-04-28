@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 
 // Services.
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
 
 // Models.
+import { Game } from '../models';
 import { PostGame } from '../models';
 import { GameTemplate } from '../models';
 
@@ -16,7 +17,9 @@ import { GameTemplate } from '../models';
 export class GameCreateComponent implements OnInit {
   private errorMessage: string;
   private gameTemplates: GameTemplate[];
-  private newGame: PostGame;
+  private model: PostGame;
+
+  @Output() gameCreated: EventEmitter<Game> = new EventEmitter();
 
   constructor(private mahjongMayhemApiService: MahjongMayhemApiService, private snackBar: MdSnackBar) {
   }
@@ -24,7 +27,7 @@ export class GameCreateComponent implements OnInit {
   ngOnInit() {
     this.getGameTemplates();
 
-    this.newGame = {
+    this.model = {
       minPlayers: 2,
       maxPlayers: 32,
       templateName: ""
@@ -40,11 +43,13 @@ export class GameCreateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.mahjongMayhemApiService.postGame(this.newGame).subscribe(
-      newGame => {
+    this.mahjongMayhemApiService.postGame(this.model).subscribe(
+      createdGame => {
         this.snackBar.open("Successfully created a new game!", "Close", {
           duration: 3000
         });
+
+        this.gameCreated.emit(createdGame);
       },
       error => this.errorMessage = <any>error, );
   }

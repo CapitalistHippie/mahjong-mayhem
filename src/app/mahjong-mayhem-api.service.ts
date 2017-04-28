@@ -92,7 +92,7 @@ export class MahjongMayhemApiService {
       .catch(this.handleError);
   }
 
-  public postGame(game: PostGame) {
+  public postGame(game: PostGame): Observable<Game> {
     let payload = {};
     let queryParameters = {};
     let headers = new Headers();
