@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
+// Services.
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
 
 @Component({

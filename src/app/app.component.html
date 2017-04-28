@@ -11,7 +11,8 @@
             <div>
                 <div *ngIf="!mahjongMayhemApiService.isAuthenticated()">
                     <a md-button href="{{mahjongMayhemApiService.getAuthenticationUri()}}">
-                        <md-icon>account_circle</md-icon> Login</a>
+                        <md-icon>account_circle</md-icon> Login
+                    </a>
                 </div>
 
                 <div *ngIf="mahjongMayhemApiService.isAuthenticated()">

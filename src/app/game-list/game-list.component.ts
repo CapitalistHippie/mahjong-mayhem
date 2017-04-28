@@ -1,6 +1,14 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Game } from '../models';
+import { MdDialog } from '@angular/material';
+
+// Components.
+import { GameCreateComponent } from '../game-create/game-create.component';
+
+// Services
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
+
+// Models.
+import { Game } from '../models';
 
 @Component({
   selector: 'app-game-list',
@@ -15,7 +23,7 @@ export class GameListComponent implements OnInit {
 
   @Output() gameSelected: EventEmitter<Game> = new EventEmitter();
 
-  constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
+  constructor(private mahjongMayhemApiService: MahjongMayhemApiService, private dialog: MdDialog) {
   }
 
   ngOnInit(): void {
@@ -30,6 +38,10 @@ export class GameListComponent implements OnInit {
         this.isLoadingGames = false;
       },
       error => this.errorMessage = <any>error, );
+  }
+
+  onCreateGameClicked(): void {
+    this.dialog.open(GameCreateComponent);
   }
 
   onRefreshGamesClicked(): void {

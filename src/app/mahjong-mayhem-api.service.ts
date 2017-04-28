@@ -14,46 +14,20 @@ export class MahjongMayhemApiService {
     this.domain = 'http://mahjongmayhem.herokuapp.com';
   }
 
-  /**
-   * 
-   * @method
-   * @name getAuthenticationUri
-   * @description Returns the API's authentication URI including callback URL query string parameter.
-   * 
-   */
   public getAuthenticationUri(): string {
     return this.domain + '/auth/avans?callbackUrl=http://localhost:4200/authcallback';
   }
 
-  /**
-   * @method
-   * @name authenticate
-   * @description Authenticates the service.
-   * @param token The authentication token.
-   * @param username The username of the user that's authenticated us.
-   */
   public authenticate(token: string, username: string): void {
     localStorage.setItem('token', token);
     localStorage.setItem('username', username);
   }
 
-  /**
-   * @method
-   * @name unauthenticate
-   * @description Unauthenticates the service.
-   */
   public unauthenticate(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
   }
 
-  /**
-   * 
-   * @method
-   * @name isAuthenticated
-   * @description Returns a boolean value indicating whether the service has been authenticated.
-   * 
-   */
   public isAuthenticated(): boolean {
     return this.getToken() !== null;
   }
@@ -66,18 +40,20 @@ export class MahjongMayhemApiService {
     return localStorage.getItem('username');
   }
 
-  /**
-  *
-	* @method
-	* @name getGames
-	* @param {number} pageSize - Het aantal games dat je terug wilt krijgen.
-	* @param {number} pageIndex - Het aantal pagina's (gebaseerd op pageSize) dat geskipt moet worden.
-	* @param {string} createdBy - Degene die de game heeft gemaakt. Let op, gebruik de username hier!
-	* @param {string} player - Degene die meedoet in de game. Let op, gebruik de username hier!
-	* @param {string} gameTemplate - Het id van de template van de game.
-	* @param {string} state - In welke staat de game moet zijn.
-	* 
-	*/
+  public getGameTemplates(): Observable<GameTemplate[]> {
+    let payload = {};
+    let queryParameters = {};
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let uri = `/gameTemplates`;
+
+    return this.http
+      .get(this.domain + uri, { headers: headers, params: queryParameters })
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   public getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: string = undefined): Observable<Game[]> {
     let payload = {};
     let queryParameters = {};
@@ -115,6 +91,27 @@ export class MahjongMayhemApiService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+
+  public postGame(game: PostGame) {
+    let payload = {};
+    let queryParameters = {};
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    if (this.isAuthenticated()) {
+      headers.append('x-username', this.getUsername());
+      headers.append('x-token', this.getToken());
+    }
+
+    payload['game'] = game;
+    let uri = `/games`;
+
+    return this.http
+      .post(this.domain + uri, JSON.stringify(game), { headers: headers, params: queryParameters })
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
 
   private extractData(res: Response) {
     let body = res.json();

@@ -1,3 +1,19 @@
-<p>
-  game-create works!
-</p>
+<div>
+  <form (ngSubmit)="onSubmit()" #form>
+    <md-input-container style="width: 100%">
+      <input mdInput type="number" name="minPlayers" placeholder="Minimum amount of players." required [(ngModel)]="newGame.minPlayers">
+    </md-input-container>
+
+    <md-input-container style="width: 100%">
+      <input mdInput type="number" name="maxPlayers" placeholder="Maximum amount of players." required [(ngModel)]="newGame.maxPlayers">
+    </md-input-container>
+
+    <md-select mdInput fxFlex name="templateName" placeholder="Template" required [(ngModel)]="newGame.templateName">
+      <md-option *ngFor="let gameTemplate of gameTemplates" [value]="gameTemplate.id">
+        {{ gameTemplate.id }}
+      </md-option>
+    </md-select>
+
+    <button md-raised-button type="submit">Submit</button>
+  </form>
+</div>
