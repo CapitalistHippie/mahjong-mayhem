@@ -112,6 +112,24 @@ export class MahjongMayhemApiService {
       .catch(this.handleError);
   }
 
+  public getGameTiles(gameId: string, matched: boolean = undefined): Observable<Tile[]> {
+    let payload = {};
+    let queryParameters = {};
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    if (matched !== undefined) {
+      queryParameters['matched'] = matched;
+    }
+
+    let uri = `/games/${gameId}/tiles`;
+
+    return this.http
+      .get(this.domain + uri, { headers: headers, params: queryParameters })
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     return body || {};
