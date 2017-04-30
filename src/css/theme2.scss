@@ -1,0 +1,9 @@
+$theme2-primary: mat-palette($mat-pink);
+$theme2-accent: mat-palette($mat-pink, A200, A100, A400);
+
+$theme2: mat-light-theme($theme2-primary, $theme2-accent);
+
+.app-theme2
+{
+    @include angular-material-theme($theme2);
+}

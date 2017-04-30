@@ -1,10 +1,21 @@
 @import '~@angular/material/theming';
 
-@mixin theme($theme) {
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
-  $warn: map-get($theme, warn);
-}
+@function app-get-default-theme() {
+  @return $theme1;
+};
 
-// Default theme.
+@function app-get-themes() {
+  @return $theme1 'app-theme1',
+          $theme2 'app-theme2'
+};
+
+// This mixin is needed for defining themes but should only be included once.
+@include mat-core();
+
+// Import themes.
 @import './theme1';
+@import './theme2';
+
+// Set the default theme.
+$defaultTheme: app-get-default-theme();
+@include angular-material-theme($defaultTheme);

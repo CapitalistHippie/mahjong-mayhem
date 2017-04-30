@@ -1,9 +1,9 @@
-@include mat-core();
+$theme1-primary: mat-palette($mat-indigo);
+$theme1-accent: mat-palette($mat-pink, A200, A100, A400);
 
-$primary: mat-palette($mat-indigo);
-$accent: mat-palette($mat-pink, A200, A100, A400);
-$warn: mat-palette($mat-red);
+$theme1: mat-light-theme($theme1-primary, $theme1-accent);
 
-$theme: mat-light-theme($primary, $accent, $warn);
-
-@include angular-material-theme($theme);
+.app-theme1
+{
+    @include angular-material-theme($theme1);
+}

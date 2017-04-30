@@ -4,8 +4,11 @@ import { MdDialog } from '@angular/material';
 // Components.
 import { GameCreateComponent } from '../game-create/game-create.component';
 
-// Services
+// Services.
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
+
+// Directives.
+import { ThemeDirective } from '../theme.directive';
 
 // Models.
 import { Game } from '../models';
@@ -13,7 +16,10 @@ import { Game } from '../models';
 @Component({
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
-  styleUrls: ['./game-list.component.scss']
+  styleUrls: [
+    './game-list.component.scss',
+    './_game-list-theme.component.scss'
+  ]
 })
 export class GameListComponent implements OnInit {
   private errorMessage: string;

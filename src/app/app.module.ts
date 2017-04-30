@@ -17,6 +17,10 @@ import { GameCreateComponent } from './game-create/game-create.component';
 
 // Services.
 import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
+import { ThemeService } from './theme.service';
+
+// Directives
+import { ThemeDirective } from './theme.directive';
 
 // Guards.
 import { CanAuthenticateGuard } from './can-authenticate.guard';
@@ -54,7 +58,8 @@ const appRoutes: Routes = [
     GameListComponent,
     GameDetailComponent,
     GamesComponent,
-    GameCreateComponent
+    GameCreateComponent,
+    ThemeDirective
   ],
   imports: [
     BrowserModule,
@@ -67,6 +72,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     MahjongMayhemApiService,
+    ThemeService,
     CanAuthenticateGuard
   ],
   bootstrap: [AppComponent]
