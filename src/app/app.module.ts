@@ -14,6 +14,7 @@ import { GameListComponent } from './game-list/game-list.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { GamesComponent } from './games/games.component';
 import { GameCreateComponent } from './game-create/game-create.component';
+import { TileComponent } from './tile/tile.component';
 
 // Services.
 import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
@@ -59,7 +60,8 @@ const appRoutes: Routes = [
     GameDetailComponent,
     GamesComponent,
     GameCreateComponent,
-    ThemeDirective
+    ThemeDirective,
+    TileComponent
   ],
   imports: [
     BrowserModule,

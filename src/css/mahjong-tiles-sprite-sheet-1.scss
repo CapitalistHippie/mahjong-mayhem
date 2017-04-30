@@ -1,0 +1,16 @@
+@mixin app-mahjong-tiles-sprite-sheet-1() {
+    $sprite-sheet-url: url('/assets/mahjong_tiles_sprite_sheet_2.png');
+
+    .app-mahjong-tile {
+        width: 349px;
+        height: 480px;
+
+        &.bamboo-1 {
+            background: $sprite-sheet-url 0 0;
+        }
+
+        &.bamboo-2 {
+            background: $sprite-sheet-url 0 -480;
+        }
+    }
+}
