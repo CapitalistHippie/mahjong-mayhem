@@ -1,0 +1,8 @@
+@import './reset';
+@import './theme';
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+.mat-elevation-z5 {
+   position: relative;
+   z-index: 2;
+}

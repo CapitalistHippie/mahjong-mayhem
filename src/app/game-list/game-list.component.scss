@@ -1,5 +1,7 @@
+@import 'src/css/theme.scss';
+
 .selected md-icon {
-  color: purple;
+  color: mat-color($primary);
 } 
 
 .secondary-text {

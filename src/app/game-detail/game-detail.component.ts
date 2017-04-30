@@ -9,7 +9,7 @@ import { Game, Tile } from '../models';
 @Component({
   selector: 'app-game-detail',
   templateUrl: './game-detail.component.html',
-  styleUrls: ['./game-detail.component.css']
+  styleUrls: ['./game-detail.component.scss']
 })
 export class GameDetailComponent implements OnInit, OnChanges {
   private unmatchedGameTiles: Tile[];
