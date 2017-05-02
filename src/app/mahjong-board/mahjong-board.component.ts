@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ComponentFactory, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ComponentFactory, ComponentFactoryResolver, Renderer } from '@angular/core';
 
 // Components.
 import { MahjongTileComponent } from '../mahjong-tile/mahjong-tile.component';
@@ -22,7 +22,7 @@ export class MahjongBoardComponent implements OnInit {
 
   private mahjongTilecomponentFactory: ComponentFactory<MahjongTileComponent>;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private renderer: Renderer) {
     this.mahjongTilecomponentFactory = this.componentFactoryResolver.resolveComponentFactory(MahjongTileComponent);
   }
 
@@ -38,8 +38,10 @@ export class MahjongBoardComponent implements OnInit {
 
     viewContainerRef.clear();
 
-    for (let tile in this.tiles) {
-      viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
+    for (let tile of this.tiles) {
+      let elementRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
+      elementRef.instance.tile = tile;
+      this.renderer.setElementStyle(elementRef.instance.elementRef.nativeElement, 'background-color', 'green');
     }
   }
 }

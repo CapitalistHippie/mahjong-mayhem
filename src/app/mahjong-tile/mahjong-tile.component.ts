@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 
 // Models.
 import { Tile } from '../models';
@@ -9,6 +9,9 @@ import { Tile } from '../models';
   styleUrls: ['./mahjong-tile.component.scss']
 })
 export class MahjongTileComponent implements OnInit {
+  @Input() tile: Tile;
+
+  @ViewChild('tile') elementRef: ElementRef;
 
   constructor() {
   }
