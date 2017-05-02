@@ -14,6 +14,7 @@ import { GameListComponent } from './game-list/game-list.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { GamesComponent } from './games/games.component';
 import { GameCreateComponent } from './game-create/game-create.component';
+import { MahjongBoardComponent } from './mahjong-board/mahjong-board.component';
 import { TileComponent } from './tile/tile.component';
 
 // Services.
@@ -60,8 +61,9 @@ const appRoutes: Routes = [
     GameDetailComponent,
     GamesComponent,
     GameCreateComponent,
-    ThemeDirective,
-    TileComponent
+    MahjongBoardComponent,
+    TileComponent,
+    ThemeDirective
   ],
   imports: [
     BrowserModule,
