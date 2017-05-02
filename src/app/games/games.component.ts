@@ -3,9 +3,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 // Components.
 import { GameDetailComponent } from '../game-detail/game-detail.component';
 
-// Services.
-import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
-
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
@@ -13,16 +10,16 @@ import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
 })
 export class GamesComponent implements OnInit {
 
-  @ViewChild('gameDetail') gameDetail: GameDetailComponent;
+  @ViewChild(GameDetailComponent) gameDetail: GameDetailComponent;
 
-  constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
+  constructor() {
+  }
+
+  ngOnInit(): void {
   }
 
   private onGameSelected(game): void {
     this.gameDetail.game = game;
     this.gameDetail.update();
-  }
-
-  ngOnInit(): void {
   }
 }

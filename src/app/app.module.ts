@@ -15,7 +15,7 @@ import { GameDetailComponent } from './game-detail/game-detail.component';
 import { GamesComponent } from './games/games.component';
 import { GameCreateComponent } from './game-create/game-create.component';
 import { MahjongBoardComponent } from './mahjong-board/mahjong-board.component';
-import { TileComponent } from './tile/tile.component';
+import { MahjongTileComponent } from './mahjong-tile/mahjong-tile.component';
 
 // Services.
 import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
@@ -23,6 +23,7 @@ import { ThemeService } from './theme.service';
 
 // Directives
 import { ThemeDirective } from './theme.directive';
+import { MahjongBoardHostDirective } from './mahjong-board-host.directive';
 
 // Guards.
 import { CanAuthenticateGuard } from './can-authenticate.guard';
@@ -62,8 +63,9 @@ const appRoutes: Routes = [
     GamesComponent,
     GameCreateComponent,
     MahjongBoardComponent,
-    TileComponent,
-    ThemeDirective
+    MahjongTileComponent,
+    ThemeDirective,
+    MahjongBoardHostDirective
   ],
   imports: [
     BrowserModule,

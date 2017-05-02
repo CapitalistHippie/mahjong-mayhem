@@ -1,20 +1,23 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
-// Services
+// Services.
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
 
+// Components.
+import { MahjongBoardComponent } from '../mahjong-board/mahjong-board.component';
+
 // Models
-import { Game, Tile } from '../models';
+import { Game } from '../models';
 
 @Component({
   selector: 'app-game-detail',
   templateUrl: './game-detail.component.html',
   styleUrls: ['./game-detail.component.scss']
 })
-export class GameDetailComponent implements OnInit, OnChanges {
-  private unmatchedGameTiles: Tile[];
-
+export class GameDetailComponent implements OnInit {
   @Input() game: Game;
+
+  @ViewChild(MahjongBoardComponent) mahjongBoard: MahjongBoardComponent;
 
   constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
   }
@@ -22,19 +25,11 @@ export class GameDetailComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    for (let propName in changes) {
-      if (propName === 'game') {
-        this.update();
-      }
-    }
-  }
-
-  update(): void {
+  public update(): void {
     this.mahjongMayhemApiService.getGameTiles(this.game.id, false).subscribe(
       tiles => {
-        this.unmatchedGameTiles = tiles;
-        console.log(this.unmatchedGameTiles);
+        this.mahjongBoard.tiles = tiles;
+        this.mahjongBoard.update();
       },
       error => {
       }
