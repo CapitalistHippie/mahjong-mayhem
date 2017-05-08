@@ -1,0 +1,31 @@
+@import '~@angular/material/theming';
+@import '../../css/theme';
+
+@mixin mahjong-tile-apply-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $mahjong-tiles-sprite-sheet-url: map-get($theme, mahjong-tiles-sprite-sheet-url);
+  $mahjong-tile-sprite-width: map-get($theme, mahjong-tile-sprite-width);
+  $mahjong-tile-sprite-height: map-get($theme, mahjong-tile-sprite-height);
+  $mahjong-tile-sprites: map-get($theme, mahjong-tile-sprites);
+
+  @each $tile, $x, $y in $mahjong-tile-sprites {
+    .#{$tile} {
+            width: $mahjong-tile-sprite-width;
+            height: $mahjong-tile-sprite-height;
+            background: $mahjong-tiles-sprite-sheet-url $x $y;
+        }
+    }
+}
+
+// Apply all the different themes.
+$themes: app-get-themes();
+
+@each $theme in $themes {
+  .#{nth($theme, 2)} {
+    @include mahjong-tile-apply-theme(nth($theme, 1));
+  }
+}
+
+// Apply the default theme.
+@include mahjong-tile-apply-theme(app-get-default-theme());

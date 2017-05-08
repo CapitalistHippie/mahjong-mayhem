@@ -5,8 +5,10 @@
 };
 
 @function app-get-themes() {
-  @return $theme1 'app-theme1',
-          $theme2 'app-theme2'
+  @return (
+    ($theme1, 'app-theme1'),
+    ($theme2, 'app-theme2')
+  );
 };
 
 // This mixin is needed for defining themes but should only be included once.

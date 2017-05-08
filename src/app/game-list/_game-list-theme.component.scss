@@ -20,4 +20,4 @@ $themes: app-get-themes();
 }
 
 // Apply the default theme.
-@include app-game-list-apply-theme(app-get-default-theme())
+@include app-game-list-apply-theme(app-get-default-theme());

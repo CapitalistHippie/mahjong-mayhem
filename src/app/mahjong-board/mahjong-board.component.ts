@@ -42,6 +42,7 @@ export class MahjongBoardComponent implements OnInit {
       let elementRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
       elementRef.instance.tile = tile;
       this.renderer.setElementStyle(elementRef.instance.elementRef.nativeElement, 'background-color', 'green');
+      this.renderer.setElementStyle(elementRef.instance.elementRef.nativeElement, 'position', 'relative');
     }
   }
 }
