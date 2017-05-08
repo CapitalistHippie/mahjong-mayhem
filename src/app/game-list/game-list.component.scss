@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
 @import '../../css/theme';
 
-@mixin app-game-list-apply-theme($theme) {
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
+@mixin app-game-list-component-apply-theme($theme) {
+  $primary: map-get(map-get($theme, materialTheme), primary);
+  $accent: map-get(map-get($theme, materialTheme), accent);
 
   .selected md-icon {
     color: mat-color($primary);
@@ -14,13 +14,13 @@
 $themes: app-get-themes();
 
 @each $theme in $themes {
-  .#{nth($theme, 2)} {
-    @include app-game-list-apply-theme(nth($theme, 1));
+  .#{map-get($theme, themeName)} {
+    @include app-game-list-component-apply-theme($theme);
   }
 }
 
 // Apply the default theme.
-@include app-game-list-apply-theme(app-get-default-theme());
+@include app-game-list-component-apply-theme(app-get-default-theme());
 
 // Other global styles.
 .secondary-text {

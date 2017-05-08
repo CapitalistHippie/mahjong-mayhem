@@ -1,23 +1,46 @@
 @import '~@angular/material/theming';
 
+@import './validation';
+
+$appThemes: ();
+
+@function app-validate-theme($theme: null)
+{
+  @return validate($theme, list);
+}
+
+@mixin app-add-theme($theme: null) {
+  $dummy: app-validate-theme($theme);
+
+  $appThemes: append($appThemes, $theme);
+
+  .#{map-get($theme, themeName)}
+  {
+    @include angular-material-theme(map-get($theme, materialTheme));
+  }
+};
+
 @function app-get-default-theme() {
-  @return $theme1;
+  @return $appTheme1;
 };
 
 @function app-get-themes() {
-  @return (
-    ($theme1, 'app-theme1'),
-    ($theme2, 'app-theme2')
-  );
+  @return $appThemes;
 };
 
 // This mixin is needed for defining themes but should only be included once.
 @include mat-core();
 
-// Import themes.
-@import './theme1';
-@import './theme2';
+// Load the themes.
+@import './theme-1';
+@import './theme-2';
+
+$appTheme1: app-theme-1-get();
+$appTheme2: app-theme-2-get();
+
+@include app-add-theme($appTheme1);
+// @include app-add-theme($appTheme2);
 
 // Set the default theme.
-$defaultTheme: app-get-default-theme();
-@include angular-material-theme($defaultTheme);
+$appDefaultTheme: app-get-default-theme();
+@include angular-material-theme(map-get($appDefaultTheme, materialTheme));

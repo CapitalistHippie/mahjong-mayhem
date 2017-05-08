@@ -1,0 +1,29 @@
+$materialThemePrimary: mat-palette($mat-indigo);
+$materialThemeAccent: mat-palette($mat-pink, A200, A100, A400);
+
+$appTheme1: (
+    themeName: 'app-theme-1',
+
+    materialThemePrimary: mat-palette($mat-indigo),
+    materialThemeAccent: mat-palette($mat-pink, A200, A100, A400),
+    materialTheme: mat-light-theme($materialThemePrimary, $materialThemeAccent),
+
+    mahjongTilesSpriteSheetUrl: url('/assets/mahjong_tiles_sprite_sheet_2.png'),
+    mahjongTileSpriteWidth: 349px,
+    mahjongTileSpriteHeight: 480px,
+    mahjongTileSprites: (
+        ('bamboo-1', 0px, 0px),
+        ('bamboo-2', 0px, -480px),
+        ('bamboo-3', 0px, -960px),
+        ('bamboo-4', 0px, -1440px),
+        ('bamboo-5', 0px, -1920px),
+        ('bamboo-6', 0px, -2400px),
+        ('bamboo-7', 0px, -2880px),
+        ('bamboo-8', 0px, -3360px),
+        ('bamboo-9', 0px, -3840px),
+    )
+);
+
+@function app-theme-1-get() {
+    @return $appTheme1;
+}
