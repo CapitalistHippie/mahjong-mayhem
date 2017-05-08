@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Renderer } from '@angular/core';
 
 // Models.
 import { Tile } from '../models';
@@ -13,9 +13,13 @@ export class MahjongTileComponent implements OnInit {
 
   @ViewChild('tile') elementRef: ElementRef;
 
-  constructor() {
+  constructor(private renderer: Renderer) {
   }
 
   ngOnInit() {
+  }
+
+  public update(): void {
+    this.renderer.setElementClass(this.elementRef.nativeElement, this.tile.suit.toLowerCase() + '-' + this.tile.name, true);
   }
 }

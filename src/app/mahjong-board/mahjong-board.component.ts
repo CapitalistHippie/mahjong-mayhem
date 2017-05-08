@@ -16,7 +16,7 @@ import { Tile } from '../models';
   entryComponents: [MahjongTileComponent]
 })
 export class MahjongBoardComponent implements OnInit {
-  @Input() tiles: Tile[];
+  @Input() tiles;
 
   @ViewChild(MahjongBoardHostDirective) mahjongBoardHost: MahjongBoardHostDirective;
 
@@ -38,11 +38,14 @@ export class MahjongBoardComponent implements OnInit {
 
     viewContainerRef.clear();
 
+    console.log(this.tiles);
+
     for (let tile of this.tiles) {
       let elementRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
-      elementRef.instance.tile = tile;
-      this.renderer.setElementStyle(elementRef.instance.elementRef.nativeElement, 'background-color', 'green');
-      this.renderer.setElementStyle(elementRef.instance.elementRef.nativeElement, 'position', 'relative');
+      elementRef.instance.tile = tile.tile;
+      elementRef.instance.update();
+      // this.renderer.setElementStyle(elementRef.instance.elementRef.nativeElement, 'background-color', 'green');
+      // this.renderer.setElementStyle(elementRef.instance.elementRef.nativeElement, 'position', 'relative');
     }
   }
 }
