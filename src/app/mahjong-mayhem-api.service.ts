@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
-import { Game, GameTemplate, Tile, User, UserInGame, PostGame, PostMatch } from './models';
+import { Game, GameTile, GameTemplate, Tile, User, UserInGame, PostGame, PostMatch } from './models';
 import { MOCK_GAMES } from './mock-models';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -112,7 +112,7 @@ export class MahjongMayhemApiService {
       .catch(this.handleError);
   }
 
-  public getGameTiles(gameId: string, matched: boolean = undefined): Observable<Tile[]> {
+  public getGameTiles(gameId: string, matched: boolean = undefined): Observable<GameTile[]> {
     let payload = {};
     let queryParameters = {};
     let headers = new Headers();

@@ -27,8 +27,8 @@ export class GameDetailComponent implements OnInit {
 
   public update(): void {
     this.mahjongMayhemApiService.getGameTiles(this.game.id, false).subscribe(
-      tiles => {
-        this.mahjongBoard.tiles = tiles;
+      gameTiles => {
+        this.mahjongBoard.gameTiles = gameTiles;
         this.mahjongBoard.update();
       },
       error => {

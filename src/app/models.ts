@@ -1,4 +1,5 @@
 export { Game } from './models/Game';
+export { GameTile } from './models/GameTile';
 export { GameTemplate } from './models/GameTemplate';
 export { Tile } from './models/Tile';
 export { User } from './models/User';
