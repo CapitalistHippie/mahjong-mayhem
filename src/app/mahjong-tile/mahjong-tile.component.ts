@@ -20,6 +20,6 @@ export class MahjongTileComponent implements OnInit {
   }
 
   public update(): void {
-    this.renderer.setElementClass(this.elementRef.nativeElement, this.tile.suit.toLowerCase() + '-' + this.tile.name, true);
+    this.renderer.setElementClass(this.elementRef.nativeElement, this.tile.suit.toLowerCase() + '-' + this.tile.name.toLowerCase(), true);
   }
 }
