@@ -3,12 +3,15 @@ import { Directive, ElementRef, Renderer } from '@angular/core';
 // Services.
 import { ThemeService } from './theme.service';
 
+// Models.
+import { Theme } from './models';
+
 @Directive({
   selector: '[appTheme]'
 })
 export class ThemeDirective {
   elementReference: ElementRef;
-  currentTheme: string;
+  currentTheme: Theme;
 
   constructor(private el: ElementRef, private renderer: Renderer, private themeService: ThemeService) {
     this.elementReference = el;
@@ -21,12 +24,12 @@ export class ThemeDirective {
     });
   }
 
-  private setTheme(theme: string): void {
+  private setTheme(theme: Theme): void {
     if (this.currentTheme !== null) {
-      this.renderer.setElementClass(this.elementReference.nativeElement, this.currentTheme, false);
+      this.renderer.setElementClass(this.elementReference.nativeElement, this.currentTheme.className, false);
     }
 
-    this.renderer.setElementClass(this.elementReference.nativeElement, theme, true);
+    this.renderer.setElementClass(this.elementReference.nativeElement, theme.className, true);
 
     this.currentTheme = theme;
   }
