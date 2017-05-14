@@ -10,10 +10,10 @@ export class ThemeService {
   @Output() themeChanged: EventEmitter<Theme> = new EventEmitter();
 
   constructor() {
-    this.setTheme(this.getDefaultTheme());
+    this.setActiveTheme(this.getDefaultTheme());
   }
 
-  setTheme(theme: Theme): void {
+  setActiveTheme(theme: Theme): void {
     this.theme = theme;
 
     this.themeChanged.emit(theme);
@@ -35,7 +35,7 @@ export class ThemeService {
     return themes;
   }
 
-  getTheme(): Theme {
+  getActiveTheme(): Theme {
     return this.theme;
   }
 

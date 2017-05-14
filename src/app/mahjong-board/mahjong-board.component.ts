@@ -49,8 +49,9 @@ export class MahjongBoardComponent implements OnInit {
       instance.update();
 
       this.renderer.setElementStyle(nativeElement, 'position', 'absolute');
-      this.renderer.setElementStyle(nativeElement, 'left', gameTile.xPos * 349 + 'px');
-      this.renderer.setElementStyle(nativeElement, 'top', gameTile.yPos * 480 + 'px');
+      this.renderer.setElementStyle(nativeElement, 'left', gameTile.xPos * 349 / 2 + 'px');
+      this.renderer.setElementStyle(nativeElement, 'top', gameTile.yPos * 480 / 2 + 'px');
+      this.renderer.setElementStyle(nativeElement, 'z-index', gameTile.zPos.toString());
     }
   }
 }

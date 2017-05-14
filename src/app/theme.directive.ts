@@ -17,7 +17,7 @@ export class ThemeDirective {
     this.elementReference = el;
     this.currentTheme = null;
 
-    this.setTheme(this.themeService.getTheme());
+    this.setTheme(this.themeService.getActiveTheme());
 
     themeService.themeChanged.subscribe(theme => {
       this.setTheme(theme);
