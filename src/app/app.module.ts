@@ -11,7 +11,6 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 // Components.
 import { AppComponent } from './app.component';
 import { GameListComponent } from './game-list/game-list.component';
-import { GameDetailComponent } from './game-detail/game-detail.component';
 import { GamesComponent } from './games/games.component';
 import { GameCreateComponent } from './game-create/game-create.component';
 import { MahjongBoardComponent } from './mahjong-board/mahjong-board.component';
@@ -59,7 +58,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     GameListComponent,
-    GameDetailComponent,
     GamesComponent,
     GameCreateComponent,
     MahjongBoardComponent,

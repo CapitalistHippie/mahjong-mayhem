@@ -5,7 +5,9 @@
   .#{$tileSet}-#{$tileName} {
       width: $spriteWidth;
       height: $spriteHeight;
-      background: $spriteSheetUrl $spriteXOffset $spriteYOffset;
+      background-image: $spriteSheetUrl;
+      background-position: $spriteXOffset $spriteYOffset;
+      background-repeat: no-repeat;
     }
 }
 

@@ -1,7 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
+// Services.
+import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
+
 // Components.
-import { GameDetailComponent } from '../game-detail/game-detail.component';
+import { MahjongBoardComponent } from '../mahjong-board/mahjong-board.component';
+
+// Models.
+import { Game } from '../models';
 
 @Component({
   selector: 'app-games',
@@ -10,16 +16,26 @@ import { GameDetailComponent } from '../game-detail/game-detail.component';
 })
 export class GamesComponent implements OnInit {
 
-  @ViewChild(GameDetailComponent) gameDetail: GameDetailComponent;
+  @ViewChild(MahjongBoardComponent) mahjongBoard: MahjongBoardComponent;
 
-  constructor() {
+  selectedGame: Game;
+
+  constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
   }
 
   ngOnInit(): void {
   }
 
   private onGameSelected(game): void {
-    this.gameDetail.game = game;
-    this.gameDetail.update();
+    this.selectedGame = game;
+
+    this.mahjongMayhemApiService.getGameTiles(this.selectedGame.id).subscribe(
+      gameTiles => {
+        this.mahjongBoard.gameTiles = gameTiles;
+        this.mahjongBoard.update();
+      },
+      error => {
+      }
+    );
   }
 }
