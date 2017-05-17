@@ -1,3 +1,28 @@
-<p>
-  game-details-card works!
-</p>
+<div appTheme>
+  <md-card>
+    <md-card-title>{{game.createdBy.name}}'s game</md-card-title>
+    <md-card-subtitle>Template: {{game.gameTemplate.id}}</md-card-subtitle>
+
+    <md-card-content color="primary" class="{{game.state}}">
+      <p>Players ({{game.players.length}}/{{game.maxPlayers}}):</p>
+
+      <ul>
+        <div *ngFor="let player of game.players">
+          <li>
+            {{player.name}}
+          </li>
+        </div>
+      </ul>
+
+      <p>State: {{game.state}}</p>
+    </md-card-content>
+
+    <md-card-actions>
+      <button md-raised-button color="primary">Open</button>
+
+      <div *ngIf="game.state == 'open'">
+        <button md-raised-button color="primary">Join</button>
+      </div>
+    </md-card-actions>
+  </md-card>
+</div>

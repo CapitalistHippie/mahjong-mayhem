@@ -1,7 +1,7 @@
 <div appTheme>
-  <div fxFlexLayout="row" fxLayoutWrap fxLayoutAlign="space-around">
-    <div *ngFor="let game of games" (click)="onGameSelected(game)">
-      <app-game-details-card>
+  <div class="app-row" fxFlexLayout="row" fxLayoutWrap fxLayoutAlign="space-around" fxLayoutGap="10px">
+    <div *ngFor="let game of games">
+      <app-game-details-card [game]="game">
       </app-game-details-card>
     </div>
   </div>

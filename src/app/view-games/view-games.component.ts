@@ -33,6 +33,7 @@ export class ViewGamesComponent implements OnInit {
       games => {
         this.games = games;
         this.isLoadingGames = false;
+        console.log(games);
       },
       error => this.errorMessage = <any>error, );
   }
