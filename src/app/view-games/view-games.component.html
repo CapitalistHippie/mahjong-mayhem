@@ -1,0 +1,8 @@
+<div appTheme>
+  <div fxFlexLayout="row" fxLayoutWrap fxLayoutAlign="space-around">
+    <div *ngFor="let game of games" (click)="onGameSelected(game)">
+      <app-game-details-card>
+      </app-game-details-card>
+    </div>
+  </div>
+</div>

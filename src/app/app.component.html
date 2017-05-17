@@ -1,28 +1,50 @@
 <div appTheme>
-    <div fxLayout="row" fxFlexFill class="mat-elevation-z5">
-        <md-toolbar color="primary">
-            <button md-icon-button>
+    <div fxLayout="column" fxFlexFill>
+        <!--Header.-->
+        <div fxLayout="row" class="mat-elevation-z5">
+            <md-toolbar color="primary">
+                <button md-icon-button>
                 <md-icon>menu</md-icon>
             </button>
+                <!--Title.-->
+                <h1>{{title}}</h1>
 
-            <h1 fxFlex>{{title}}</h1>
-
-            <!--Login link or link to account page.-->
-            <div>
-                <div *ngIf="!mahjongMayhemApiService.isAuthenticated()">
-                    <a md-button href="{{mahjongMayhemApiService.getAuthenticationUri()}}">
-                        <md-icon>account_circle</md-icon> Login
-                    </a>
+                <!--Games link.-->
+                <div>
+                    <a md-button routerLink="/games">Games</a>
                 </div>
 
-                <div *ngIf="mahjongMayhemApiService.isAuthenticated()">
-                    <button md-button><md-icon>account_circle</md-icon> Account ({{mahjongMayhemApiService.getUsername()}})</button>
+                <!--Spacing.-->
+                <div fxFlex></div>
+
+                <!--Login link or link to account page.-->
+                <div>
+                    <div *ngIf="!mahjongMayhemApiService.isAuthenticated()">
+                        <a md-button href="{{mahjongMayhemApiService.getAuthenticationUri()}}">
+                            <md-icon>account_circle</md-icon> Login
+                        </a>
+                    </div>
+
+                    <div *ngIf="mahjongMayhemApiService.isAuthenticated()">
+                        <button md-button><md-icon>account_circle</md-icon> Account ({{mahjongMayhemApiService.getUsername()}})</button>
+                    </div>
+                </div>
+            </md-toolbar>
+        </div>
+
+        <!--Content-->
+        <div fxLayout="row">
+            <div fxLayout="column" fxFlex="80px"></div>
+
+            <div fxLayout="column" fxFlex>
+                <div fxLayout="row" fxFlex="40px"></div>
+
+                <div fxLayout="row" fxFlex>
+                    <router-outlet></router-outlet>
                 </div>
             </div>
-        </md-toolbar>
-    </div>
 
-    <div fxLayout="row">
-        <router-outlet></router-outlet>
+            <div fxLayout="column" fxFlex="80px"></div>
+        </div>
     </div>
 </div>

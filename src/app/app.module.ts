@@ -13,8 +13,12 @@ import { AppComponent } from './app.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { GamesComponent } from './games/games.component';
 import { GameCreateComponent } from './game-create/game-create.component';
+import { GameDetailsCardComponent } from './game-details-card/game-details-card.component';
 import { MahjongBoardComponent } from './mahjong-board/mahjong-board.component';
 import { MahjongTileComponent } from './mahjong-tile/mahjong-tile.component';
+
+// View components.
+import { ViewGamesComponent } from './view-games/view-games.component';
 
 // Services.
 import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
@@ -37,7 +41,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'games',
-    component: GamesComponent
+    component: ViewGamesComponent
   },
   {
     path: 'creategame',
@@ -60,10 +64,12 @@ const appRoutes: Routes = [
     GameListComponent,
     GamesComponent,
     GameCreateComponent,
+    GameDetailsCardComponent,
     MahjongBoardComponent,
     MahjongTileComponent,
     ThemeDirective,
-    MahjongBoardHostDirective
+    MahjongBoardHostDirective,
+    ViewGamesComponent
   ],
   imports: [
     BrowserModule,
