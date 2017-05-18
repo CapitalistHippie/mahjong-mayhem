@@ -3,7 +3,9 @@
     <md-card-title>{{game.createdBy.name}}'s game</md-card-title>
     <md-card-subtitle>Template: {{game.gameTemplate.id}}</md-card-subtitle>
 
-    <md-card-content color="primary" class="{{game.state}}">
+    <img md-card-image src="http://placehold.it/350x200">
+
+    <md-card-content>
       <p>Players ({{game.players.length}}/{{game.maxPlayers}}):</p>
 
       <ul>

@@ -1,8 +1,18 @@
 <div appTheme>
-  <div class="app-row" fxFlexLayout="row" fxLayoutWrap fxLayoutAlign="space-around" fxLayoutGap="10px">
-    <div *ngFor="let game of games">
-      <app-game-details-card [game]="game">
-      </app-game-details-card>
+  <div class="app-flex-layout-fix" fxFlexLayout="row">
+    <div fxFlex="0 0 300px">
+      <!--<p>asnjnasd</p>-->
+    </div>
+
+    <div fxFlex>
+      <div class="app-row" fxFlexLayout="row" fxLayoutWrap fxLayoutAlign="space-around" fxLayoutGap="10px">
+        <div *ngFor="let game of games" fxFlex="350px">
+          <div>
+            <app-game-details-card [game]="game">
+            </app-game-details-card>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
