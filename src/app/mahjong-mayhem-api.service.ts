@@ -29,7 +29,7 @@ export class MahjongMayhemApiService {
   }
 
   public isAuthenticated(): boolean {
-    return this.getToken() !== null;
+    return this.getToken() != null;
   }
 
   public getToken(): string {

@@ -5,14 +5,16 @@
         <md-card-title>Filters</md-card-title>
 
         <md-card-content>
-
+          <form>
+            <md-checkbox [(ngModel)]="gamesPipeArgs.playerGamesOnly" name="only my games"> Only my games</md-checkbox>
+          </form>
         </md-card-content>
       </md-card>
     </div>
 
     <div fxFlex>
       <div class="app-row" fxFlexLayout="row" fxLayoutWrap fxLayoutAlign="center" fxLayoutGap="10px">
-        <div *ngFor="let game of games" fxFlex="350px" fxFlexAlign="center center">
+        <div *ngFor="let game of games | games:gamesPipeArgs" fxFlex="350px">
           <div>
             <app-game-details-card [game]="game">
             </app-game-details-card>

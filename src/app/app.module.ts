@@ -31,6 +31,9 @@ import { MahjongBoardHostDirective } from './mahjong-board-host.directive';
 // Guards.
 import { CanAuthenticateGuard } from './can-authenticate.guard';
 
+// Pipes.
+import { GamesPipe } from './games.pipe';
+
 import 'hammerjs';
 
 const appRoutes: Routes = [
@@ -69,7 +72,8 @@ const appRoutes: Routes = [
     MahjongTileComponent,
     ThemeDirective,
     MahjongBoardHostDirective,
-    ViewGamesComponent
+    ViewGamesComponent,
+    GamesPipe
   ],
   imports: [
     BrowserModule,

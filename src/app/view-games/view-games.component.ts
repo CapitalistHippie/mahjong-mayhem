@@ -10,6 +10,8 @@ import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
 // Models.
 import { Game } from '../models';
 
+import { GamesPipeArgs } from '../games.pipe';
+
 @Component({
   selector: 'app-view-games',
   templateUrl: './view-games.component.html',
@@ -20,7 +22,10 @@ export class ViewGamesComponent implements OnInit {
   private isLoadingGames: boolean;
   private games: Game[];
 
+  private gamesPipeArgs: GamesPipeArgs;
+
   constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
+    this.gamesPipeArgs = new GamesPipeArgs();
   }
 
   ngOnInit(): void {
@@ -33,7 +38,6 @@ export class ViewGamesComponent implements OnInit {
       games => {
         this.games = games;
         this.isLoadingGames = false;
-        console.log(games);
       },
       error => this.errorMessage = <any>error, );
   }
