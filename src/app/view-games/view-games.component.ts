@@ -18,6 +18,7 @@ import { GamesPipeArgs } from '../games.pipe';
   styleUrls: ['./view-games.component.scss']
 })
 export class ViewGamesComponent implements OnInit {
+
   private errorMessage: string;
   private isLoadingGames: boolean;
   private games: Game[];
