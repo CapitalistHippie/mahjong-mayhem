@@ -41,7 +41,6 @@ export class MahjongMayhemApiService {
   }
 
   public getGameTemplates(): Observable<GameTemplate[]> {
-    let payload = {};
     let queryParameters = {};
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -55,7 +54,6 @@ export class MahjongMayhemApiService {
   }
 
   public getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: string = undefined): Observable<Game[]> {
-    let payload = {};
     let queryParameters = {};
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -92,8 +90,20 @@ export class MahjongMayhemApiService {
       .catch(this.handleError);
   }
 
+  public getGameByGameId(gameId: string): Observable<Game> {
+    let queryParameters = {};
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let uri = `/games/${gameId}`;
+
+    return this.http
+      .get(this.domain + uri, { headers: headers, params: queryParameters })
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   public postGame(game: PostGame): Observable<Game> {
-    let payload = {};
     let queryParameters = {};
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -103,7 +113,6 @@ export class MahjongMayhemApiService {
       headers.append('x-token', this.getToken());
     }
 
-    payload['game'] = game;
     let uri = `/games`;
 
     return this.http
@@ -113,7 +122,6 @@ export class MahjongMayhemApiService {
   }
 
   public getGameTiles(gameId: string, matched: boolean = undefined): Observable<GameTile[]> {
-    let payload = {};
     let queryParameters = {};
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -126,6 +134,24 @@ export class MahjongMayhemApiService {
 
     return this.http
       .get(this.domain + uri, { headers: headers, params: queryParameters })
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  public postGamesByGameIdPlayers(gameId: string): Observable<void> {
+    let queryParameters = {};
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    if (this.isAuthenticated()) {
+      headers.append('x-username', this.getUsername());
+      headers.append('x-token', this.getToken());
+    }
+
+    let uri = `/games/${gameId}/players`;
+
+    return this.http
+      .post(this.domain + uri, '', { headers: headers, params: queryParameters })
       .map(this.extractData)
       .catch(this.handleError);
   }

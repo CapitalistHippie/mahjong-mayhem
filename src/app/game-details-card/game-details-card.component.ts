@@ -1,7 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MdSnackBar } from '@angular/material';
+
+// Services.
+import { MahjongMayhemApiService } from '../mahjong-mayhem-api.service';
 
 // Models.
-import { Game } from '../models';
+import { Game, User } from '../models';
 
 @Component({
   selector: 'app-game-details-card',
@@ -10,11 +14,65 @@ import { Game } from '../models';
 })
 export class GameDetailsCardComponent implements OnInit {
 
+  @Output() gameJoined: EventEmitter<Game> = new EventEmitter<Game>();
+
   @Input() game: Game;
 
-  constructor() {
+  isJoiningGame: boolean;
+
+  constructor(private mahjongMayhemApiService: MahjongMayhemApiService, private snackBar: MdSnackBar) {
+    this.isJoiningGame = false;
   }
 
   ngOnInit() {
+  }
+
+  private onGameOpenClicked(): void {
+  }
+
+  private onGameJoinClicked(): void {
+    this.isJoiningGame = true;
+
+    this.mahjongMayhemApiService.postGamesByGameIdPlayers(this.game.id).subscribe(
+      () => {
+        this.snackBar.open("Successfully joined the game!", "Close", {
+          duration: 3000
+        });
+
+        this.update(() => {
+          this.gameJoined.emit(this.game);
+        });
+      },
+      error => {
+        this.snackBar.open("Something went wrong while trying to join the game.", "Close", {
+          duration: 3000
+        });
+
+        this.isJoiningGame = false;
+      }
+    );
+  }
+
+  private update(callback: () => void): void {
+    this.mahjongMayhemApiService.getGameByGameId(this.game.id).subscribe(
+      game => {
+        this.game = game;
+
+        callback();
+      },
+      error => {
+        this.snackBar.open("Something went wrong while trying to update the game.", "Close", {
+          duration: 3000
+        });
+      }
+    );
+  }
+
+  private gameHasPlayer(): boolean {
+    let playerUsername = this.mahjongMayhemApiService.getUsername();
+
+    return this.game.players.some(function (user: User): boolean {
+      return user._id == playerUsername;
+    });
   }
 }

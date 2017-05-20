@@ -31,10 +31,10 @@ export class ViewGamesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getGames();
+    this.refreshGames();
   }
 
-  getGames(): void {
+  refreshGames(): void {
     this.isLoadingGames = true;
     this.mahjongMayhemApiService.getGames().subscribe(
       games => {
@@ -44,15 +44,29 @@ export class ViewGamesComponent implements OnInit {
       error => this.errorMessage = <any>error, );
   }
 
-  onCreateGameClicked(): void {
+  private onCreateGameClicked(): void {
     let dialogReference = this.dialog.open(GameCreateComponent);
     dialogReference.componentInstance.gameCreated.subscribe((createdGame) => {
       dialogReference.close();
-      this.getGames();
+      this.refreshGames();
     });
   }
 
-  onRefreshGamesClicked(): void {
-    this.getGames();
+  private onRefreshGamesClicked(): void {
+    this.refreshGames();
+  }
+
+  private onGameJoined(joinedGame: Game): void {
+    let gameIndex = this.games.findIndex((game: Game) => {
+      if (game.id == joinedGame.id) {
+        return true;
+      }
+    });
+
+    if (gameIndex == -1) {
+      return;
+    }
+
+    this.games[gameIndex] = joinedGame;
   }
 }

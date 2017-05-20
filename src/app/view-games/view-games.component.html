@@ -1,10 +1,10 @@
 <div appTheme>
   <div class="app-flex-fix-row" fxFlexLayout="row">
-    <div fxFlex="300px">
+    <div>
       <div fxFlexLayout="column">
-        <div class="app-buttons-div" fxLayoutAlign="space-between">
+        <div class="app-buttons-div">
           <a md-raised-button (click)="onCreateGameClicked()">
-            <md-icon>add</md-icon> Add game
+            <md-icon>add</md-icon> Create game
           </a>
 
           <button md-raised-button (click)="onRefreshGamesClicked()">
@@ -32,7 +32,7 @@
       <div class="app-games-row" fxFlexLayout="row" fxLayoutWrap fxLayoutAlign="center" fxLayoutGap="10px">
         <div *ngFor="let game of games | games:gamesPipeArgs" fxFlex="350px">
           <div>
-            <app-game-details-card [game]="game">
+            <app-game-details-card [game]="game" (gameJoined)="onGameJoined($event)">
             </app-game-details-card>
           </div>
         </div>
