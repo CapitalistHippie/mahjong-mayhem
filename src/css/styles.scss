@@ -3,12 +3,13 @@
 
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-.app-mat-elevation-z5 {
-   position: relative;
-   z-index: 2;
+// NOTE: Temp (hopefully) fix for https://github.com/angular/flex-layout/issues/171
+.app-flex-fix-row {
+  display: flex;
+  flex-direction: row;
 }
 
-// NOTE: Temp (hopefully) fix for https://github.com/angular/flex-layout/issues/171
-.app-flex-layout-fix {
+.app-flex-fix-column {
   display: flex;
+  flex-direction: column;
 }

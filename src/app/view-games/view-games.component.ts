@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MdDialog } from '@angular/material';
 
 // Components.
 import { GameCreateComponent } from '../game-create/game-create.component';
@@ -25,7 +26,7 @@ export class ViewGamesComponent implements OnInit {
 
   private gamesPipeArgs: GamesPipeArgs;
 
-  constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
+  constructor(private mahjongMayhemApiService: MahjongMayhemApiService, private dialog: MdDialog) {
     this.gamesPipeArgs = new GamesPipeArgs();
   }
 
@@ -41,6 +42,14 @@ export class ViewGamesComponent implements OnInit {
         this.isLoadingGames = false;
       },
       error => this.errorMessage = <any>error, );
+  }
+
+  onCreateGameClicked(): void {
+    let dialogReference = this.dialog.open(GameCreateComponent);
+    dialogReference.componentInstance.gameCreated.subscribe((createdGame) => {
+      dialogReference.close();
+      this.getGames();
+    });
   }
 
   onRefreshGamesClicked(): void {

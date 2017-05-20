@@ -1,21 +1,35 @@
 <div appTheme>
-  <div class="app-flex-layout-fix" fxFlexLayout="row">
+  <div class="app-flex-fix-row" fxFlexLayout="row">
     <div fxFlex="300px">
-      <md-card>
-        <md-card-title>Filters</md-card-title>
+      <div fxFlexLayout="column">
+        <div class="app-buttons-div" fxLayoutAlign="space-between">
+          <a md-raised-button (click)="onCreateGameClicked()">
+            <md-icon>add</md-icon> Add game
+          </a>
 
-        <md-card-content>
-          <form>
-            <md-checkbox [(ngModel)]="gamesPipeArgs.playerGamesOnly" name="only my games"> Only my games</md-checkbox>
-          </form>
-        </md-card-content>
-      </md-card>
+          <button md-raised-button (click)="onRefreshGamesClicked()">
+            <md-icon>refresh</md-icon> Refresh games
+          </button>
+        </div>
+
+        <div>
+          <md-card>
+            <md-card-title>Filters</md-card-title>
+
+            <md-card-content>
+              <form>
+                <md-checkbox [(ngModel)]="gamesPipeArgs.playerGamesOnly" name="only my games"> Only my games</md-checkbox>
+              </form>
+            </md-card-content>
+          </md-card>
+        </div>
+      </div>
     </div>
 
     <div fxFlex="20px"></div>
 
     <div fxFlex>
-      <div class="app-row" fxFlexLayout="row" fxLayoutWrap fxLayoutAlign="center" fxLayoutGap="10px">
+      <div class="app-games-row" fxFlexLayout="row" fxLayoutWrap fxLayoutAlign="center" fxLayoutGap="10px">
         <div *ngFor="let game of games | games:gamesPipeArgs" fxFlex="350px">
           <div>
             <app-game-details-card [game]="game">
