@@ -6,7 +6,7 @@
 
         <md-card-content>
           <form>
-            <md-select mdInput name="theme" placeholder="Theme" required [(ngModel)]="selectedTheme">
+            <md-select mdInput name="theme" placeholder="Theme" required [(ngModel)]="selectedTheme" (change)="onThemeSelected()">
               <md-option *ngFor="let theme of themes" [value]="theme">
                 {{ theme.name }}
               </md-option>
@@ -23,8 +23,10 @@
         <md-card-title>Examples</md-card-title>
 
         <md-card-content>
-          <div *ngFor="let exampleTile of exampleTiles">
-            <app-mahjong-tile [tile]="exampleTile"></app-mahjong-tile>
+          <div class="app-flex-fix-row" fxFlexLayout="row">
+            <div *ngFor="let exampleTile of exampleTiles">
+              <app-mahjong-tile [tile]="exampleTile"></app-mahjong-tile>
+            </div>
           </div>
         </md-card-content>
       </md-card>

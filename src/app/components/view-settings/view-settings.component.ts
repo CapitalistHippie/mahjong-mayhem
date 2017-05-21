@@ -60,6 +60,11 @@ export class ViewSettingsComponent implements OnInit {
     this.exampleTiles.push(exampleTileSeasonSummer);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+  }
+
+  onThemeSelected(): void {
+    console.log(this.selectedTheme);
+    this.themeService.setActiveTheme(this.selectedTheme);
   }
 }
