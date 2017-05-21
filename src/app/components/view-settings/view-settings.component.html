@@ -24,12 +24,15 @@
 
         <md-card-content>
           <div class="app-flex-fix-row" fxFlexLayout="row">
-            <div *ngFor="let exampleTile of exampleTiles">
-              <app-mahjong-tile [tile]="exampleTile"></app-mahjong-tile>
+            <div *ngFor="let exampleTile of exampleTiles" style="width: 50px; height: 100px">
+              <!--<app-mahjong-tile [tile]="exampleTile"></app-mahjong-tile>-->
             </div>
           </div>
         </md-card-content>
       </md-card>
     </div>
   </div>
+</div>
+<div>
+  <app-mahjong-tile [tile]="exampleTiles[2]" style="height: 100px; width: auto;"></app-mahjong-tile>
 </div>

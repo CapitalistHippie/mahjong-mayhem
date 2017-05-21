@@ -1,39 +1,47 @@
 @import '~@angular/material/theming';
 @import '../../css/theme';
 
-@mixin app-mahjong-tile-component-create-tile-class($tileSet, $tileName, $spriteSheetUrl, $spriteWidth, $spriteHeight, $spriteXOffset, $spriteYOffset) {
-  .#{$tileSet}-#{$tileName} {
-    width: $spriteWidth;
-    height: $spriteHeight;
-    background-image: $spriteSheetUrl;
-    background-position: $spriteXOffset $spriteYOffset;
-    background-repeat: no-repeat;
-  }
+.app-theme-div {
+  width: inherit;
+  height: inherit;
 }
 
-@mixin app-mahjong-tile-component-create-tile-set-classes($set, $setClassName, $spriteSheetUrl, $spriteWidth, $spriteHeight) {
+@mixin app-mahjong-tile-component-create-tile-set-classes($set, $setClassName) {
   @each $tile in $set {
     $tileName: map-get($tile, name);
     $spriteXOffset: map-get($tile, xOffset);
     $spriteYOffset: map-get($tile, yOffset);
 
-    @include app-mahjong-tile-component-create-tile-class($setClassName, $tileName, $spriteSheetUrl, $spriteWidth, $spriteHeight, $spriteXOffset, $spriteYOffset);
+    .#{$setClassName}-#{$tileName} {
+      background-position: $spriteXOffset $spriteYOffset;
+    }
   }
 }
 
 @mixin app-mahjong-tile-component-apply-theme($theme) {
   $mahjongTilesSpriteSheetUrl: map-get($theme, mahjongTilesSpriteSheetUrl);
+  $mahjongTilesSpriteSheetSpriteCountHorizontal: map-get($theme, mahjongTilesSpriteSheetSpriteCountHorizontal);
+  $mahjongTilesSpriteSheetSpriteCountVertical: map-get($theme, mahjongTilesSpriteSheetSpriteCountVertical);
+
   $mahjongTileSpriteWidth: map-get($theme, mahjongTileSpriteWidth);
   $mahjongTileSpriteHeight: map-get($theme, mahjongTileSpriteHeight);
   $mahjongTileSprites: map-get($theme, mahjongTileSprites);
 
-  @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, bamboo), 'bamboo', $mahjongTilesSpriteSheetUrl, $mahjongTileSpriteWidth, $mahjongTileSpriteHeight);
-  @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, characters), 'character', $mahjongTilesSpriteSheetUrl, $mahjongTileSpriteWidth, $mahjongTileSpriteHeight);
-  @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, dots), 'circle', $mahjongTilesSpriteSheetUrl, $mahjongTileSpriteWidth, $mahjongTileSpriteHeight);
-  @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, winds), 'wind', $mahjongTilesSpriteSheetUrl, $mahjongTileSpriteWidth, $mahjongTileSpriteHeight);
-  @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, dragons), 'dragon', $mahjongTilesSpriteSheetUrl, $mahjongTileSpriteWidth, $mahjongTileSpriteHeight);
-  @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, flowers), 'flower', $mahjongTilesSpriteSheetUrl, $mahjongTileSpriteWidth, $mahjongTileSpriteHeight);
-  @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, seasons), 'season', $mahjongTilesSpriteSheetUrl, $mahjongTileSpriteWidth, $mahjongTileSpriteHeight);
+  .app-mahjong-tile-sprite {
+    background-image: $mahjongTilesSpriteSheetUrl;
+    background-size: $mahjongTilesSpriteSheetSpriteCountHorizontal * 100% $mahjongTilesSpriteSheetSpriteCountVertical * 100%;
+    background-repeat: no-repeat;
+    width: inherit;
+    height: inherit;
+
+    @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, bamboo), 'bamboo');
+    @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, characters), 'character');
+    @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, dots), 'circle');
+    @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, winds), 'wind');
+    @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, dragons), 'dragon');
+    @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, flowers), 'flower');
+    @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, seasons), 'season');
+  }
 }
 
 // Get the themes.

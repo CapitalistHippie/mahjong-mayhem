@@ -5,7 +5,7 @@ import { Theme } from './models';
 
 @Injectable()
 export class ThemeService {
-  private theme: Theme;
+  private activeTheme: Theme;
 
   @Output() themeChanged: EventEmitter<Theme> = new EventEmitter();
 
@@ -14,7 +14,7 @@ export class ThemeService {
   }
 
   setActiveTheme(theme: Theme): void {
-    this.theme = theme;
+    this.activeTheme = theme;
 
     this.themeChanged.emit(theme);
   }
@@ -36,7 +36,7 @@ export class ThemeService {
   }
 
   getActiveTheme(): Theme {
-    return this.theme;
+    return this.activeTheme;
   }
 
   getDefaultTheme(): Theme {

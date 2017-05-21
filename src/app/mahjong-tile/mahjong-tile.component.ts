@@ -25,6 +25,8 @@ export class MahjongTileComponent implements OnInit {
       return;
     }
 
+    console.log(this.tile);
+
     this.renderer.setElementClass(this.elementRef.nativeElement, this.tile.suit.toLowerCase() + '-' + this.tile.name.toLowerCase(), true);
   }
 }

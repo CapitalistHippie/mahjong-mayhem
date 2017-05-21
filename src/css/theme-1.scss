@@ -1,6 +1,8 @@
 $materialThemePrimaryPalette: mat-palette($mat-indigo);
 $materialThemeAccentPalette: mat-palette($mat-pink, A200, A100, A400);
 
+$mahjongTileSpriteHeight: 2.380952380952381%;
+
 $appTheme1: (
     themeName: 'Theme 1',
     themeClass: 'app-theme-1',
@@ -10,46 +12,48 @@ $appTheme1: (
     materialTheme: mat-light-theme($materialThemePrimaryPalette, $materialThemeAccentPalette),
 
     mahjongTilesSpriteSheetUrl: url('/assets/mahjong_tiles_sprite_sheet_2.png'),
+    mahjongTilesSpriteSheetSpriteCountHorizontal: 1,
+    mahjongTilesSpriteSheetSpriteCountVertical: 42,
     mahjongTileSpriteWidth: 349px,
     mahjongTileSpriteHeight: 480px,
     mahjongTileSprites: (
         bamboo: (
             (
                 name: 1,
-                xOffset: 0px,
-                yOffset: 0px
+                xOffset: 0,
+                yOffset: 0
             ), (
                 name: 2,
-                xOffset: 0px,
-                yOffset: -480px
+                xOffset: 0,
+                yOffset: $mahjongTileSpriteHeight * 1
             ), (
                 name: 3,
-                xOffset: 0px,
-                yOffset: -960px
+                xOffset: 0,
+                yOffset: $mahjongTileSpriteHeight * 2
             ), (
                 name: 4,
-                xOffset: 0px,
-                yOffset: -1440px
+                xOffset: 0,
+                yOffset: $mahjongTileSpriteHeight * 3
             ), (
                 name: 5,
-                xOffset: 0px,
-                yOffset: -1920px
+                xOffset: 0,
+                yOffset: $mahjongTileSpriteHeight * 4
             ), (
                 name: 6,
-                xOffset: 0px,
-                yOffset: -2400px
+                xOffset: 0,
+                yOffset: $mahjongTileSpriteHeight * 5
             ), (
                 name: 7,
-                xOffset: 0px,
-                yOffset: -2880px
+                xOffset: 0,
+                yOffset: $mahjongTileSpriteHeight * 6
             ), (
                 name: 8,
-                xOffset: 0px,
-                yOffset: -3360px
+                xOffset: 0,
+                yOffset: $mahjongTileSpriteHeight * 7
             ), (
                 name: 9,
-                xOffset: 0px,
-                yOffset: -3840px
+                xOffset: 0,
+                yOffset: $mahjongTileSpriteHeight * 8
             )
         ),
         characters: (
