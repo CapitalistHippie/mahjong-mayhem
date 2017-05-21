@@ -1,9 +1,221 @@
-$theme2-primary: mat-palette($mat-pink);
-$theme2-accent: mat-palette($mat-pink, A200, A100, A400);
+$materialThemePrimaryPalette: mat-palette($mat-pink);
+$materialThemeAccentPalette: mat-palette($mat-pink, A200, A100, A400);
 
-$theme2: mat-light-theme($theme2-primary, $theme2-accent);
+$appTheme2: (
+    themeName: 'Theme 2',
+    themeClass: 'app-theme-2',
 
-.app-theme2
-{
-    @include angular-material-theme($theme2);
+    materialThemePrimary: $materialThemePrimaryPalette,
+    materialThemeAccent: $materialThemeAccentPalette,
+    materialTheme: mat-light-theme($materialThemePrimaryPalette, $materialThemeAccentPalette),
+
+    mahjongTilesSpriteSheetUrl: url('/assets/mahjong_tiles_sprite_sheet_2.png'),
+    mahjongTileSpriteWidth: 349px,
+    mahjongTileSpriteHeight: 480px,
+    mahjongTileSprites: (
+        bamboo: (
+            (
+                name: 1,
+                xOffset: 0px,
+                yOffset: 0px
+            ), (
+                name: 2,
+                xOffset: 0px,
+                yOffset: -480px
+            ), (
+                name: 3,
+                xOffset: 0px,
+                yOffset: -960px
+            ), (
+                name: 4,
+                xOffset: 0px,
+                yOffset: -1440px
+            ), (
+                name: 5,
+                xOffset: 0px,
+                yOffset: -1920px
+            ), (
+                name: 6,
+                xOffset: 0px,
+                yOffset: -2400px
+            ), (
+                name: 7,
+                xOffset: 0px,
+                yOffset: -2880px
+            ), (
+                name: 8,
+                xOffset: 0px,
+                yOffset: -3360px
+            ), (
+                name: 9,
+                xOffset: 0px,
+                yOffset: -3840px
+            )
+        ),
+        characters: (
+            (
+                name: 1,
+                xOffset: 0px,
+                yOffset: 4320px
+            ), (
+                name: 2,
+                xOffset: 0px,
+                yOffset: -4800px
+            ), (
+                name: 3,
+                xOffset: 0px,
+                yOffset: -5280px
+            ), (
+                name: 4,
+                xOffset: 0px,
+                yOffset: -5760px
+            ), (
+                name: 5,
+                xOffset: 0px,
+                yOffset: -6240px
+            ), (
+                name: 6,
+                xOffset: 0px,
+                yOffset: -6720px
+            ), (
+                name: 7,
+                xOffset: 0px,
+                yOffset: -7200px
+            ), (
+                name: 8,
+                xOffset: 0px,
+                yOffset: -7680px
+            ), (
+                name: 9,
+                xOffset: 0px,
+                yOffset: -8160px
+            )
+        ),
+        dots: (
+            (
+                name: 1,
+                xOffset: 0px,
+                yOffset: 8640px
+            ), (
+                name: 2,
+                xOffset: 0px,
+                yOffset: -9120px
+            ), (
+                name: 3,
+                xOffset: 0px,
+                yOffset: -9600px
+            ), (
+                name: 4,
+                xOffset: 0px,
+                yOffset: -10080px
+            ), (
+                name: 5,
+                xOffset: 0px,
+                yOffset: -10560px
+            ), (
+                name: 6,
+                xOffset: 0px,
+                yOffset: -11040px
+            ), (
+                name: 7,
+                xOffset: 0px,
+                yOffset: -11520px
+            ), (
+                name: 8,
+                xOffset: 0px,
+                yOffset: -12000px
+            ), (
+                name: 9,
+                xOffset: 0px,
+                yOffset: -12480px
+            )
+        ),
+        winds: (
+            (
+                name: 'east',
+                xOffset: 0px,
+                yOffset: -18240px
+            ),
+            (
+                name: 'north',
+                xOffset: 0px,
+                yOffset: -18720px
+            ),
+            (
+                name: 'south',
+                xOffset: 0px,
+                yOffset: -19200px
+            ),
+            (
+                name: 'west',
+                xOffset: 0px,
+                yOffset: -19680px
+            )
+        ),
+        dragons: (
+            (
+                name: 'green',
+                xOffset: 0px,
+                yOffset: -12960px
+            ),
+            (
+                name: 'red',
+                xOffset: 0px,
+                yOffset: -13440px
+            ),
+            (
+                name: 'white',
+                xOffset: 0px,
+                yOffset: -13920px
+            )
+        ),
+        flowers: (
+            (
+                name: 'bamboo',
+                xOffset: 0px,
+                yOffset: -14400px
+            ),
+            (
+                name: 'chrysanthemum',
+                xOffset: 0px,
+                yOffset: -14880px
+            ),
+            (
+                name: 'orchid',
+                xOffset: 0px,
+                yOffset: -15360px
+            ),
+            (
+                name: 'plum',
+                xOffset: 0px,
+                yOffset: -15840px
+            )
+        ),
+        seasons: (
+            (
+                name: 'fall',
+                xOffset: 0px,
+                yOffset: -16320px
+            ),
+            (
+                name: 'spring',
+                xOffset: 0px,
+                yOffset: -16800px
+            ),
+            (
+                name: 'summer',
+                xOffset: 0px,
+                yOffset: -17280px
+            ),
+            (
+                name: 'winter',
+                xOffset: 0px,
+                yOffset: -17760px
+            )
+        )
+    )
+);
+
+@function app-theme-2-get() {
+    @return $appTheme2;
 }

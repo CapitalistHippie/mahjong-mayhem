@@ -1,28 +1,28 @@
 @import '~@angular/material/theming';
 @import '../../css/theme';
 
-@mixin app-game-list-component-apply-theme($theme) {
-  $primary: map-get(map-get($theme, materialTheme), primary);
-  $accent: map-get(map-get($theme, materialTheme), accent);
+// @mixin app-game-list-component-apply-theme($theme) {
+//   $primary: map-get(map-get($theme, materialTheme), primary);
+//   $accent: map-get(map-get($theme, materialTheme), accent);
 
-  .selected md-icon {
-    color: mat-color($primary);
-  }
-}
+//   .selected md-icon {
+//     color: mat-color($primary);
+//   }
+// }
 
-// Apply all the different themes.
-$themes: app-get-themes();
+// // Apply all the different themes.
+// $themes: app-get-themes();
 
-@each $theme in $themes {
-  .#{map-get($theme, themeName)} {
-    @include app-game-list-component-apply-theme($theme);
-  }
-}
+// @each $theme in $themes {
+//   .#{map-get($theme, themeName)} {
+//     @include app-game-list-component-apply-theme($theme);
+//   }
+// }
 
-// Apply the default theme.
-@include app-game-list-component-apply-theme(app-get-default-theme());
+// // Apply the default theme.
+// @include app-game-list-component-apply-theme(app-get-default-theme());
 
-// Other global styles.
-.secondary-text {
-  color: rgba(0, 0, 0, 0.54);
-}
+// // Other global styles.
+// .secondary-text {
+//   color: rgba(0, 0, 0, 0.54);
+// }

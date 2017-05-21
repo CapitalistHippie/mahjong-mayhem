@@ -3,12 +3,12 @@
 
 @mixin app-mahjong-tile-component-create-tile-class($tileSet, $tileName, $spriteSheetUrl, $spriteWidth, $spriteHeight, $spriteXOffset, $spriteYOffset) {
   .#{$tileSet}-#{$tileName} {
-      width: $spriteWidth;
-      height: $spriteHeight;
-      background-image: $spriteSheetUrl;
-      background-position: $spriteXOffset $spriteYOffset;
-      background-repeat: no-repeat;
-    }
+    width: $spriteWidth;
+    height: $spriteHeight;
+    background-image: $spriteSheetUrl;
+    background-position: $spriteXOffset $spriteYOffset;
+    background-repeat: no-repeat;
+  }
 }
 
 @mixin app-mahjong-tile-component-create-tile-set-classes($set, $setClassName, $spriteSheetUrl, $spriteWidth, $spriteHeight) {
@@ -36,14 +36,14 @@
   @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, seasons), 'season', $mahjongTilesSpriteSheetUrl, $mahjongTileSpriteWidth, $mahjongTileSpriteHeight);
 }
 
-// Apply all the different themes.
+// Get the themes.
 $themes: app-get-themes();
 
+// Apply the themes.
 @each $theme in $themes {
-  .#{map-get($theme, themeName)} {
+  $themeClass: map-get($theme, themeClass);
+
+  .#{$themeClass} {
     @include app-mahjong-tile-component-apply-theme($theme);
   }
 }
-
-// Apply the default theme.
-@include app-mahjong-tile-component-apply-theme(app-get-default-theme());

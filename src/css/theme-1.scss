@@ -1,12 +1,13 @@
-$materialThemePrimary: mat-palette($mat-indigo);
-$materialThemeAccent: mat-palette($mat-pink, A200, A100, A400);
+$materialThemePrimaryPalette: mat-palette($mat-indigo);
+$materialThemeAccentPalette: mat-palette($mat-pink, A200, A100, A400);
 
 $appTheme1: (
-    themeName: 'app-theme-1',
+    themeName: 'Theme 1',
+    themeClass: 'app-theme-1',
 
-    materialThemePrimary: mat-palette($mat-indigo),
-    materialThemeAccent: mat-palette($mat-pink, A200, A100, A400),
-    materialTheme: mat-light-theme($materialThemePrimary, $materialThemeAccent),
+    materialThemePrimary: $materialThemePrimaryPalette,
+    materialThemeAccent: $materialThemeAccentPalette,
+    materialTheme: mat-light-theme($materialThemePrimaryPalette, $materialThemeAccentPalette),
 
     mahjongTilesSpriteSheetUrl: url('/assets/mahjong_tiles_sprite_sheet_2.png'),
     mahjongTileSpriteWidth: 349px,
