@@ -19,6 +19,7 @@ import { MahjongTileComponent } from './mahjong-tile/mahjong-tile.component';
 
 // View components.
 import { ViewGamesComponent } from './view-games/view-games.component';
+import { ViewSettingsComponent } from './components/view-settings/view-settings.component';
 
 // Services.
 import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
@@ -73,6 +74,7 @@ const appRoutes: Routes = [
     ThemeDirective,
     MahjongBoardHostDirective,
     ViewGamesComponent,
+    ViewSettingsComponent,
     GamesPipe
   ],
   imports: [
