@@ -48,8 +48,8 @@ const appRoutes: Routes = [
     component: ViewGamesComponent
   },
   {
-    path: 'creategame',
-    component: GameCreateComponent
+    path: 'settings',
+    component: ViewSettingsComponent
   },
   {
     path: '',
