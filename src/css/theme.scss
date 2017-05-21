@@ -1,17 +1,10 @@
 @import '~@angular/material/theming';
 
-@import './validation';
-
 // This mixin is needed for defining themes but should only be included once.
 @include mat-core();
 
 @import './theme-1';
 @import './theme-2';
-
-@function app-validate-theme($theme: null)
-{
-  @return validate($theme, list);
-}
 
 @function app-get-default-theme() {
   @return app-theme-1-get();
