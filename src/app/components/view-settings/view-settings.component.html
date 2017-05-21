@@ -1,3 +1,33 @@
-<p>
-  view-settings works!
-</p>
+<div appTheme>
+  <div class="app-flex-fix-row" fxFlexLayout="row">
+    <div>
+      <md-card>
+        <md-card-title>Settings</md-card-title>
+
+        <md-card-content>
+          <form>
+            <md-select mdInput name="theme" placeholder="Theme" required [(ngModel)]="selectedTheme">
+              <md-option *ngFor="let theme of themes" [value]="theme">
+                {{ theme.name }}
+              </md-option>
+            </md-select>
+          </form>
+        </md-card-content>
+      </md-card>
+    </div>
+
+    <div fxFlex="20px"></div>
+
+    <div fxFlex>
+      <md-card>
+        <md-card-title>Examples</md-card-title>
+
+        <md-card-content>
+          <div *ngFor="let exampleTile of exampleTiles">
+            <app-mahjong-tile [tile]="exampleTile"></app-mahjong-tile>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</div>

@@ -17,9 +17,14 @@ export class MahjongTileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.update();
   }
 
   public update(): void {
+    if (this.tile == null) {
+      return;
+    }
+
     this.renderer.setElementClass(this.elementRef.nativeElement, this.tile.suit.toLowerCase() + '-' + this.tile.name.toLowerCase(), true);
   }
 }
