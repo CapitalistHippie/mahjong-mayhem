@@ -25,6 +25,8 @@ export class ThemeService {
     let theme1 = new Theme();
     theme1.name = 'Theme 1';
     theme1.className = 'app-theme-1';
+    theme1.mahjongSpriteWidth = 349;
+    theme1.mahjongSpriteHeight = 480;
     themes.push(theme1);
 
     let theme2 = new Theme();
