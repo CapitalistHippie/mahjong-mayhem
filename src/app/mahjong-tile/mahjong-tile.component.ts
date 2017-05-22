@@ -70,6 +70,7 @@ export class MahjongTileComponent implements OnInit {
     }
 
     console.log(this.tile);
+    console.log(this.tile.suit.toLowerCase() + '-' + this.tile.name.toLowerCase());
 
     this.renderer.setElementClass(this.elementRef.nativeElement, this.tile.suit.toLowerCase() + '-' + this.tile.name.toLowerCase(), true);
   }

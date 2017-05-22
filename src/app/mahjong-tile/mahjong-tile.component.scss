@@ -12,7 +12,12 @@
     $spriteXOffset: map-get($tile, xOffset);
     $spriteYOffset: map-get($tile, yOffset);
 
+    @debug '.#{$setClassName}-#{$tileName} { background-position: #{$spriteXOffset} #{$spriteYOffset} }';
+
     .#{$setClassName}-#{$tileName} {
+      background-image: inherit;
+      background-size: inherit;
+      background-repeat: inherit;
       background-position: $spriteXOffset $spriteYOffset;
     }
   }
@@ -23,16 +28,12 @@
   $mahjongTilesSpriteSheetSpriteCountHorizontal: map-get($theme, mahjongTilesSpriteSheetSpriteCountHorizontal);
   $mahjongTilesSpriteSheetSpriteCountVertical: map-get($theme, mahjongTilesSpriteSheetSpriteCountVertical);
 
-  $mahjongTileSpriteWidth: map-get($theme, mahjongTileSpriteWidth);
-  $mahjongTileSpriteHeight: map-get($theme, mahjongTileSpriteHeight);
   $mahjongTileSprites: map-get($theme, mahjongTileSprites);
 
   .app-mahjong-tile-sprite {
     background-image: $mahjongTilesSpriteSheetUrl;
     background-size: $mahjongTilesSpriteSheetSpriteCountHorizontal * 100% $mahjongTilesSpriteSheetSpriteCountVertical * 100%;
     background-repeat: no-repeat;
-    width: inherit;
-    height: inherit;
 
     @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, bamboo), 'bamboo');
     @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, characters), 'character');
