@@ -19,45 +19,59 @@ export class ViewSettingsComponent implements OnInit {
 
   private exampleTiles: Tile[];
 
+  private themeNames: string[];
+
   constructor(private themeService: ThemeService) {
     this.selectedTheme = themeService.getActiveTheme();
     this.themes = themeService.getThemes();
 
     this.exampleTiles = [];
-    let exampleTileBamboo9 = new Tile();
-    exampleTileBamboo9.name = '1';
-    exampleTileBamboo9.suit = 'bamboo';
-    this.exampleTiles.push(exampleTileBamboo9);
+    let exampleTileBamboo = new Tile();
+    exampleTileBamboo._id = 0;
+    exampleTileBamboo.name = '1';
+    exampleTileBamboo.suit = 'bamboo';
+    this.exampleTiles.push(exampleTileBamboo);
 
-    let exampleTileCharacter9 = new Tile();
-    exampleTileCharacter9.name = '1';
-    exampleTileCharacter9.suit = 'character';
-    this.exampleTiles.push(exampleTileCharacter9);
+    let exampleTileCharacter = new Tile();
+    exampleTileCharacter._id = 1;
+    exampleTileCharacter.name = '1';
+    exampleTileCharacter.suit = 'character';
+    this.exampleTiles.push(exampleTileCharacter);
 
-    let exampleTileCircle9 = new Tile();
-    exampleTileCircle9.name = '1';
-    exampleTileCircle9.suit = 'circle';
-    this.exampleTiles.push(exampleTileCircle9);
+    let exampleTileCircle = new Tile();
+    exampleTileCircle._id = 2;
+    exampleTileCircle.name = '1';
+    exampleTileCircle.suit = 'circle';
+    this.exampleTiles.push(exampleTileCircle);
 
-    let exampleTileWindNorth = new Tile();
-    exampleTileWindNorth.name = 'north';
-    exampleTileWindNorth.suit = 'wind';
-    this.exampleTiles.push(exampleTileWindNorth);
+    let exampleTileWind = new Tile();
+    exampleTileWind._id = 3;
+    exampleTileWind.name = 'north';
+    exampleTileWind.suit = 'wind';
+    this.exampleTiles.push(exampleTileWind);
 
-    let exampleTileDragonRed = new Tile();
-    exampleTileDragonRed.name = 'red';
-    exampleTileDragonRed.suit = 'dragon';
-    this.exampleTiles.push(exampleTileDragonRed);
+    let exampleTileDragon = new Tile();
+    exampleTileDragon._id = 4;
+    exampleTileDragon.name = 'red';
+    exampleTileDragon.suit = 'dragon';
+    this.exampleTiles.push(exampleTileDragon);
 
-    let exampleTileFlowerChrysanthemum = new Tile();
-    exampleTileFlowerChrysanthemum.name = 'chrysanthemum';
-    exampleTileFlowerChrysanthemum.suit = 'flower';
-    this.exampleTiles.push(exampleTileFlowerChrysanthemum);
+    let exampleTileFlower = new Tile();
+    exampleTileFlower._id = 5;
+    exampleTileFlower.name = 'chrysanthemum';
+    exampleTileFlower.suit = 'flower';
+    this.exampleTiles.push(exampleTileFlower);
 
-    let exampleTileSeasonSummer = new Tile();
-    exampleTileSeasonSummer.name = 'summer';
-    exampleTileSeasonSummer.suit = 'season';
-    this.exampleTiles.push(exampleTileSeasonSummer);
+    let exampleTileSeason = new Tile();
+    exampleTileSeason._id = 6;
+    exampleTileSeason.name = 'summer';
+    exampleTileSeason.suit = 'season';
+    this.exampleTiles.push(exampleTileSeason);
+
+    this.themeNames = [];
+    this.themeNames.push('1');
+    this.themeNames.push('2');
+    this.themeNames.push('3');
   }
 
   ngOnInit(): void {
@@ -65,5 +79,6 @@ export class ViewSettingsComponent implements OnInit {
 
   onThemeSelected(): void {
     this.themeService.setActiveTheme(this.selectedTheme);
+    console.log(this.exampleTiles);
   }
 }

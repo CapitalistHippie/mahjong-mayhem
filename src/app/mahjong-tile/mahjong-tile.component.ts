@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef, Renderer } from '@angular/core';
 
 // Services.
 import { ThemeService } from '../theme.service';
@@ -11,7 +11,7 @@ import { Tile } from '../models';
   templateUrl: './mahjong-tile.component.html',
   styleUrls: ['./mahjong-tile.component.scss']
 })
-export class MahjongTileComponent implements OnInit {
+export class MahjongTileComponent implements OnInit, OnChanges {
   @Input() tile: Tile;
   @Input() scaleDirection: string;
 
@@ -21,6 +21,10 @@ export class MahjongTileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.update();
+  }
+
+  ngOnChanges() {
     this.update();
   }
 
@@ -69,6 +73,7 @@ export class MahjongTileComponent implements OnInit {
       }
     }
 
+    this.renderer.setElementAttribute(this.elementRef.nativeElement, 'class', '');
     this.renderer.setElementClass(this.elementRef.nativeElement, this.tile.suit.toLowerCase() + '-' + this.tile.name.toLowerCase(), true);
   }
 }

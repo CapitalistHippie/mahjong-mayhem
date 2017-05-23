@@ -5,13 +5,11 @@
         <md-card-title>Settings</md-card-title>
 
         <md-card-content>
-          <form>
-            <md-select mdInput name="theme" placeholder="Theme" required [(ngModel)]="selectedTheme" (change)="onThemeSelected()">
-              <md-option *ngFor="let theme of themes" [value]="theme">
-                {{ theme.name }}
-              </md-option>
-            </md-select>
-          </form>
+          <md-select mdInput placeholder="Theme" required [(ngModel)]="selectedTheme" (change)="onThemeSelected()">
+            <md-option *ngFor="let theme of themes" [value]="theme">
+              {{ theme.name }}
+            </md-option>
+          </md-select>
         </md-card-content>
       </md-card>
     </div>
@@ -23,9 +21,19 @@
         <md-card-title>Examples</md-card-title>
 
         <md-card-content>
-          <div class="app-flex-fix-row" fxFlexLayout="row">
+          <div class="app-flex-fix-row" fxFlexLayout="row" fxLayoutGap="10px">
             <div *ngFor="let exampleTile of exampleTiles">
-              <app-mahjong-tile [tile]="exampleTile" scaleDirection="vertically" style="width: 100px"></app-mahjong-tile>
+              <div class="app-flex-fix-column" fxFlexLayout="column" fxLayoutGap="10px">
+                <p>{{exampleTile.suit}}</p>
+
+                <app-mahjong-tile #appMahjongTile fxFlex="100px" [tile]="exampleTile" scaleDirection="vertically"></app-mahjong-tile>
+
+                <md-select mdInput placeholder="Tile name" required [(ngModel)]="exampleTile.name" (change)="appMahjongTile?.update()">
+                  <md-option *ngFor="let themeName of themeNames" [value]="themeName">
+                    {{ themeName }}
+                  </md-option>
+                </md-select>
+              </div>
             </div>
           </div>
         </md-card-content>
