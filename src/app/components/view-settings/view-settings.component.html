@@ -28,9 +28,9 @@
 
                 <app-mahjong-tile #appMahjongTile fxFlex="100px" [tile]="exampleTile" scaleDirection="vertically"></app-mahjong-tile>
 
-                <md-select mdInput placeholder="Tile name" required [(ngModel)]="exampleTile.name" (change)="appMahjongTile?.update()">
-                  <md-option *ngFor="let themeName of themeNames" [value]="themeName">
-                    {{ themeName }}
+                <md-select mdInput placeholder="Tile name" required [(ngModel)]="exampleTile.name" (change)="appMahjongTile.update()">
+                  <md-option *ngFor="let tileName of tileNames" [value]="tileName">
+                    {{ tileName }}
                   </md-option>
                 </md-select>
               </div>
