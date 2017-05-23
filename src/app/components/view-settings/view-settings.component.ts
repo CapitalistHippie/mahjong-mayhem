@@ -25,17 +25,17 @@ export class ViewSettingsComponent implements OnInit {
 
     this.exampleTiles = [];
     let exampleTileBamboo9 = new Tile();
-    exampleTileBamboo9.name = '9';
+    exampleTileBamboo9.name = '1';
     exampleTileBamboo9.suit = 'bamboo';
     this.exampleTiles.push(exampleTileBamboo9);
 
     let exampleTileCharacter9 = new Tile();
-    exampleTileCharacter9.name = '9';
+    exampleTileCharacter9.name = '1';
     exampleTileCharacter9.suit = 'character';
     this.exampleTiles.push(exampleTileCharacter9);
 
     let exampleTileCircle9 = new Tile();
-    exampleTileCircle9.name = '9';
+    exampleTileCircle9.name = '1';
     exampleTileCircle9.suit = 'circle';
     this.exampleTiles.push(exampleTileCircle9);
 
@@ -64,7 +64,6 @@ export class ViewSettingsComponent implements OnInit {
   }
 
   onThemeSelected(): void {
-    console.log(this.selectedTheme);
     this.themeService.setActiveTheme(this.selectedTheme);
   }
 }

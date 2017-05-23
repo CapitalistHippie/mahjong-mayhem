@@ -13,7 +13,7 @@
 @function app-get-themes() {
   $appThemes: (
     app-theme-1-get(),
-    // app-theme-2-get()
+    app-theme-2-get()
   );
 
   @return $appThemes;

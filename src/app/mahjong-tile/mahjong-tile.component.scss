@@ -12,8 +12,6 @@
     $spriteXOffset: map-get($tile, xOffset);
     $spriteYOffset: map-get($tile, yOffset);
 
-    @debug '.#{$setClassName}-#{$tileName} { background-position: #{$spriteXOffset} #{$spriteYOffset} }';
-
     .#{$setClassName}-#{$tileName} {
       background-image: inherit;
       background-size: inherit;

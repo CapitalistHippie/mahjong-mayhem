@@ -1,5 +1,8 @@
-$materialThemePrimaryPalette: mat-palette($mat-pink);
+$materialThemePrimaryPalette: mat-palette($mat-indigo);
 $materialThemeAccentPalette: mat-palette($mat-pink, A200, A100, A400);
+
+$mahjongTileSpriteWidth: 7.692307692307692%;
+$mahjongTileSpriteHeight: 50%;
 
 $appTheme2: (
     themeName: 'Theme 2',
@@ -9,208 +12,208 @@ $appTheme2: (
     materialThemeAccent: $materialThemeAccentPalette,
     materialTheme: mat-light-theme($materialThemePrimaryPalette, $materialThemeAccentPalette),
 
-    mahjongTilesSpriteSheetUrl: url('/assets/mahjong_tiles_sprite_sheet_2.png'),
-    mahjongTileSpriteWidth: 349px,
-    mahjongTileSpriteHeight: 480px,
+    mahjongTilesSpriteSheetUrl: url('/assets/mahjong_tiles_sprite_sheet_1.png'),
+    mahjongTilesSpriteSheetSpriteCountHorizontal: 14,
+    mahjongTilesSpriteSheetSpriteCountVertical: 3,
     mahjongTileSprites: (
         bamboo: (
             (
                 name: 1,
-                xOffset: 0px,
-                yOffset: 0px
+                xOffset: 0,
+                yOffset: $mahjongTileSpriteHeight * 1
             ), (
                 name: 2,
-                xOffset: 0px,
-                yOffset: -480px
+                xOffset: $mahjongTileSpriteWidth * 1,
+                yOffset: $mahjongTileSpriteHeight * 1
             ), (
                 name: 3,
-                xOffset: 0px,
-                yOffset: -960px
+                xOffset: $mahjongTileSpriteWidth * 2,
+                yOffset: $mahjongTileSpriteHeight * 1
             ), (
                 name: 4,
-                xOffset: 0px,
-                yOffset: -1440px
+                xOffset: $mahjongTileSpriteWidth * 3,
+                yOffset: $mahjongTileSpriteHeight * 1
             ), (
                 name: 5,
-                xOffset: 0px,
-                yOffset: -1920px
+                xOffset: $mahjongTileSpriteWidth * 4,
+                yOffset: $mahjongTileSpriteHeight * 1
             ), (
                 name: 6,
-                xOffset: 0px,
-                yOffset: -2400px
+                xOffset: $mahjongTileSpriteWidth * 5,
+                yOffset: $mahjongTileSpriteHeight * 1
             ), (
                 name: 7,
-                xOffset: 0px,
-                yOffset: -2880px
+                xOffset: $mahjongTileSpriteWidth * 6,
+                yOffset: $mahjongTileSpriteHeight * 1
             ), (
                 name: 8,
-                xOffset: 0px,
-                yOffset: -3360px
+                xOffset: $mahjongTileSpriteWidth * 7,
+                yOffset: $mahjongTileSpriteHeight * 1
             ), (
                 name: 9,
-                xOffset: 0px,
-                yOffset: -3840px
+                xOffset: $mahjongTileSpriteWidth * 8,
+                yOffset: $mahjongTileSpriteHeight * 1
             )
         ),
         characters: (
             (
                 name: 1,
-                xOffset: 0px,
-                yOffset: 4320px
+                xOffset: 0,
+                yOffset: 0
             ), (
                 name: 2,
-                xOffset: 0px,
-                yOffset: -4800px
+                xOffset: $mahjongTileSpriteWidth * 1,
+                yOffset: 0
             ), (
                 name: 3,
-                xOffset: 0px,
-                yOffset: -5280px
+                xOffset: $mahjongTileSpriteWidth * 2,
+                yOffset: 0
             ), (
                 name: 4,
-                xOffset: 0px,
-                yOffset: -5760px
+                xOffset: $mahjongTileSpriteWidth * 3,
+                yOffset: 0
             ), (
                 name: 5,
-                xOffset: 0px,
-                yOffset: -6240px
+                xOffset: $mahjongTileSpriteWidth * 4,
+                yOffset: 0
             ), (
                 name: 6,
-                xOffset: 0px,
-                yOffset: -6720px
+                xOffset: $mahjongTileSpriteWidth * 5,
+                yOffset: 0
             ), (
                 name: 7,
-                xOffset: 0px,
-                yOffset: -7200px
+                xOffset: $mahjongTileSpriteWidth * 6,
+                yOffset: 0
             ), (
                 name: 8,
-                xOffset: 0px,
-                yOffset: -7680px
+                xOffset: $mahjongTileSpriteWidth * 7,
+                yOffset: 0
             ), (
                 name: 9,
-                xOffset: 0px,
-                yOffset: -8160px
+                xOffset: $mahjongTileSpriteWidth * 8,
+                yOffset: 0
             )
         ),
         dots: (
             (
                 name: 1,
-                xOffset: 0px,
-                yOffset: 8640px
+                xOffset: 0,
+                yOffset: $mahjongTileSpriteHeight * 2
             ), (
                 name: 2,
-                xOffset: 0px,
-                yOffset: -9120px
+                xOffset: $mahjongTileSpriteWidth * 1,
+                yOffset: $mahjongTileSpriteHeight * 2
             ), (
                 name: 3,
-                xOffset: 0px,
-                yOffset: -9600px
+                xOffset: $mahjongTileSpriteWidth * 2,
+                yOffset: $mahjongTileSpriteHeight * 2
             ), (
                 name: 4,
-                xOffset: 0px,
-                yOffset: -10080px
+                xOffset: $mahjongTileSpriteWidth * 3,
+                yOffset: $mahjongTileSpriteHeight * 2
             ), (
                 name: 5,
-                xOffset: 0px,
-                yOffset: -10560px
+                xOffset: $mahjongTileSpriteWidth * 4,
+                yOffset: $mahjongTileSpriteHeight * 2
             ), (
                 name: 6,
-                xOffset: 0px,
-                yOffset: -11040px
+                xOffset: $mahjongTileSpriteWidth * 5,
+                yOffset: $mahjongTileSpriteHeight * 2
             ), (
                 name: 7,
-                xOffset: 0px,
-                yOffset: -11520px
+                xOffset: $mahjongTileSpriteWidth * 6,
+                yOffset: $mahjongTileSpriteHeight * 2
             ), (
                 name: 8,
-                xOffset: 0px,
-                yOffset: -12000px
+                xOffset: $mahjongTileSpriteWidth * 7,
+                yOffset: $mahjongTileSpriteHeight * 2
             ), (
                 name: 9,
-                xOffset: 0px,
-                yOffset: -12480px
+                xOffset: $mahjongTileSpriteWidth * 8,
+                yOffset: $mahjongTileSpriteHeight * 2
             )
         ),
         winds: (
             (
                 name: 'east',
-                xOffset: 0px,
-                yOffset: -18240px
+                xOffset: $mahjongTileSpriteWidth * 11,
+                yOffset: 0
             ),
             (
                 name: 'north',
-                xOffset: 0px,
-                yOffset: -18720px
+                xOffset: $mahjongTileSpriteWidth * 9,
+                yOffset: 0
             ),
             (
                 name: 'south',
-                xOffset: 0px,
-                yOffset: -19200px
+                xOffset: $mahjongTileSpriteWidth * 10,
+                yOffset: 0
             ),
             (
                 name: 'west',
-                xOffset: 0px,
-                yOffset: -19680px
+                xOffset: $mahjongTileSpriteWidth * 12,
+                yOffset: 0
             )
         ),
         dragons: (
             (
                 name: 'green',
-                xOffset: 0px,
-                yOffset: -12960px
+                xOffset: $mahjongTileSpriteWidth * 13,
+                yOffset: 0
             ),
             (
                 name: 'red',
-                xOffset: 0px,
-                yOffset: -13440px
+                xOffset: $mahjongTileSpriteWidth * 13,
+                yOffset: $mahjongTileSpriteHeight * 1
             ),
             (
                 name: 'white',
-                xOffset: 0px,
-                yOffset: -13920px
+                xOffset: $mahjongTileSpriteWidth * 13,
+                yOffset: $mahjongTileSpriteHeight * 2
             )
         ),
         flowers: (
             (
                 name: 'bamboo',
-                xOffset: 0px,
-                yOffset: -14400px
+                xOffset: $mahjongTileSpriteWidth * 9,
+                yOffset: $mahjongTileSpriteHeight * 2
             ),
             (
                 name: 'chrysanthemum',
-                xOffset: 0px,
-                yOffset: -14880px
+                xOffset: $mahjongTileSpriteWidth * 12,
+                yOffset: $mahjongTileSpriteHeight * 2
             ),
             (
                 name: 'orchid',
-                xOffset: 0px,
-                yOffset: -15360px
+                xOffset: $mahjongTileSpriteWidth * 11,
+                yOffset: $mahjongTileSpriteHeight * 2
             ),
             (
                 name: 'plum',
-                xOffset: 0px,
-                yOffset: -15840px
+                xOffset: $mahjongTileSpriteWidth * 10,
+                yOffset: $mahjongTileSpriteHeight * 2
             )
         ),
         seasons: (
             (
                 name: 'fall',
-                xOffset: 0px,
-                yOffset: -16320px
+                xOffset: $mahjongTileSpriteWidth * 11,
+                yOffset: $mahjongTileSpriteHeight * 1
             ),
             (
                 name: 'spring',
-                xOffset: 0px,
-                yOffset: -16800px
+                xOffset: $mahjongTileSpriteWidth * 9,
+                yOffset: $mahjongTileSpriteHeight * 1
             ),
             (
                 name: 'summer',
-                xOffset: 0px,
-                yOffset: -17280px
+                xOffset: $mahjongTileSpriteWidth * 10,
+                yOffset: $mahjongTileSpriteHeight * 1
             ),
             (
                 name: 'winter',
-                xOffset: 0px,
-                yOffset: -17760px
+                xOffset: $mahjongTileSpriteWidth * 12,
+                yOffset: $mahjongTileSpriteHeight * 1
             )
         )
     )
