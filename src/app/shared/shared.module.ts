@@ -9,9 +9,9 @@ import { MahjongBoardHostDirective } from './mahjong-board-host/mahjong-board-ho
 
 @NgModule({
   imports: [
-    MahjongBoardComponent,
-    MahjongTileComponent,
-    MahjongBoardHostDirective
+    // MahjongBoardComponent,
+    // MahjongTileComponent,
+    // MahjongBoardHostDirective
   ],
   declarations: []
 })

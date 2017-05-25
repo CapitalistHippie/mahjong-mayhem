@@ -1,11 +1,15 @@
 /////////////////////////////
 // Modules.
 /////////////////////////////
-// Angular modules.
-import { NgModule } from '@angular/core';
-
-// App modules.
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { AuthModule } from '../auth/auth.module';
 import { MahjongModule } from '../mahjong/mahjong.module';
+import { UserInterfaceModule } from '../user-interface/user-interface.module';
+
+/////////////////////////////
+// Services.
+/////////////////////////////
+import { AuthService } from '../auth/auth.service';
 
 /////////////////////////////
 // Components.
@@ -15,15 +19,32 @@ import { GameCreateComponent } from './game-create/game-create.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { GameDetailsCardComponent } from './shared/game-details-card/game-details-card.component';
 
+/////////////////////////////
+// Decorators.
+/////////////////////////////
+import { NgModule } from '@angular/core';
+
+/////////////////////////////
+// Pipes.
+/////////////////////////////
+import { GamesPipe } from './games.pipe';
+
 @NgModule({
   imports: [
-    MahjongModule
+    AuthModule,
+    AngularMaterialModule,
+    MahjongModule,
+    UserInterfaceModule
   ],
   declarations: [
     GamesComponent,
     GameListComponent,
     GameCreateComponent,
-    GameDetailsCardComponent
+    GameDetailsCardComponent,
+    GamesPipe
+  ],
+  providers: [
+    AuthService
   ]
 })
 export class GamesModule { }

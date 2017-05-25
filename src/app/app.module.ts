@@ -1,45 +1,30 @@
 /////////////////////////////
 // Modules.
 /////////////////////////////
-// Angular modules.
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularMaterialModule } from './angular-material/angular-material.module';
-
-// App modules.
 import { AppRoutingModule } from './app-routing.module';
-import { SharedModule } from './shared/shared.module';
-import { GamesModule } from './games/games.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { LayoutModule } from './layout/layout.module';
+import { UserInterfaceModule } from './user-interface/user-interface.module';
 
 /////////////////////////////
 // Components.
 /////////////////////////////
 import { AppComponent } from './app.component';
 
-// Services.
-import { MahjongMayhemApiService } from './mahjong-mayhem-api/mahjong-mayhem-api.service';
-
-import 'hammerjs';
+/////////////////////////////
+// Decorators.
+/////////////////////////////
+import { NgModule } from '@angular/core';
 
 @NgModule({
   imports: [
-    BrowserModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    AngularMaterialModule,
-    FlexLayoutModule,
     AppRoutingModule,
-    SharedModule,
-    GamesModule
+    BrowserModule,
+    LayoutModule,
+    UserInterfaceModule
   ],
   declarations: [
     AppComponent,
-  ],
-  providers: [
-    MahjongMayhemApiService
   ],
   bootstrap: [AppComponent]
 })

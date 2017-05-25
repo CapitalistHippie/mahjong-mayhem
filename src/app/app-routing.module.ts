@@ -1,9 +1,12 @@
 /////////////////////////////
 // Modules.
 /////////////////////////////
-// Angular modules.
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+/////////////////////////////
+// Decorators.
+/////////////////////////////
+import { NgModule } from '@angular/core';
 
 /////////////////////////////
 // Guards.
@@ -20,10 +23,10 @@ const routes: Routes = [
         path: 'games',
         loadChildren: 'app/games/games.module#GamesModule'
     },
-    {
-        path: 'settings',
-        loadChildren: 'app/settings/settings.module#SettingsModule'
-    },
+    // {
+    //     path: 'settings',
+    //     loadChildren: 'app/settings/settings.module#SettingsModule'
+    // },
     {
         path: '',
         redirectTo: 'games',
