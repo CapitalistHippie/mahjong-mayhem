@@ -26,13 +26,11 @@ import { MahjongBoardHostDirective } from './mahjong-board-host/mahjong-board-ho
   ],
   exports: [
     AngularMaterialModule,
-    CommonModule,
     // BrowserAnimationsModule,
+    CommonModule,
     FormsModule,
     RouterModule,
     AngularMaterialModule
-  ],
-  declarations: [
   ]
 })
 export class SharedModule { }

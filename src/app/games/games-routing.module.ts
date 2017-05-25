@@ -1,12 +1,10 @@
-/////////////////////////////
 // Modules.
-/////////////////////////////
-// Angular modules.
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
 import { GamesComponent } from './games.component';
 import { GameListComponent } from './game-list/game-list.component';
+import { Routes, RouterModule } from '@angular/router';
+
+// Decorators.
+import { NgModule } from '@angular/core';
 
 const routes: Routes = [
     {

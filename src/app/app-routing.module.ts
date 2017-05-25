@@ -1,16 +1,10 @@
-/////////////////////////////
 // Modules.
-/////////////////////////////
 import { Routes, RouterModule } from '@angular/router';
 
-/////////////////////////////
 // Decorators.
-/////////////////////////////
 import { NgModule } from '@angular/core';
 
-/////////////////////////////
 // Guards.
-/////////////////////////////
 import { CanAuthenticateGuard } from './can-authenticate.guard';
 
 const routes: Routes = [
@@ -29,7 +23,7 @@ const routes: Routes = [
     // },
     {
         path: '',
-        redirectTo: 'games',
+        redirectTo: '/games',
         pathMatch: 'full'
     },
 ];

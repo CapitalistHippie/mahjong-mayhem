@@ -1,23 +1,21 @@
 <div appTheme>
     <div fxLayout="column" fxFlexFill>
         <!--Header.-->
-        <div fxLayout="row" class="mat-elevation-z5">
+        <div>
             <app-header></app-header>
-        </div>>
+        </div>
+
+        <div fxFlex="80px"></div>
 
         <!--Content-->
         <div fxLayout="row">
-            <div fxLayout="column" fxFlex="80px"></div>
+            <div fxFlex="80px"></div>
 
-            <div fxLayout="column" fxFlex>
-                <div fxLayout="row" fxFlex="40px"></div>
-
-                <div fxLayout="row" fxFlex>
-                    <router-outlet></router-outlet>
-                </div>
+            <div fxFlex>
+                <router-outlet></router-outlet>
             </div>
 
-            <div fxLayout="column" fxFlex="80px"></div>
+            <div fxFlex="80px"></div>
         </div>
     </div>
 </div>

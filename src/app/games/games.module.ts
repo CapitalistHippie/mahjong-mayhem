@@ -1,6 +1,7 @@
 // Modules.
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { AuthModule } from '../auth/auth.module';
+import { GamesRoutingModule } from './games-routing.module';
 import { MahjongModule } from '../mahjong/mahjong.module';
 import { SharedModule } from '../shared/shared.module';
 
@@ -8,10 +9,10 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthService } from '../auth/auth.service';
 
 // Components.
-import { GamesComponent } from './games.component';
 import { GameCreateComponent } from './game-create/game-create.component';
-import { GameListComponent } from './game-list/game-list.component';
 import { GameDetailsCardComponent } from './shared/game-details-card/game-details-card.component';
+import { GameListComponent } from './game-list/game-list.component';
+import { GamesComponent } from './games.component';
 
 // Decorators.
 import { NgModule } from '@angular/core';
@@ -23,14 +24,15 @@ import { GamesPipe } from './games.pipe';
   imports: [
     AuthModule,
     AngularMaterialModule,
+    GamesRoutingModule,
     MahjongModule,
     SharedModule
   ],
-  declarations: [
-    GamesComponent,
-    GameListComponent,
+  declarations: [,
     GameCreateComponent,
     GameDetailsCardComponent,
+    GameListComponent,
+    GamesComponent,
     GamesPipe
   ],
   providers: [
