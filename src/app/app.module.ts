@@ -4,7 +4,7 @@
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { LayoutModule } from './layout/layout.module';
-import { UserInterfaceModule } from './user-interface/user-interface.module';
+import { SharedModule } from './shared/shared.module';
 
 /////////////////////////////
 // Components.
@@ -21,7 +21,7 @@ import { NgModule } from '@angular/core';
     AppRoutingModule,
     BrowserModule,
     LayoutModule,
-    UserInterfaceModule
+    SharedModule
   ],
   declarations: [
     AppComponent
