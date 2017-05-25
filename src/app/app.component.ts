@@ -7,8 +7,6 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Mahjong Mayhem';
-
   constructor(private authService: AuthService) {
   }
 }

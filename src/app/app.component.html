@@ -2,41 +2,8 @@
     <div fxLayout="column" fxFlexFill>
         <!--Header.-->
         <div fxLayout="row" class="mat-elevation-z5">
-            <md-toolbar color="primary">
-                <button md-icon-button>
-                    <md-icon>menu</md-icon>
-                </button>
-
-                <!--Title.-->
-                <h1>{{title}}</h1>
-
-                <!--Games link.-->
-                <div>
-                    <a md-button routerLink="/games">Games</a>
-                </div>
-
-                <!--Settings link.-->
-                <div>
-                    <a md-button routerLink="/settings">Settings</a>
-                </div>
-
-                <!--Spacing.-->
-                <div fxFlex></div>
-
-                <!--Login link or link to account page.-->
-                <div>
-                    <div *ngIf="!authService.isAuthenticated()">
-                        <a md-button href="{{authService.getAuthenticationUri()}}">
-                            <md-icon>account_circle</md-icon> Login
-                        </a>
-                    </div>
-
-                    <div *ngIf="authService.isAuthenticated()">
-                        <button md-button><md-icon>account_circle</md-icon> Account ({{authService.getUsername()}})</button>
-                    </div>
-                </div>
-            </md-toolbar>
-        </div>
+            <app-header></app-header>
+        </div>>
 
         <!--Content-->
         <div fxLayout="row">

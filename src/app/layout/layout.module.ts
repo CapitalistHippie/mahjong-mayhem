@@ -12,6 +12,7 @@ import { AuthService } from '../auth/auth.service';
 /////////////////////////////
 // Components.
 /////////////////////////////
+import { HeaderComponent } from './header/header.component';
 
 /////////////////////////////
 // Decorators.
@@ -23,7 +24,11 @@ import { NgModule } from '@angular/core';
     UserInterfaceModule,
     AuthModule
   ],
+  exports: [
+    HeaderComponent
+  ],
   declarations: [
+    HeaderComponent
   ],
   providers: [
     AuthService

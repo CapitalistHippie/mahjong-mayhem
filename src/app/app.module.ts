@@ -24,7 +24,7 @@ import { NgModule } from '@angular/core';
     UserInterfaceModule
   ],
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   bootstrap: [AppComponent]
 })
