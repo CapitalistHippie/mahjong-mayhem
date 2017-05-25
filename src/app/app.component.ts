@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,6 @@ import { MahjongMayhemApiService } from './mahjong-mayhem-api.service';
 export class AppComponent {
   title = 'Mahjong Mayhem';
 
-  constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
+  constructor(private authService: AuthService) {
   }
 }
