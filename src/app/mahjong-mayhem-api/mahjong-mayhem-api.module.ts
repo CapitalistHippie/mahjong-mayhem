@@ -1,3 +1,4 @@
+// Directives.
 import { NgModule } from '@angular/core';
 
 // Modules.
@@ -7,7 +8,5 @@ import { HttpModule } from '@angular/http';
   imports: [
     HttpModule
   ],
-  declarations: [],
-  providers: []
 })
 export class MahjongMayhemApiModule { }

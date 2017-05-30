@@ -8,9 +8,13 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MahjongMayhemApiService {
   public readonly domain: string;
+  public readonly defaultHeaders: Headers;
 
   constructor(private http: Http) {
     this.domain = 'http://mahjongmayhem.herokuapp.com';
+
+    this.defaultHeaders = new Headers();
+    // this.defaultHeaders.append('Content-Type', 'application/json');
   }
 
   public getAuthenticationUri(): string {
@@ -41,8 +45,7 @@ export class MahjongMayhemApiService {
 
   public getGameTemplates(): Observable<GameTemplate[]> {
     let queryParameters = {};
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = new Headers(this.defaultHeaders);
 
     let uri = `/gameTemplates`;
 
@@ -54,8 +57,7 @@ export class MahjongMayhemApiService {
 
   public getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: string = undefined): Observable<Game[]> {
     let queryParameters = {};
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = new Headers(this.defaultHeaders);
 
     if (pageSize !== undefined) {
       queryParameters['pageSize'] = pageSize;
@@ -91,8 +93,7 @@ export class MahjongMayhemApiService {
 
   public getGameByGameId(gameId: string): Observable<Game> {
     let queryParameters = {};
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = new Headers(this.defaultHeaders);
 
     let uri = `/games/${gameId}`;
 
@@ -104,8 +105,7 @@ export class MahjongMayhemApiService {
 
   public postGame(game: GamePost): Observable<Game> {
     let queryParameters = {};
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = new Headers(this.defaultHeaders);
 
     if (this.isAuthenticated()) {
       headers.append('x-username', this.getUsername());
@@ -122,8 +122,7 @@ export class MahjongMayhemApiService {
 
   public getGameTiles(gameId: string, matched: boolean = undefined): Observable<GameTile[]> {
     let queryParameters = {};
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = new Headers(this.defaultHeaders);
 
     if (matched !== undefined) {
       queryParameters['matched'] = matched;
@@ -139,8 +138,7 @@ export class MahjongMayhemApiService {
 
   public postGamesByGameIdPlayers(gameId: string): Observable<void> {
     let queryParameters = {};
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = new Headers(this.defaultHeaders);
 
     if (this.isAuthenticated()) {
       headers.append('x-username', this.getUsername());
