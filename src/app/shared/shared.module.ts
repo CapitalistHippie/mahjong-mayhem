@@ -1,3 +1,4 @@
+// Directives.
 import { NgModule } from '@angular/core';
 
 // Modules.

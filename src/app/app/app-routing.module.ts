@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 // Guards.
-import { CanAuthenticateGuard } from './can-authenticate.guard';
+import { CanAuthenticateGuard } from '../can-authenticate.guard';
 
 const routes: Routes = [
     {
