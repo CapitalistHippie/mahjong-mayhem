@@ -1,21 +1,25 @@
 <div appTheme>
-    <div fxLayout="column" fxFlexFill>
+    <div fxLayout="column">
         <!--Header.-->
         <div>
             <app-header></app-header>
         </div>
 
-        <div fxFlex="80px"></div>
+        <div fxFlex="40px"></div>
 
         <!--Content-->
-        <div fxLayout="row">
-            <div fxFlex="80px"></div>
+        <div fxFlex>
+            <div fxLayout="row">
+                <div fxFlex="80px"></div>
 
-            <div fxFlex>
-                <router-outlet></router-outlet>
+                <div fxFlex>
+                    <router-outlet></router-outlet>
+                </div>
+
+                <div fxFlex="80px"></div>
             </div>
-
-            <div fxFlex="80px"></div>
         </div>
+
+        <div fxFlex="40px"></div>
     </div>
 </div>

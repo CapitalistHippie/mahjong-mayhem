@@ -9,11 +9,11 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 // Components.
-import { MahjongBoardComponent } from './mahjong-board/mahjong-board.component';
-import { MahjongTileComponent } from './mahjong-tile/mahjong-tile.component';
+// import { MahjongBoardComponent } from './mahjong-board/mahjong-board.component';
+// import { MahjongTileComponent } from './mahjong-tile/mahjong-tile.component';
 
 // Directives.
-import { MahjongBoardHostDirective } from './mahjong-board-host/mahjong-board-host.directive';
+// import { MahjongBoardHostDirective } from './mahjong-board-host/mahjong-board-host.directive';
 
 @NgModule({
   imports: [
@@ -28,6 +28,7 @@ import { MahjongBoardHostDirective } from './mahjong-board-host/mahjong-board-ho
     AngularMaterialModule,
     // BrowserAnimationsModule,
     CommonModule,
+    FlexLayoutModule,
     FormsModule,
     RouterModule,
     AngularMaterialModule

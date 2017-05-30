@@ -11,7 +11,7 @@ import { ThemeService } from '../../themes/theme.service';
 /////////////////////////////
 // Models.
 /////////////////////////////
-import { Tile } from '../tile.model';
+import { Tile } from '../../mahjong/models';
 
 @Component({
   selector: 'app-mahjong-tile',

@@ -28,7 +28,7 @@ import { GamesPipe } from './games.pipe';
     MahjongModule,
     SharedModule
   ],
-  declarations: [,
+  declarations: [
     GameCreateComponent,
     GameDetailsCardComponent,
     GameListComponent,

@@ -1,13 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-/////////////////////////////
 // Services.
-/////////////////////////////
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api/mahjong-mayhem-api.service';
 
-/////////////////////////////
 // Models.
-/////////////////////////////
 import { Game } from '../mahjong/models';
 
 export class GamesPipeArgs {

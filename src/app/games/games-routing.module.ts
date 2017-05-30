@@ -9,10 +9,7 @@ import { NgModule } from '@angular/core';
 const routes: Routes = [
     {
         path: '',
-        component: GamesComponent,
-        children: [
-            { path: '', component: GameListComponent },
-        ]
+        component: GameListComponent
     }
 ];
 
