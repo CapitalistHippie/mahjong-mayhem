@@ -4,10 +4,10 @@ import { MdSnackBar } from '@angular/material';
 /////////////////////////////
 // Services.
 /////////////////////////////
-import { MahjongService } from '../../../mahjong/mahjong.service';
+import { MahjongService } from '../../mahjong/mahjong.service';
 
 // Models.
-import { Game } from '../../../mahjong/models';
+import { Game } from '../../mahjong/models';
 
 @Component({
   selector: 'app-game-details-card',

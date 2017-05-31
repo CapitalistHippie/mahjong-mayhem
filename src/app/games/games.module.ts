@@ -11,9 +11,9 @@ import { MahjongService } from '../mahjong/mahjong.service';
 
 // Components.
 import { GameCreateComponent } from './game-create/game-create.component';
-import { GameDetailsCardComponent } from './shared/game-details-card/game-details-card.component';
+import { GameDetailsCardComponent } from './game-details-card/game-details-card.component';
 import { GameListComponent } from './game-list/game-list.component';
-import { GamesComponent } from './games.component';
+import { GamesComponent } from './games/games.component';
 
 // Decorators.
 import { NgModule } from '@angular/core';

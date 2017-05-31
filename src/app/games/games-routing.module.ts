@@ -1,5 +1,5 @@
 // Modules.
-import { GamesComponent } from './games.component';
+import { GamesComponent } from './games/games.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -9,7 +9,13 @@ import { NgModule } from '@angular/core';
 const routes: Routes = [
     {
         path: '',
-        component: GameListComponent
+        component: GamesComponent,
+        children: [
+            {
+                path: '',
+                component: GameListComponent
+            }
+        ]
     }
 ];
 
