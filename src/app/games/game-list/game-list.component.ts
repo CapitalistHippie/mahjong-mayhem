@@ -1,22 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialog } from '@angular/material';
+import { ActivatedRoute } from '@angular/router'
 
-/////////////////////////////
 // Components.
-/////////////////////////////
 import { GameCreateComponent } from '../game-create/game-create.component';
-import { GameDetailsCardComponent } from '../shared/game-details-card/game-details-card.component';
+import { GameDetailsCardComponent } from '../game-details-card/game-details-card.component';
 
-/////////////////////////////
 // Services.
-/////////////////////////////
-import { MahjongMayhemApiService } from '../../mahjong-mayhem-api/mahjong-mayhem-api.service';
+import { MahjongService } from '../../mahjong/mahjong.service';
 
-/////////////////////////////
 // Models.
-/////////////////////////////
 import { Game } from '../../mahjong/models';
 
+// Pipes.
 import { GamesPipeArgs } from '../games.pipe';
 
 @Component({
@@ -32,7 +28,7 @@ export class GameListComponent implements OnInit {
 
   private gamesPipeArgs: GamesPipeArgs;
 
-  constructor(private mahjongMayhemApiService: MahjongMayhemApiService, private dialog: MdDialog) {
+  constructor(private mahjongService: MahjongService, private route: ActivatedRoute, private dialog: MdDialog) {
     this.gamesPipeArgs = new GamesPipeArgs();
   }
 
@@ -42,12 +38,13 @@ export class GameListComponent implements OnInit {
 
   refreshGames(): void {
     this.isLoadingGames = true;
-    this.mahjongMayhemApiService.getGames().subscribe(
-      games => {
+    this.mahjongService.getGames().subscribe(
+      (games: Game[]) => {
         this.games = games;
         this.isLoadingGames = false;
-      },
-      error => this.errorMessage = <any>error, );
+      }, error => {
+        this.errorMessage = <any>error
+      });
   }
 
   private onCreateGameClicked(): void {

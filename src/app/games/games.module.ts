@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 // Services.
 import { AuthService } from '../auth/auth.service';
 import { MahjongService } from '../mahjong/mahjong.service';
+import { MahjongMayhemApiToMahjongAdapterService } from '../mahjong/mahjong-mayhem-api-to-mahjong-adapter.service';
 
 // Components.
 import { GameCreateComponent } from './game-create/game-create.component';
@@ -38,7 +39,10 @@ import { GamesPipe } from './games.pipe';
   ],
   providers: [
     AuthService,
-    MahjongService
+    {
+      provide: MahjongService,
+      useClass: MahjongMayhemApiToMahjongAdapterService
+    }
   ]
 })
 export class GamesModule { }

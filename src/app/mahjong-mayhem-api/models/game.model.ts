@@ -1,9 +1,10 @@
+import { GameTemplate } from './game-template.model'
 import { User } from "./user.model"
 
 export class Game {
 	_id: string;
 	id: string;
-	gameTemplate: object;
+	gameTemplate: GameTemplate;
 	createdOn: string;
 	startedOn: string;
 	endedOn: string;

@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 
-/////////////////////////////
 // Services.
-/////////////////////////////
 import { MahjongService } from '../../mahjong/mahjong.service';
 
 // Models.

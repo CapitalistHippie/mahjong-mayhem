@@ -1,23 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-/////////////////////////////
-// Services.
-/////////////////////////////
-import { MahjongMayhemApiService } from '../mahjong-mayhem-api/mahjong-mayhem-api.service';
-
-/////////////////////////////
 // Models.
-/////////////////////////////
-import { GamePost, Game } from './models';
+import { Game } from './models';
+import { Game as ApiGame } from '../mahjong-mayhem-api/models';
 
 @Injectable()
-export class MahjongService {
+export abstract class MahjongService {
 
-  constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
+  constructor() {
   }
 
-  getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: string = undefined): Observable<Game[]> {
-    return this.mahjongMayhemApiService.getGames(pageSize, pageIndex, createdBy, player, gameTemplate, state);
-  }
+  abstract getGames(pageSize?: number, pageIndex?: number, createdBy?: string, player?: string, gameTemplate?: string, state?: string): Observable<Game[]>;
 }
