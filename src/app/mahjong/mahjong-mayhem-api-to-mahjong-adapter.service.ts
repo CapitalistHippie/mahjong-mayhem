@@ -13,9 +13,10 @@ import { User as ApiUser } from '../mahjong-mayhem-api/models';
 import { Tile as ApiTile } from '../mahjong-mayhem-api/models';
 
 @Injectable()
-export class MahjongMayhemApiToMahjongAdapterService implements MahjongService {
+export class MahjongMayhemApiToMahjongAdapterService extends MahjongService implements MahjongService {
 
   constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
+    super();
   }
 
   private mapApiGameToGame(apiGame: ApiGame): Game {
