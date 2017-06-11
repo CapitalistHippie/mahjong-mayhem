@@ -6,8 +6,9 @@ import { MahjongService } from './mahjong.service';
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api/mahjong-mayhem-api.service';
 
 // Models.
-import { Game, GameState, GameTemplate, GameTemplateTile, Player, Tile } from './models';
+import { Game, GameCreate, GameState, GameTemplate, GameTemplateTile, Player, Tile } from './models';
 import { Game as ApiGame } from '../mahjong-mayhem-api/models';
+import { GamePost as ApiGamePost } from '../mahjong-mayhem-api/models';
 import { GameTemplate as ApiGameTemplate } from '../mahjong-mayhem-api/models';
 import { GameTemplateTile as ApiGameTemplateTile } from '../mahjong-mayhem-api/models';
 import { User as ApiUser } from '../mahjong-mayhem-api/models';
@@ -77,6 +78,15 @@ export class MahjongMayhemApiToMahjongAdapterService extends MahjongService impl
     return tile;
   }
 
+  private mapGameCreateToApiGamePost(gameCreate: GameCreate): ApiGamePost {
+    let gamePost = new ApiGamePost();
+    gamePost.minPlayers = gameCreate.minPlayers;
+    gamePost.maxPlayers = gameCreate.maxPlayers;
+    gamePost.templateName = gameCreate.templateName;
+
+    return gamePost;
+  }
+
   getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: string = undefined): Observable<Game[]> {
     let observable = new Observable<Game[]>(observer => {
       this.mahjongMayhemApiService.getGames(pageSize, pageIndex, createdBy, player, gameTemplate, state).subscribe((games: ApiGame[]) => {
@@ -87,7 +97,8 @@ export class MahjongMayhemApiToMahjongAdapterService extends MahjongService impl
         observer.next(mappedGames);
         observer.complete();
       }, error => {
-
+        observer.error(error);
+        observer.complete();
       });
     });
 
@@ -97,7 +108,6 @@ export class MahjongMayhemApiToMahjongAdapterService extends MahjongService impl
   getGameTemplates(): Observable<GameTemplate[]> {
     let observable = new Observable<GameTemplate[]>(observer => {
       this.mahjongMayhemApiService.getGameTemplates().subscribe((gameTemplates: ApiGameTemplate[]) => {
-        console.log(gameTemplates);
         let mappedGameTemplates = gameTemplates.map((gameTemplate: ApiGameTemplate) => {
           return this.mapApiGameTemplateToGameTemplate(gameTemplate);
         });
@@ -105,7 +115,26 @@ export class MahjongMayhemApiToMahjongAdapterService extends MahjongService impl
         observer.next(mappedGameTemplates);
         observer.complete();
       }, error => {
+        observer.error(error);
+        observer.complete();
+      });
+    });
 
+    return observable;
+  }
+
+  createGame(game: GameCreate): Observable<Game> {
+    let gamePost = this.mapGameCreateToApiGamePost(game);
+
+    let observable = new Observable<Game>(observer => {
+      this.mahjongMayhemApiService.postGame(gamePost).subscribe((game: ApiGame) => {
+        let mappedGame = this.mapApiGameToGame(game);
+
+        observer.next(mappedGame);
+        observer.complete();
+      }, error => {
+        observer.error(error);
+        observer.complete();
       });
     });
 

@@ -11,10 +11,36 @@ export class MahjongMayhemApiService {
   public readonly defaultHeaders: Headers;
 
   constructor(private http: Http) {
-    this.domain = 'http://mahjongmayhem.herokuapp.com';
+    this.domain = 'https://mahjongmayhem.herokuapp.com';
 
     this.defaultHeaders = new Headers();
     // this.defaultHeaders.append('Content-Type', 'application/json');
+  }
+
+  private authenticatedPost(uri: string, body: object, headers?: Headers, queryParameters?): Observable<any> {
+    if (!this.isAuthenticated()) {
+      throw new Error('Not authenticated.');
+    }
+
+    if (headers == undefined) {
+      headers = new Headers(this.defaultHeaders);
+    }
+
+    if (queryParameters == undefined) {
+      queryParameters = {};
+    }
+
+    headers.append('x-username', this.getUsername());
+    headers.append('x-token', this.getToken());
+    headers.append('Content-Type', 'application/json');
+
+    // queryParameters['x-username'] = this.getUsername();
+    // queryParameters['x-token'] = this.getToken();
+
+    return this.http
+      .post(this.domain + uri, JSON.stringify(body), { headers: headers, params: queryParameters })
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   public getAuthenticationUri(): string {
@@ -104,20 +130,9 @@ export class MahjongMayhemApiService {
   }
 
   public postGame(game: GamePost): Observable<Game> {
-    let queryParameters = {};
-    let headers = new Headers(this.defaultHeaders);
-
-    if (this.isAuthenticated()) {
-      headers.append('x-username', this.getUsername());
-      headers.append('x-token', this.getToken());
-    }
-
     let uri = `/games`;
 
-    return this.http
-      .post(this.domain + uri, JSON.stringify(game), { headers: headers, params: queryParameters })
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.authenticatedPost(uri, game);
   }
 
   public getGameTiles(gameId: string, matched: boolean = undefined): Observable<GameTile[]> {

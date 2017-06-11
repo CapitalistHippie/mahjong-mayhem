@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 // Models.
-import { Game, GameTemplate, GameState } from './models';
+import { Game, GameCreate, GameTemplate, GameState } from './models';
 
 @Injectable()
 export abstract class MahjongService {
@@ -41,4 +41,5 @@ export abstract class MahjongService {
 
   abstract getGames(pageSize?: number, pageIndex?: number, createdBy?: string, player?: string, gameTemplate?: string, state?: string): Observable<Game[]>;
   abstract getGameTemplates(): Observable<GameTemplate[]>
+  abstract createGame(game: GameCreate): Observable<Game>;
 }
