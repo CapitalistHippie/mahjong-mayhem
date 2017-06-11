@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router'
+import { MdSnackBar } from '@angular/material';
 
 // Components.
 import { GameCreateComponent } from '../game-create/game-create.component';
@@ -22,14 +23,21 @@ import { GamesPipeArgs } from '../games.pipe';
 })
 export class GameListComponent implements OnInit {
 
-  private errorMessage: string;
   private isLoadingGames: boolean;
   private games: Game[];
 
   private gamesPipeArgs: GamesPipeArgs;
 
-  constructor(private mahjongService: MahjongService, private route: ActivatedRoute, private dialog: MdDialog) {
+  constructor(private mahjongService: MahjongService, private route: ActivatedRoute, private dialog: MdDialog, private snackBar: MdSnackBar) {
     this.gamesPipeArgs = new GamesPipeArgs();
+
+    let stateFilter = route.snapshot.params['state'];
+    if (stateFilter != null) {
+      let state = this.mahjongService.gameStateEnumFromString(stateFilter);
+
+      this.gamesPipeArgs.filterStatesInverse = true;
+      this.gamesPipeArgs.filterStates.push(state);
+    }
   }
 
   ngOnInit(): void {
@@ -43,7 +51,9 @@ export class GameListComponent implements OnInit {
         this.games = games;
         this.isLoadingGames = false;
       }, error => {
-        this.errorMessage = <any>error
+        this.snackBar.open("Something went wrong while trying to get the games.", null, {
+          duration: 3000
+        });
       });
   }
 

@@ -1,7 +1,8 @@
 export { Game } from './models/game.model';
-export { GamePost } from './models/game-post.model';
+export { GameCreate } from './models/game-create.model';
 export { GameState } from './models/game-state.enum';
 export { GameTemplate } from './models/game-template.model';
+export { GameTemplateTile } from './models/game-template-tile.model'
 export { Player } from './models/player.model';
 export { GameTile } from './models/game-tile.model';
 export { Tile } from './models/tile.model';

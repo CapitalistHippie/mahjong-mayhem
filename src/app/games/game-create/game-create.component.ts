@@ -1,13 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 
-/////////////////////////////
 // Services.
-/////////////////////////////
 import { MahjongService } from '../../mahjong/mahjong.service';
 
 // Models.
-import { Game, GamePost, GameTemplate } from '../../mahjong/models';
+import { Game, GameCreate, GameTemplate } from '../../mahjong/models';
 
 @Component({
   selector: 'app-game-create',
@@ -16,7 +14,7 @@ import { Game, GamePost, GameTemplate } from '../../mahjong/models';
 })
 export class GameCreateComponent implements OnInit {
   private gameTemplates: GameTemplate[];
-  private model: GamePost;
+  private model: GameCreate;
   private isCreatingGame: boolean;
 
   @Output() gameCreated: EventEmitter<Game> = new EventEmitter();
@@ -37,15 +35,16 @@ export class GameCreateComponent implements OnInit {
   }
 
   getGameTemplates(): void {
-    // this.mahjongService.getGameTemplates().subscribe(
-    //   gameTemplates => {
-    //     this.gameTemplates = gameTemplates;
-    //   },
-    //   error => {
-    //     this.snackBar.open("An error occured while retrieving the game templates.", "Close", {
-    //       duration: 3000
-    //     });
-    //   });
+    this.mahjongService.getGameTemplates().subscribe(
+      gameTemplates => {
+        this.gameTemplates = gameTemplates;
+        console.log(gameTemplates);
+      },
+      error => {
+        this.snackBar.open("An error occured while retrieving the game templates.", "Close", {
+          duration: 3000
+        });
+      });
   }
 
   onSubmit(): void {

@@ -1,6 +1,7 @@
 export { Game } from './models/game.model';
 export { GamePost } from './models/game-post.model';
 export { GameTemplate } from './models/game-template.model';
+export { GameTemplateTile } from './models/game-template-tile.model'
 export { GameTile } from './models/game-tile.model';
 export { PostMatch } from './models/post-match.model';
 export { Tile } from './models/tile.model';

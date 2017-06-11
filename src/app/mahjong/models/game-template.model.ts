@@ -1,6 +1,6 @@
-import { Tile } from "./tile.model"
+import { GameTemplateTile } from './game-template-tile.model'
 
 export class GameTemplate {
 	id: string;
-	tiles: Tile[];
+	tiles: GameTemplateTile[];
 }

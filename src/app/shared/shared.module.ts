@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 
 // Modules.
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -19,7 +18,6 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   imports: [
     AngularMaterialModule,
-    // BrowserAnimationsModule,
     CommonModule,
     FlexLayoutModule,
     FormsModule,
@@ -27,7 +25,6 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     AngularMaterialModule,
-    // BrowserAnimationsModule,
     CommonModule,
     FlexLayoutModule,
     FormsModule,

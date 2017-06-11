@@ -4,10 +4,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
 // Models.
-import { Game, Player } from '../mahjong/models';
+import { Game, GameState, Player } from '../mahjong/models';
 
 export class GamesPipeArgs {
-  playerGamesOnly: boolean;
+  filterPlayerGamesInverse: boolean;
+  filterStatesInverse: boolean;
+  filterStates: GameState[];
+
+  constructor() {
+    this.filterPlayerGamesInverse = false;
+    this.filterStatesInverse = false;
+    this.filterStates = [];
+  }
 }
 
 @Pipe({
@@ -28,11 +36,26 @@ export class GamesPipe implements PipeTransform {
       // TODO: Get user ID instead of username.
       let playerUsername = this.authService.getUsername();
 
-      if (args.playerGamesOnly) {
+      // Filter out all games which don't include the player.
+      if (args.filterPlayerGamesInverse) {
         games = games.filter(function (game: Game): boolean {
           return game.players.some(function (player: Player): boolean {
             return player.id == playerUsername;
           });
+        });
+      }
+    }
+
+    // Filter out all the games which don't have a specific state.
+    if (args.filterStates.length > 0) {
+      if (args.filterStatesInverse) {
+        games = games.filter(function (game: Game): boolean {
+          return args.filterStates.includes(game.state);
+        });
+      }
+      else {
+        games = games.filter(function (game: Game): boolean {
+          return !args.filterStates.includes(game.state);
         });
       }
     }

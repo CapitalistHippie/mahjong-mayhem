@@ -6,9 +6,10 @@ import { MahjongService } from './mahjong.service';
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api/mahjong-mayhem-api.service';
 
 // Models.
-import { Game, GameState, GameTemplate, Player, Tile } from './models';
+import { Game, GameState, GameTemplate, GameTemplateTile, Player, Tile } from './models';
 import { Game as ApiGame } from '../mahjong-mayhem-api/models';
 import { GameTemplate as ApiGameTemplate } from '../mahjong-mayhem-api/models';
+import { GameTemplateTile as ApiGameTemplateTile } from '../mahjong-mayhem-api/models';
 import { User as ApiUser } from '../mahjong-mayhem-api/models';
 import { Tile as ApiTile } from '../mahjong-mayhem-api/models';
 
@@ -28,7 +29,7 @@ export class MahjongMayhemApiToMahjongAdapterService extends MahjongService impl
     game.endedOn = apiGame.endedOn;
     game.minPlayers = apiGame.minPlayers;
     game.maxPlayers = apiGame.maxPlayers;
-    game.state = this.mapApiGameStateToGameState(apiGame.state);
+    game.state = this.gameStateEnumFromString(apiGame.state);
     game.createdBy = this.mapApiUserToPlayer(apiGame.createdBy);
     game.players = apiGame.players.map((user: ApiUser) => {
       return this.mapApiUserToPlayer(user);
@@ -41,25 +42,12 @@ export class MahjongMayhemApiToMahjongAdapterService extends MahjongService impl
     let gameTemplate = new GameTemplate();
     gameTemplate.id = apiGameTemplate.id;
     if (apiGameTemplate.tiles != null) {
-      gameTemplate.tiles = apiGameTemplate.tiles.map((tile: ApiTile) => {
-        return this.mapApiTileToTile(tile);
+      gameTemplate.tiles = apiGameTemplate.tiles.map((tile: ApiGameTemplateTile) => {
+        return this.mapApiGameTemplateTileToTemplateTile(tile);
       });
     }
 
     return gameTemplate;
-  }
-
-  private mapApiGameStateToGameState(apiState: string): GameState {
-    switch (apiState) {
-      case 'finished':
-        return GameState.Finished;
-      case 'open':
-        return GameState.Open;
-      case 'playing':
-        return GameState.Playing;
-      default:
-        throw new Error('Unknown game state: \'' + apiState + '\'');
-    }
   }
 
   private mapApiUserToPlayer(apiUser: ApiUser): Player {
@@ -80,6 +68,15 @@ export class MahjongMayhemApiToMahjongAdapterService extends MahjongService impl
     return tile;
   }
 
+  private mapApiGameTemplateTileToTemplateTile(apiGameTemplateTile: ApiGameTemplateTile): GameTemplateTile {
+    let tile = new GameTemplateTile();
+    tile.x = apiGameTemplateTile.xPos;
+    tile.y = apiGameTemplateTile.yPos;
+    tile.z = apiGameTemplateTile.zPos;
+
+    return tile;
+  }
+
   getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: string = undefined): Observable<Game[]> {
     let observable = new Observable<Game[]>(observer => {
       this.mahjongMayhemApiService.getGames(pageSize, pageIndex, createdBy, player, gameTemplate, state).subscribe((games: ApiGame[]) => {
@@ -88,6 +85,24 @@ export class MahjongMayhemApiToMahjongAdapterService extends MahjongService impl
         });
 
         observer.next(mappedGames);
+        observer.complete();
+      }, error => {
+
+      });
+    });
+
+    return observable;
+  }
+
+  getGameTemplates(): Observable<GameTemplate[]> {
+    let observable = new Observable<GameTemplate[]>(observer => {
+      this.mahjongMayhemApiService.getGameTemplates().subscribe((gameTemplates: ApiGameTemplate[]) => {
+        console.log(gameTemplates);
+        let mappedGameTemplates = gameTemplates.map((gameTemplate: ApiGameTemplate) => {
+          return this.mapApiGameTemplateToGameTemplate(gameTemplate);
+        });
+
+        observer.next(mappedGameTemplates);
         observer.complete();
       }, error => {
 
