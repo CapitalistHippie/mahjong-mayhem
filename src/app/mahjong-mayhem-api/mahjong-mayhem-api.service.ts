@@ -17,25 +17,40 @@ export class MahjongMayhemApiService {
     // this.defaultHeaders.append('Content-Type', 'application/json');
   }
 
-  private authenticatedPost(uri: string, body: object, headers?: Headers, queryParameters?): Observable<any> {
-    if (!this.isAuthenticated()) {
-      throw new Error('Not authenticated.');
+  private get(uri: string, queryParameters?, headers?: Headers | null): Observable<any> {
+    if (queryParameters == undefined) {
+      queryParameters = {};
     }
 
     if (headers == undefined) {
       headers = new Headers(this.defaultHeaders);
     }
 
+    return this.http
+      .get(this.domain + uri, { headers: headers, params: queryParameters })
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  private authenticatedPost(uri: string, body: object, queryParameters?, headers?: Headers): Observable<any> {
+    if (!this.isAuthenticated()) {
+      throw new Error('Not authenticated.');
+    }
+
     if (queryParameters == undefined) {
       queryParameters = {};
     }
 
-    headers.append('x-username', this.getUsername());
-    headers.append('x-token', this.getToken());
-    headers.append('Content-Type', 'application/json');
+    if (headers == undefined) {
+      headers = new Headers(this.defaultHeaders);
+    }
 
     // queryParameters['x-username'] = this.getUsername();
     // queryParameters['x-token'] = this.getToken();
+
+    headers.append('x-username', this.getUsername());
+    headers.append('x-token', this.getToken());
+    headers.append('Content-Type', 'application/json');
 
     return this.http
       .post(this.domain + uri, JSON.stringify(body), { headers: headers, params: queryParameters })
@@ -70,20 +85,13 @@ export class MahjongMayhemApiService {
   }
 
   public getGameTemplates(): Observable<GameTemplate[]> {
-    let queryParameters = {};
-    let headers = new Headers(this.defaultHeaders);
-
     let uri = `/gameTemplates`;
 
-    return this.http
-      .get(this.domain + uri, { headers: headers, params: queryParameters })
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.get(uri);
   }
 
   public getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: string = undefined): Observable<Game[]> {
     let queryParameters = {};
-    let headers = new Headers(this.defaultHeaders);
 
     if (pageSize !== undefined) {
       queryParameters['pageSize'] = pageSize;
@@ -111,22 +119,13 @@ export class MahjongMayhemApiService {
 
     let uri = `/games`;
 
-    return this.http
-      .get(this.domain + uri, { headers: headers, params: queryParameters })
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.get(uri, queryParameters);
   }
 
   public getGameByGameId(gameId: string): Observable<Game> {
-    let queryParameters = {};
-    let headers = new Headers(this.defaultHeaders);
-
     let uri = `/games/${gameId}`;
 
-    return this.http
-      .get(this.domain + uri, { headers: headers, params: queryParameters })
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.get(uri);
   }
 
   public postGame(game: GamePost): Observable<Game> {
@@ -137,7 +136,6 @@ export class MahjongMayhemApiService {
 
   public getGameTiles(gameId: string, matched: boolean = undefined): Observable<GameTile[]> {
     let queryParameters = {};
-    let headers = new Headers(this.defaultHeaders);
 
     if (matched !== undefined) {
       queryParameters['matched'] = matched;
@@ -145,27 +143,7 @@ export class MahjongMayhemApiService {
 
     let uri = `/games/${gameId}/tiles`;
 
-    return this.http
-      .get(this.domain + uri, { headers: headers, params: queryParameters })
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  public postGamesByGameIdPlayers(gameId: string): Observable<void> {
-    let queryParameters = {};
-    let headers = new Headers(this.defaultHeaders);
-
-    if (this.isAuthenticated()) {
-      headers.append('x-username', this.getUsername());
-      headers.append('x-token', this.getToken());
-    }
-
-    let uri = `/games/${gameId}/players`;
-
-    return this.http
-      .post(this.domain + uri, '', { headers: headers, params: queryParameters })
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.get(uri, queryParameters);
   }
 
   private extractData(res: Response) {
