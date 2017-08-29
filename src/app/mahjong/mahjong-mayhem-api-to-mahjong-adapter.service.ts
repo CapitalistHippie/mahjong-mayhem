@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 // Services.
-import { MahjongService } from './mahjong.service';
+import { MahjongService } from './mahjong.service/mahjong.service';
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api/mahjong-mayhem-api.service';
 
 // Models.

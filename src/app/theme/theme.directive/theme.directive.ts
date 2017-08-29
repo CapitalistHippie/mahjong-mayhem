@@ -21,6 +21,7 @@ export class ThemeDirective {
   }
 
   private setTheme(theme: Theme): void {
+    // Remove the current theme class if there is one.
     if (this.theme != null) {
       this.renderer.setElementClass(this.elementReference.nativeElement, this.theme.cssClassName, false);
     }

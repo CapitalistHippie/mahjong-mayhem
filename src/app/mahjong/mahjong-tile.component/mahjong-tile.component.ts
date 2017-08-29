@@ -63,8 +63,8 @@ export class MahjongTileComponent implements OnInit, OnChanges {
 
         break;
       }
-      default:
-      case 'none': {
+      case 'none':
+      default: {
         this.renderer.setElementStyle(this.elementRef.nativeElement, 'width', 'inherit');
         this.renderer.setElementStyle(this.elementRef.nativeElement, 'height', 'inherit');
         break;

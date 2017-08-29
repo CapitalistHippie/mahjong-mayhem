@@ -5,4 +5,5 @@ export { GameTemplate } from './models/game-template.model';
 export { GameTemplateTile } from './models/game-template-tile.model'
 export { Player } from './models/player.model';
 export { GameTile } from './models/game-tile.model';
+export { Suit } from './models/suit.enum';
 export { Tile } from './models/tile.model';

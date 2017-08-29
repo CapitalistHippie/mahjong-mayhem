@@ -1,5 +1,5 @@
 <div appTheme>
-  <div class="app-flex-fix-row" fxFlexLayout="row">
+  <div fxLayout="row" fxLayoutAlign="center start">
     <div>
       <md-card>
         <md-card-title>Settings</md-card-title>
@@ -16,20 +16,22 @@
 
     <div fxFlex="20px"></div>
 
-    <div fxFlex>
+    <div>
       <md-card>
         <md-card-title>Examples</md-card-title>
 
         <md-card-content>
-          <div class="app-flex-fix-row" fxFlexLayout="row" fxLayoutGap="10px">
+          <div fxLayout="row" fxLayoutGap="20px">
             <div *ngFor="let exampleTile of exampleTiles">
-              <div class="app-flex-fix-column" fxFlexLayout="column" fxLayoutGap="10px">
+              <div fxLayout="column" fxLayoutGap="10px">
                 <p>{{exampleTile.suit}}</p>
 
-                <app-mahjong-tile #appMahjongTile fxFlex="100px" [tile]="exampleTile" scaleDirection="vertically"></app-mahjong-tile>
+                <app-mahjong-tile #appMahjongTile style="width: 100px" [tile]="exampleTile" scaleDirection="vertically"></app-mahjong-tile>
+
+                <div fxFlex="13px"></div>
 
                 <md-select mdInput placeholder="Tile name" required [(ngModel)]="exampleTile.name" (change)="appMahjongTile.update()">
-                  <md-option *ngFor="let tileName of tileNames" [value]="tileName">
+                  <md-option *ngFor="let tileName of this.mahjongService.getSuitTileNames(exampleTile.suit)" [value]="tileName">
                     {{ tileName }}
                   </md-option>
                 </md-select>
