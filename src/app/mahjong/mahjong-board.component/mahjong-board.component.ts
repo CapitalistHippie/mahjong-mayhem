@@ -1,13 +1,10 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactory, ComponentFactoryResolver, Renderer } from '@angular/core';
 
-// Components.
-import { MahjongTileComponent } from '../mahjong-tile/mahjong-tile.component';
+import { MahjongTileComponent } from '../mahjong-tile.component/mahjong-tile.component';
 
-// Directives.
-import { MahjongBoardHostDirective } from '../mahjong-board-host/mahjong-board-host.directive';
+import { MahjongBoardHostDirective } from '../mahjong-board-host.directive/mahjong-board-host.directive';
 
-// Models.
-import { GameTile } from '../../mahjong/models';
+import { GameTile } from '../models';
 
 @Component({
   selector: 'app-mahjong-board',

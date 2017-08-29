@@ -1,6 +1,6 @@
 export class Theme {
     name: string;
-    className: string;
+    cssClassName: string;
     mahjongSpriteWidth: number;
     mahjongSpriteHeight: number;
 }

@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 // Services.
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../auth/auth.service/auth.service';
 
 // Models.
 import { Game, GameState, Player } from '../mahjong/models';

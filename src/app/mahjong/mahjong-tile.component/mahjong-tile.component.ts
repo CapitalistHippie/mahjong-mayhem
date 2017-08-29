@@ -1,17 +1,8 @@
-/////////////////////////////
-// Modules.
-/////////////////////////////
 import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef, Renderer } from '@angular/core';
 
-/////////////////////////////
-// Services.
-/////////////////////////////
-import { ThemeService } from '../../themes/theme.service';
+import { ThemeService } from '../../theme/theme.service/theme.service';
 
-/////////////////////////////
-// Models.
-/////////////////////////////
-import { Tile } from '../../mahjong/models';
+import { Tile } from '../models';
 
 @Component({
   selector: 'app-mahjong-tile',

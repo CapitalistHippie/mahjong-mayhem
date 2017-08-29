@@ -1,18 +1,18 @@
-// Decorators.
 import { NgModule } from '@angular/core';
 
-// Modules.
 import { MahjongMayhemApiModule } from '../mahjong-mayhem-api/mahjong-mayhem-api.module';
 
-// Services.
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api/mahjong-mayhem-api.service';
+
+import { CanAuthenticateGuard } from './can-authenticate.guard/can-authenticate.guard';
 
 @NgModule({
   imports: [
     MahjongMayhemApiModule
   ],
   providers: [
-    MahjongMayhemApiService
+    MahjongMayhemApiService,
+    CanAuthenticateGuard
   ]
 })
 export class AuthModule { }

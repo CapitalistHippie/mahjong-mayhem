@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
-// Services.
-import { ThemeService } from '../../themes/theme.service';
+import { ThemeService } from '../../theme/theme.service/theme.service';
 
-// Models.
-import { Theme } from '../../themes/theme.model';
+import { Theme } from '../../theme/theme.model';
 import { Tile } from '../../mahjong/models';
 
 @Component({
-  selector: 'app-view-settings',
-  templateUrl: './view-settings.component.html',
-  styleUrls: ['./view-settings.component.scss']
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss']
 })
-export class ViewSettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit {
 
   private selectedTheme: Theme;
 
