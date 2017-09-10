@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
-import { Game, GameTile, GameTemplate, Tile, User, UserInGame, GamePost, PostMatch } from './models';
+import { Game, GameTile, GameTemplate, Tile, User, UserInGame, GamePost, PostMatch } from '../models';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -44,9 +44,6 @@ export class MahjongMayhemApiService {
     if (headers == undefined) {
       headers = new Headers(this.defaultHeaders);
     }
-
-    // queryParameters['x-username'] = this.getUsername();
-    // queryParameters['x-token'] = this.getToken();
 
     headers.append('x-username', this.getUsername());
     headers.append('x-token', this.getToken());

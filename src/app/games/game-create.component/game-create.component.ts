@@ -1,11 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 
-// Services.
-import { MahjongService } from '../../mahjong/mahjong.service';
+import { GameService } from '../game.service/game.service';
 
-// Models.
-import { Game, GameCreate, GameTemplate } from '../../mahjong/models';
+import { Game, GameCreate, GameTemplate } from '../models';
 
 @Component({
   selector: 'app-game-create',
@@ -19,7 +17,7 @@ export class GameCreateComponent implements OnInit {
 
   @Output() gameCreated: EventEmitter<Game> = new EventEmitter();
 
-  constructor(private mahjongService: MahjongService, private snackBar: MdSnackBar) {
+  constructor(private gameService: GameService, private snackBar: MdSnackBar) {
     this.model = new GameCreate();
     this.model.minPlayers = 2;
     this.model.maxPlayers = 32;
@@ -33,7 +31,7 @@ export class GameCreateComponent implements OnInit {
   }
 
   getGameTemplates(): void {
-    this.mahjongService.getGameTemplates().subscribe(
+    this.gameService.getGameTemplates().subscribe(
       gameTemplates => {
         this.gameTemplates = gameTemplates;
       },
@@ -47,7 +45,7 @@ export class GameCreateComponent implements OnInit {
   onSubmit(): void {
     this.isCreatingGame = true;
 
-    this.mahjongService.createGame(this.model).subscribe(
+    this.gameService.createGame(this.model).subscribe(
       createdGame => {
         this.snackBar.open('Successfully created a new game!', null, {
           duration: 3000

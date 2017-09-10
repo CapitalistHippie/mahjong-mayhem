@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-// Services.
-import { MahjongService } from './mahjong.service/mahjong.service';
-import { MahjongMayhemApiService } from '../mahjong-mayhem-api/mahjong-mayhem-api.service';
+import { MahjongMayhemApiService } from '../../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
 
 // Models.
-import { Game, GameCreate, GameState, GameTemplate, GameTemplateTile, Player, Tile } from './models';
-import { Game as ApiGame } from '../mahjong-mayhem-api/models';
-import { GamePost as ApiGamePost } from '../mahjong-mayhem-api/models';
-import { GameTemplate as ApiGameTemplate } from '../mahjong-mayhem-api/models';
-import { GameTemplateTile as ApiGameTemplateTile } from '../mahjong-mayhem-api/models';
-import { User as ApiUser } from '../mahjong-mayhem-api/models';
-import { Tile as ApiTile } from '../mahjong-mayhem-api/models';
+import { Game, GameCreate, GameState, GameTemplate, GameTemplateTile, Player, GameTile } from '../models';
+import { Game as ApiGame } from '../../mahjong-mayhem-api/models';
+import { GamePost as ApiGamePost } from '../../mahjong-mayhem-api/models';
+import { GameTemplate as ApiGameTemplate } from '../../mahjong-mayhem-api/models';
+import { GameTemplateTile as ApiGameTemplateTile } from '../../mahjong-mayhem-api/models';
+import { User as ApiUser } from '../../mahjong-mayhem-api/models';
+import { Tile as ApiTile } from '../../mahjong-mayhem-api/models';
 
 @Injectable()
-export class MahjongMayhemApiToMahjongAdapterService extends MahjongService implements MahjongService {
+export class GameService {
 
   constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
-    super();
   }
 
   private mapApiGameToGame(apiGame: ApiGame): Game {
@@ -30,7 +27,7 @@ export class MahjongMayhemApiToMahjongAdapterService extends MahjongService impl
     game.endedOn = apiGame.endedOn;
     game.minPlayers = apiGame.minPlayers;
     game.maxPlayers = apiGame.maxPlayers;
-    game.state = this.gameStateEnumFromString(apiGame.state);
+    // game.state = this.gameStateEnumFromString(apiGame.state);
     game.createdBy = this.mapApiUserToPlayer(apiGame.createdBy);
     game.players = apiGame.players.map((user: ApiUser) => {
       return this.mapApiUserToPlayer(user);
@@ -59,12 +56,12 @@ export class MahjongMayhemApiToMahjongAdapterService extends MahjongService impl
     return player;
   }
 
-  private mapApiTileToTile(apiTile: ApiTile): Tile {
-    let tile = new Tile();
+  private mapApiTileToTile(apiTile: ApiTile): GameTile {
+    let tile = new GameTile();
     tile.id = apiTile.id;
     tile.matchesWholeSuit = apiTile.matchesWholeSuit;
-    tile.name = apiTile.name;
-    tile.suit = apiTile.suit;
+    tile.tile.name = apiTile.name;
+    // tile.tile.suit = apiTile.suit;
 
     return tile;
   }

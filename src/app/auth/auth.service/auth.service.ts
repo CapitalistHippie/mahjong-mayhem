@@ -1,8 +1,6 @@
-// Decorators.
 import { Injectable } from '@angular/core';
 
-// Services.
-import { MahjongMayhemApiService } from '../../mahjong-mayhem-api/mahjong-mayhem-api.service';
+import { MahjongMayhemApiService } from '../../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
 
 @Injectable()
 export class AuthService {

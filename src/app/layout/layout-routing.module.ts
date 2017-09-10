@@ -9,24 +9,23 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      // {
-      //   path: 'authcallback',
-      //   canActivate: [CanAuthenticateGuard],
-      //   loadChildren: 'app/games/games.module#GamesModule'
-      // },
-      // {
-      //   path: 'games',
-      //   loadChildren: 'app/games/games.module#GamesModule'
-      // },
+      {
+        path: 'auth',
+        loadChildren: 'app/auth/auth.module#AuthModule'
+      },
+      {
+        path: 'games',
+        loadChildren: 'app/games/games.module#GamesModule'
+      },
       {
         path: 'settings',
         loadChildren: 'app/settings/settings.module#SettingsModule'
       },
-      // {
-      //   path: '',
-      //   redirectTo: '/games',
-      //   pathMatch: 'full'
-      // }
+      {
+        path: '',
+        redirectTo: '/games',
+        pathMatch: 'full'
+      }
     ]
   }
 ];

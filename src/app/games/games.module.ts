@@ -1,41 +1,49 @@
-import { AngularMaterialModule } from '../angular-material/angular-material.module';
-import { AuthModule } from '../auth/auth.module';
-import { GamesRoutingModule } from './games-routing.module';
-import { MahjongModule } from '../mahjong/mahjong.module';
-
-import { AuthService } from '../auth/auth.service/auth.service';
-import { MahjongService } from '../mahjong/mahjong.service';
-import { MahjongMayhemApiToMahjongAdapterService } from '../mahjong/mahjong-mayhem-api-to-mahjong-adapter.service';
-
-import { GameCreateComponent } from './game-create/game-create.component';
-import { GameDetailsCardComponent } from './game-details-card/game-details-card.component';
-import { GameListComponent } from './game-list/game-list.component';
-import { GamesComponent } from './games/games.component';
-
 import { NgModule } from '@angular/core';
 
-import { GamesPipe } from './games.pipe';
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { AuthModule } from '../auth/auth.module';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { FormsModule } from '@angular/forms';
+import { GamesRoutingModule } from './games-routing.module';
+import { MahjongMayhemApiModule } from '../mahjong-mayhem-api/mahjong-mayhem-api.module';
+import { ThemeModule } from '../theme/theme.module';
+
+import { AuthService } from '../auth/auth.service/auth.service';
+import { GameService } from './game.service/game.service';
+import { MahjongMayhemApiService } from '../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
+
+import { GameCreateComponent } from './game-create.component/game-create.component';
+import { GameDetailsCardComponent } from './game-details-card.component/game-details-card.component';
+import { GameListComponent } from './game-list.component/game-list.component';
+import { GamesComponent } from './games.component/games.component';
+import { SelectGameListComponent } from './select-game-list.component/select-game-list.component';
+
+import { GamesPipe } from './games.pipe/games.pipe';
 
 @NgModule({
   imports: [
-    AuthModule,
     AngularMaterialModule,
+    // AuthModule, // NOTE: Somehow causes a stack overflow.
+    CommonModule,
+    FlexLayoutModule,
+    FormsModule,
     GamesRoutingModule,
-    MahjongModule
+    MahjongMayhemApiModule,
+    ThemeModule
   ],
   declarations: [
     GameCreateComponent,
     GameDetailsCardComponent,
     GameListComponent,
     GamesComponent,
+    SelectGameListComponent,
     GamesPipe
   ],
   providers: [
     AuthService,
-    {
-      provide: MahjongService,
-      useClass: MahjongMayhemApiToMahjongAdapterService
-    }
+    GameService,
+    MahjongMayhemApiService
   ]
 })
 export class GamesModule { }

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { ThemeService } from '../../theme/theme.service/theme.service';
 
@@ -15,7 +16,12 @@ export class MahjongTileComponent implements OnInit, OnChanges {
 
   @ViewChild('tile') elementRef: ElementRef;
 
+  private themeSubscription: Subscription;
+
   constructor(private renderer: Renderer, private themeService: ThemeService) {
+    this.themeSubscription = this.themeService.themeChanged$.subscribe((theme) => {
+      this.update();
+    });
   }
 
   ngOnInit() {

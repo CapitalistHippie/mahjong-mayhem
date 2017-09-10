@@ -1,9 +1,2 @@
-export { Game } from './models/game.model';
-export { GameCreate } from './models/game-create.model';
-export { GameState } from './models/game-state.enum';
-export { GameTemplate } from './models/game-template.model';
-export { GameTemplateTile } from './models/game-template-tile.model'
-export { Player } from './models/player.model';
-export { GameTile } from './models/game-tile.model';
-export { Suit } from './models/suit.enum';
 export { Tile } from './models/tile.model';
+export { TileSuit } from './models/tile-suit.enum';

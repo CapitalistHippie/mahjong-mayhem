@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { MahjongMayhemApiModule } from '../mahjong-mayhem-api/mahjong-mayhem-api.module';
 import { ThemeModule } from '../theme/theme.module';
 
-import { MahjongMayhemApiService } from '../mahjong-mayhem-api/mahjong-mayhem-api.service';
 import { ThemeService } from '../theme/theme.service/theme.service';
 
 import { MahjongBoardComponent } from './mahjong-board.component/mahjong-board.component';
@@ -13,11 +11,9 @@ import { MahjongBoardHostDirective } from './mahjong-board-host.directive/mahjon
 
 @NgModule({
   imports: [
-    MahjongMayhemApiModule,
     ThemeModule
   ],
   providers: [
-    MahjongMayhemApiService,
     ThemeService
   ],
   declarations: [
@@ -26,7 +22,6 @@ import { MahjongBoardHostDirective } from './mahjong-board-host.directive/mahjon
     MahjongBoardHostDirective
   ],
   exports: [
-    MahjongBoardComponent,
     MahjongTileComponent,
     MahjongBoardHostDirective
   ]

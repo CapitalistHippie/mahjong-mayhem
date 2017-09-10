@@ -1,26 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { MahjongService } from '../../mahjong/mahjong.service/mahjong.service';
 import { ThemeService } from '../../theme/theme.service/theme.service';
 
-import { ExampleTile } from '../example-tile.model';
+import { Tile, TileSuit } from '../../mahjong/models';
 import { Theme } from '../../theme/theme.model';
-import { Suit } from '../../mahjong/models';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
 
   private selectedTheme: Theme;
 
   private themes: Theme[];
 
-  private exampleTiles: ExampleTile[];
-
-  private tileNames: string[];
+  private exampleTiles: Tile[];
 
   constructor(private mahjongService: MahjongService, private themeService: ThemeService) {
     this.selectedTheme = this.themeService.getActiveTheme();
@@ -29,49 +26,40 @@ export class SettingsComponent implements OnInit {
 
     this.exampleTiles = [];
 
-    let exampleTileBamboo = new ExampleTile();
+    let exampleTileBamboo = new Tile();
     exampleTileBamboo.name = '1';
-    exampleTileBamboo.suit = Suit.Bamboo;
+    exampleTileBamboo.suit = TileSuit.Bamboo;
     this.exampleTiles.push(exampleTileBamboo);
 
-    let exampleTileCharacter = new ExampleTile();
+    let exampleTileCharacter = new Tile();
     exampleTileCharacter.name = '1';
-    exampleTileCharacter.suit = Suit.Character;
+    exampleTileCharacter.suit = TileSuit.Character;
     this.exampleTiles.push(exampleTileCharacter);
 
-    let exampleTileCircle = new ExampleTile();
+    let exampleTileCircle = new Tile();
     exampleTileCircle.name = '1';
-    exampleTileCircle.suit = Suit.Circle;
+    exampleTileCircle.suit = TileSuit.Circle;
     this.exampleTiles.push(exampleTileCircle);
 
-    let exampleTileWind = new ExampleTile();
+    let exampleTileWind = new Tile();
     exampleTileWind.name = 'north';
-    exampleTileWind.suit = Suit.Wind;
+    exampleTileWind.suit = TileSuit.Wind;
     this.exampleTiles.push(exampleTileWind);
 
-    let exampleTileDragon = new ExampleTile();
+    let exampleTileDragon = new Tile();
     exampleTileDragon.name = 'red';
-    exampleTileDragon.suit = Suit.Dragon;
+    exampleTileDragon.suit = TileSuit.Dragon;
     this.exampleTiles.push(exampleTileDragon);
 
-    let exampleTileFlower = new ExampleTile();
+    let exampleTileFlower = new Tile();
     exampleTileFlower.name = 'chrysanthemum';
-    exampleTileFlower.suit = Suit.Flower;
+    exampleTileFlower.suit = TileSuit.Flower;
     this.exampleTiles.push(exampleTileFlower);
 
-    let exampleTileSeason = new ExampleTile();
+    let exampleTileSeason = new Tile();
     exampleTileSeason.name = 'summer';
-    exampleTileSeason.suit = Suit.Season;
+    exampleTileSeason.suit = TileSuit.Season;
     this.exampleTiles.push(exampleTileSeason);
-
-    this.tileNames = [];
-    this.tileNames.push('1');
-    this.tileNames.push('2');
-    this.tileNames.push('3');
-    this.tileNames.push('west');
-  }
-
-  ngOnInit(): void {
   }
 
   onThemeSelected(): void {

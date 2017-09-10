@@ -1,11 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 
-// Services.
-import { MahjongService } from '../../mahjong/mahjong.service';
+import { GameService } from '../game.service/game.service'
 
-// Models.
-import { Game } from '../../mahjong/models';
+import { Game } from '../models';
 
 @Component({
   selector: 'app-game-details-card',
@@ -20,7 +18,7 @@ export class GameDetailsCardComponent implements OnInit {
 
   isJoiningGame: boolean;
 
-  constructor(private mahjongService: MahjongService, private snackBar: MdSnackBar) {
+  constructor(private gameService: GameService, private snackBar: MdSnackBar) {
     this.isJoiningGame = false;
   }
 
@@ -31,7 +29,7 @@ export class GameDetailsCardComponent implements OnInit {
   }
 
   private onGameJoinClicked(): void {
-    this.isJoiningGame = true;
+    // this.isJoiningGame = true;
 
     // this.mahjongMayhemApiService.postGamesByGameIdPlayers(this.game.id).subscribe(
     //   () => {

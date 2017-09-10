@@ -1,30 +1,26 @@
 import { Injectable } from '@angular/core';
 
-import { Suit } from '../models';
+import { TileSuit } from '../models';
 
 @Injectable()
 export class MahjongService {
   constructor() {
   }
 
-  getSuitTileNames(suit: Suit): string[] {
+  getSuitTileNames(suit: TileSuit): string[] {
     switch (suit) {
-      case Suit.Bamboo:
-      case Suit.Character:
-      case Suit.Circle:
+      case TileSuit.Bamboo:
+      case TileSuit.Character:
+      case TileSuit.Circle:
         return ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-      case Suit.Wind:
+      case TileSuit.Wind:
         return ['North', 'East', 'South', 'West'];
-      case Suit.Dragon:
+      case TileSuit.Dragon:
         return ['Green', 'Red', 'White'];
-      case Suit.Flower:
+      case TileSuit.Flower:
         return ['Bamboo', 'Chrysanthemum', 'Orchid', 'Plum'];
-      case Suit.Season:
+      case TileSuit.Season:
         return ['Fall', 'Spring', 'Summer', 'Winter'];
     }
   }
-
-  // abstract getGames(pageSize?: number, pageIndex?: number, createdBy?: string, player?: string, gameTemplate?: string, state?: string): Observable<Game[]>;
-  // abstract getGameTemplates(): Observable<GameTemplate[]>
-  // abstract createGame(game: GameCreate): Observable<Game>;
 }

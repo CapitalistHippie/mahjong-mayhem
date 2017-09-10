@@ -1,8 +1,6 @@
-import { Suit } from './suit.enum';
+import { TileSuit } from './tile-suit.enum';
 
 export class Tile {
-	id: string;
-	suit: Suit;
+	suit: TileSuit;
 	name: string;
-	matchesWholeSuit: boolean;
 }

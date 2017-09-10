@@ -1,4 +1,4 @@
-export enum Suit {
+export enum TileSuit {
   Bamboo = 'Bamboo',
   Character = 'Character',
   Circle = 'Circle',

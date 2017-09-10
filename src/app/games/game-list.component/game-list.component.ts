@@ -3,18 +3,14 @@ import { MdDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router'
 import { MdSnackBar } from '@angular/material';
 
-// Components.
-import { GameCreateComponent } from '../game-create/game-create.component';
-import { GameDetailsCardComponent } from '../game-details-card/game-details-card.component';
+import { GameService } from '../game.service/game.service'
 
-// Services.
-import { MahjongService } from '../../mahjong/mahjong.service';
+import { GameCreateComponent } from '../game-create.component/game-create.component';
+import { GameDetailsCardComponent } from '../game-details-card.component/game-details-card.component';
 
-// Models.
-import { Game } from '../../mahjong/models';
+import { Game } from '../models';
 
-// Pipes.
-import { GamesPipeArgs } from '../games.pipe';
+import { GamesPipeArgs } from '../games.pipe/games.pipe';
 
 @Component({
   selector: 'app-game-list',
@@ -28,15 +24,15 @@ export class GameListComponent implements OnInit {
 
   private gamesPipeArgs: GamesPipeArgs;
 
-  constructor(private mahjongService: MahjongService, private route: ActivatedRoute, private dialog: MdDialog, private snackBar: MdSnackBar) {
+  constructor(private gameService: GameService, private route: ActivatedRoute, private dialog: MdDialog, private snackBar: MdSnackBar) {
     this.gamesPipeArgs = new GamesPipeArgs();
 
     let stateFilter = route.snapshot.params['state'];
     if (stateFilter != null) {
-      let state = this.mahjongService.gameStateEnumFromString(stateFilter);
+      // let state = this.gameService.gameStateEnumFromString(stateFilter);
 
       this.gamesPipeArgs.filterStatesInverse = true;
-      this.gamesPipeArgs.filterStates.push(state);
+      this.gamesPipeArgs.filterStates.push(stateFilter);
     }
   }
 
@@ -46,7 +42,7 @@ export class GameListComponent implements OnInit {
 
   refreshGames(): void {
     this.isLoadingGames = true;
-    this.mahjongService.getGames().subscribe(
+    this.gameService.getGames().subscribe(
       (games: Game[]) => {
         this.games = games;
         this.isLoadingGames = false;

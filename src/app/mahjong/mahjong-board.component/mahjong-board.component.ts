@@ -4,7 +4,7 @@ import { MahjongTileComponent } from '../mahjong-tile.component/mahjong-tile.com
 
 import { MahjongBoardHostDirective } from '../mahjong-board-host.directive/mahjong-board-host.directive';
 
-import { GameTile } from '../models';
+import { Tile } from '../models';
 
 @Component({
   selector: 'app-mahjong-board',
@@ -13,7 +13,7 @@ import { GameTile } from '../models';
   entryComponents: [MahjongTileComponent]
 })
 export class MahjongBoardComponent implements OnInit {
-  @Input() gameTiles: GameTile[];
+  @Input() tiles: Tile[];
 
   @ViewChild(MahjongBoardHostDirective) mahjongBoardHost: MahjongBoardHostDirective;
 
@@ -35,20 +35,20 @@ export class MahjongBoardComponent implements OnInit {
 
     viewContainerRef.clear();
 
-    console.log(this.gameTiles);
+    console.log(this.tiles);
 
-    for (let gameTile of this.gameTiles) {
+    for (let tile of this.tiles) {
       let elementRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
       let instance = elementRef.instance;
       let nativeElement = instance.elementRef.nativeElement;
 
-      instance.tile = gameTile.tile;
+      instance.tile = tile;
       instance.update();
 
-      this.renderer.setElementStyle(nativeElement, 'position', 'absolute');
-      this.renderer.setElementStyle(nativeElement, 'left', gameTile.xPos * 349 / 2 + 'px');
-      this.renderer.setElementStyle(nativeElement, 'top', gameTile.yPos * 480 / 2 + 'px');
-      this.renderer.setElementStyle(nativeElement, 'z-index', gameTile.zPos.toString());
+      // this.renderer.setElementStyle(nativeElement, 'position', 'absolute');
+      // this.renderer.setElementStyle(nativeElement, 'left', gameTile.xPos * 349 / 2 + 'px');
+      // this.renderer.setElementStyle(nativeElement, 'top', gameTile.yPos * 480 / 2 + 'px');
+      // this.renderer.setElementStyle(nativeElement, 'z-index', gameTile.zPos.toString());
     }
   }
 }
