@@ -14,7 +14,6 @@ export class MahjongMayhemApiService {
     this.domain = 'https://mahjongmayhem.herokuapp.com';
 
     this.defaultHeaders = new Headers();
-    // this.defaultHeaders.append('Content-Type', 'application/json');
   }
 
   private get(uri: string, queryParameters?, headers?: Headers | null): Observable<any> {
@@ -47,6 +46,7 @@ export class MahjongMayhemApiService {
 
     headers.append('x-username', this.getUsername());
     headers.append('x-token', this.getToken());
+    headers.append('Content-Type', 'application/json');
 
     return this.http
       .post(this.domain + uri, JSON.stringify(body), { headers: headers, params: queryParameters })
