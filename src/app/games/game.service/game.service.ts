@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { MahjongService } from '../../mahjong/mahjong.service/mahjong.service';
 import { MahjongMayhemApiService } from '../../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
 
 // Models.
 import { Game, GameCreate, GameState, GameTemplate, GameTemplateTile, Player, GameTile } from '../models';
+import { TileSuit } from '../../mahjong/models';
 import { Game as ApiGame } from '../../mahjong-mayhem-api/models';
 import { GamePost as ApiGamePost } from '../../mahjong-mayhem-api/models';
 import { GameTemplate as ApiGameTemplate } from '../../mahjong-mayhem-api/models';
@@ -15,7 +17,7 @@ import { Tile as ApiTile } from '../../mahjong-mayhem-api/models';
 @Injectable()
 export class GameService {
 
-  constructor(private mahjongMayhemApiService: MahjongMayhemApiService) {
+  constructor(private mahjongService: MahjongService, private mahjongMayhemApiService: MahjongMayhemApiService) {
   }
 
   private mapApiGameToGame(apiGame: ApiGame): Game {
@@ -57,6 +59,10 @@ export class GameService {
     }
   }
 
+  private mapApiSuitToTileSuit(apiSuit: string): TileSuit {
+    return this.mahjongService.tileSuitStringToEnum(apiSuit);
+  }
+
   private mapApiUserToPlayer(apiUser: ApiUser): Player {
     let player = new Player();
     player.id = apiUser._id;
@@ -70,7 +76,7 @@ export class GameService {
     tile.id = apiTile.id;
     tile.matchesWholeSuit = apiTile.matchesWholeSuit;
     tile.tile.name = apiTile.name;
-    // tile.tile.suit = apiTile.suit;
+    tile.tile.suit = this.mapApiSuitToTileSuit(apiTile.suit);
 
     return tile;
   }

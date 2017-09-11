@@ -23,4 +23,30 @@ export class MahjongService {
         return ['Fall', 'Spring', 'Summer', 'Winter'];
     }
   }
+
+  public tileSuitStringToEnum(tileSuit: string): TileSuit {
+    switch (tileSuit.toLowerCase()) {
+      case 'bamboo': return TileSuit.Bamboo;
+      case 'character': return TileSuit.Character;
+      case 'circle': return TileSuit.Circle;
+      case 'wind': return TileSuit.Wind;
+      case 'dragon': return TileSuit.Dragon;
+      case 'flower': return TileSuit.Flower;
+      case 'season': return TileSuit.Season;
+      default: throw Error('Unknown tile suit: ' + tileSuit + '.');
+    }
+  }
+
+  public tileSuitEnumToString(tileSuit: TileSuit): string {
+    switch (tileSuit) {
+      case TileSuit.Bamboo: return 'bamboo';
+      case TileSuit.Character: return 'character';
+      case TileSuit.Circle: return 'circle';
+      case TileSuit.Wind: return 'wind';
+      case TileSuit.Dragon: return 'dragon';
+      case TileSuit.Flower: return 'flower';
+      case TileSuit.Season: return 'season';
+      default: throw Error('Unknown tile suit: ' + tileSuit + '.');
+    }
+  }
 }

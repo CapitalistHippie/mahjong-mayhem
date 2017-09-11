@@ -6,11 +6,13 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule } from '@angular/forms';
 import { GamesRoutingModule } from './games-routing.module';
+import { MahjongModule } from '../mahjong/mahjong.module';
 import { MahjongMayhemApiModule } from '../mahjong-mayhem-api/mahjong-mayhem-api.module';
 import { ThemeModule } from '../theme/theme.module';
 
 import { AuthService } from '../auth/auth.service/auth.service';
 import { GameService } from './game.service/game.service';
+import { MahjongService } from '../mahjong/mahjong.service/mahjong.service';
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
 
 import { GameCreateComponent } from './game-create.component/game-create.component';
@@ -28,6 +30,7 @@ import { GamesPipe } from './games.pipe/games.pipe';
     FlexLayoutModule,
     FormsModule,
     GamesRoutingModule,
+    MahjongModule,
     MahjongMayhemApiModule,
     ThemeModule
   ],
@@ -41,6 +44,7 @@ import { GamesPipe } from './games.pipe/games.pipe';
   providers: [
     AuthService,
     GameService,
+    MahjongService,
     MahjongMayhemApiService
   ]
 })

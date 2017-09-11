@@ -26,7 +26,7 @@ export class GameListComponent implements OnInit {
   private gamesPipeArgs: GamesPipeArgs;
 
   private routeFilter: String;
-  private gameStateFilter: GameState;
+  private routeGameStateFilter: GameState;
 
   constructor(private gameService: GameService, private authService: AuthService, private route: ActivatedRoute, private dialog: MdDialog, private snackBar: MdSnackBar) {
     this.gamesPipeArgs = new GamesPipeArgs();
@@ -34,7 +34,7 @@ export class GameListComponent implements OnInit {
     this.routeFilter = route.snapshot.url[0].path;
 
     if (this.routeFilter == 'state') {
-      this.gameStateFilter = gameService.gameStateStringToEnum(route.snapshot.params['state']);
+      this.routeGameStateFilter = gameService.gameStateStringToEnum(route.snapshot.params['state']);
     }
   }
 
@@ -47,10 +47,7 @@ export class GameListComponent implements OnInit {
 
     let player = this.routeFilter == "mine" ? this.authService.getUsername() : null;
 
-    console.log(player);
-    console.log(this.gameStateFilter);
-
-    this.gameService.getGames(null, null, null, player, null, this.gameStateFilter).subscribe(
+    this.gameService.getGames(null, null, null, player, null, this.routeGameStateFilter).subscribe(
       (games: Game[]) => {
         this.games = games;
         this.isLoadingGames = false;
