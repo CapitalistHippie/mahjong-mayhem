@@ -6,6 +6,7 @@ import { MahjongMayhemApiModule } from '../mahjong-mayhem-api/mahjong-mayhem-api
 import { MahjongMayhemApiService } from '../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
 
 import { CanAuthenticateGuard } from './can-authenticate.guard/can-authenticate.guard';
+import { IsAuthenticatedGuard } from './is-authenticated.guard/is-authenticated.guard';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { CanAuthenticateGuard } from './can-authenticate.guard/can-authenticate.
   ],
   providers: [
     CanAuthenticateGuard,
+    IsAuthenticatedGuard,
     MahjongMayhemApiService
   ]
 })

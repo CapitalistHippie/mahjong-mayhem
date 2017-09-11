@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router'
 import { MdSnackBar } from '@angular/material';
 
 import { GameService } from '../game.service/game.service'
+import { AuthService } from '../../auth/auth.service/auth.service'
 
 import { GameCreateComponent } from '../game-create.component/game-create.component';
 import { GameDetailsCardComponent } from '../game-details-card.component/game-details-card.component';
@@ -24,16 +25,16 @@ export class GameListComponent implements OnInit {
 
   private gamesPipeArgs: GamesPipeArgs;
 
-  private filter: String;
+  private routeFilter: String;
   private gameStateFilter: GameState;
 
-  constructor(private gameService: GameService, private route: ActivatedRoute, private dialog: MdDialog, private snackBar: MdSnackBar) {
+  constructor(private gameService: GameService, private authService: AuthService, private route: ActivatedRoute, private dialog: MdDialog, private snackBar: MdSnackBar) {
     this.gamesPipeArgs = new GamesPipeArgs();
 
-    this.filter = route.snapshot.params['filter'];
+    this.routeFilter = route.snapshot.url[0].path;
 
-    if (this.filter == 'state') {
-      this.gameStateFilter = route.snapshot.params['state'];
+    if (this.routeFilter == 'state') {
+      this.gameStateFilter = gameService.gameStateStringToEnum(route.snapshot.params['state']);
     }
   }
 
@@ -43,7 +44,13 @@ export class GameListComponent implements OnInit {
 
   refreshGames(): void {
     this.isLoadingGames = true;
-    this.gameService.getGames().subscribe(
+
+    let player = this.routeFilter == "mine" ? this.authService.getUsername() : null;
+
+    console.log(player);
+    console.log(this.gameStateFilter);
+
+    this.gameService.getGames(null, null, null, player, null, this.gameStateFilter).subscribe(
       (games: Game[]) => {
         this.games = games;
         this.isLoadingGames = false;

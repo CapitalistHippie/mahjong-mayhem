@@ -93,9 +93,27 @@ export class GameService {
     return gamePost;
   }
 
+  public gameStateStringToEnum(gameState: string): GameState {
+    switch (gameState.toLowerCase()) {
+      case 'finished': return GameState.Finished;
+      case 'open': return GameState.Open;
+      case 'playing': return GameState.Playing;
+      default: throw Error('Unknown game state: ' + gameState + '.');
+    }
+  }
+
+  public gameStateEnumToString(gameState: GameState): string {
+    switch (gameState) {
+      case GameState.Finished: return 'finished';
+      case GameState.Open: return 'open';
+      case GameState.Playing: return 'playing';
+      default: throw Error('Unknown game state: ' + gameState + '.');
+    }
+  }
+
   getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: GameState = undefined): Observable<Game[]> {
     let observable = new Observable<Game[]>(observer => {
-      this.mahjongMayhemApiService.getGames(pageSize, pageIndex, createdBy, player, gameTemplate, state).subscribe((games: ApiGame[]) => {
+      this.mahjongMayhemApiService.getGames(pageSize, pageIndex, createdBy, player, gameTemplate, state == null ? undefined : this.gameStateEnumToString(state)).subscribe((games: ApiGame[]) => {
         let mappedGames = games.map((game: ApiGame) => {
           return this.mapApiGameToGame(game);
         });

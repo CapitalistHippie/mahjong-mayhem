@@ -5,6 +5,8 @@ import { GameCreateComponent } from './game-create.component/game-create.compone
 import { GameListComponent } from './game-list.component/game-list.component';
 import { SelectGameListComponent } from './select-game-list.component/select-game-list.component';
 
+import { IsAuthenticatedGuard } from '../auth/is-authenticated.guard/is-authenticated.guard';
+
 const routes: Routes = [
     {
         path: '',
@@ -15,13 +17,20 @@ const routes: Routes = [
         component: GameCreateComponent
     },
     {
-        path: 'state/:state',
+        path: 'mine',
+        component: GameListComponent,
+        canActivate: [
+            IsAuthenticatedGuard
+        ]
+    },
+    {
+        path: 'all',
         component: GameListComponent
     },
     {
-        path: ':filter',
+        path: 'state/:state',
         component: GameListComponent
-    },
+    }
 ];
 
 @NgModule({

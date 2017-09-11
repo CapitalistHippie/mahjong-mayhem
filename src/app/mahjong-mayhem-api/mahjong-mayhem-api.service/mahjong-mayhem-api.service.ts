@@ -47,7 +47,6 @@ export class MahjongMayhemApiService {
 
     headers.append('x-username', this.getUsername());
     headers.append('x-token', this.getToken());
-    headers.append('Content-Type', 'application/json');
 
     return this.http
       .post(this.domain + uri, JSON.stringify(body), { headers: headers, params: queryParameters })
@@ -90,27 +89,27 @@ export class MahjongMayhemApiService {
   public getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: string = undefined): Observable<Game[]> {
     let queryParameters = {};
 
-    if (pageSize !== undefined) {
+    if (pageSize != undefined) {
       queryParameters['pageSize'] = pageSize;
     }
 
-    if (pageIndex !== undefined) {
+    if (pageIndex != undefined) {
       queryParameters['pageIndex'] = pageIndex;
     }
 
-    if (createdBy !== undefined) {
+    if (createdBy != undefined) {
       queryParameters['createdBy'] = createdBy;
     }
 
-    if (player !== undefined) {
+    if (player != undefined) {
       queryParameters['player'] = player;
     }
 
-    if (gameTemplate !== undefined) {
+    if (gameTemplate != undefined) {
       queryParameters['gameTemplate'] = gameTemplate;
     }
 
-    if (state !== undefined) {
+    if (state != undefined) {
       queryParameters['state'] = state;
     }
 
@@ -134,7 +133,7 @@ export class MahjongMayhemApiService {
   public getGameTiles(gameId: string, matched: boolean = undefined): Observable<GameTile[]> {
     let queryParameters = {};
 
-    if (matched !== undefined) {
+    if (matched != undefined) {
       queryParameters['matched'] = matched;
     }
 
