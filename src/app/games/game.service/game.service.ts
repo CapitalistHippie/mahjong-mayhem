@@ -27,7 +27,7 @@ export class GameService {
     game.endedOn = apiGame.endedOn;
     game.minPlayers = apiGame.minPlayers;
     game.maxPlayers = apiGame.maxPlayers;
-    // game.state = this.gameStateEnumFromString(apiGame.state);
+    game.state = this.mapApiStateToGameState(apiGame.state);
     game.createdBy = this.mapApiUserToPlayer(apiGame.createdBy);
     game.players = apiGame.players.map((user: ApiUser) => {
       return this.mapApiUserToPlayer(user);
@@ -46,6 +46,15 @@ export class GameService {
     }
 
     return gameTemplate;
+  }
+
+  private mapApiStateToGameState(apiState: string): GameState {
+    switch (apiState.toLowerCase()) {
+      case 'finished': return GameState.Finished;
+      case 'open': return GameState.Open;
+      case 'playing': return GameState.Playing;
+      default: throw Error("Unknown game state: " + apiState + ".");
+    }
   }
 
   private mapApiUserToPlayer(apiUser: ApiUser): Player {
@@ -84,7 +93,7 @@ export class GameService {
     return gamePost;
   }
 
-  getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: string = undefined): Observable<Game[]> {
+  getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: GameState = undefined): Observable<Game[]> {
     let observable = new Observable<Game[]>(observer => {
       this.mahjongMayhemApiService.getGames(pageSize, pageIndex, createdBy, player, gameTemplate, state).subscribe((games: ApiGame[]) => {
         let mappedGames = games.map((game: ApiGame) => {

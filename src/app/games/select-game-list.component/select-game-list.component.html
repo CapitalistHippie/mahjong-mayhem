@@ -10,7 +10,7 @@
       </md-card-content>
 
       <md-card-actions>
-        <button md-button [routerLink]="['games']">GO</button>
+        <button md-button [routerLink]="['mine']">GO</button>
       </md-card-actions>
     </md-card>
 
@@ -24,21 +24,23 @@
       </md-card-content>
 
       <md-card-actions>
-        <button md-button [routerLink]="['games']">GO</button>
+        <button md-button [routerLink]="['all']">GO</button>
       </md-card-actions>
     </md-card>
 
     <md-card fxFlex="200">
-      <md-card-title>Games by status</md-card-title>
+      <md-card-title>Games by state</md-card-title>
 
       <md-card-content>
         <p>
-          Get a list of all games with on the selected status.
+          Get a list of all games with on the selected state.
         </p>
       </md-card-content>
 
       <md-card-actions>
-        <button md-button [routerLink]="['games']">GO</button>
+        <button md-button [routerLink]="['state/open']">OPEN</button>
+        <button md-button [routerLink]="['state/playing']">PLAYING</button>
+        <button md-button [routerLink]="['state/finished']">FINISHED</button>
       </md-card-actions>
     </md-card>
   </div>

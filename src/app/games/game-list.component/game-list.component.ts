@@ -8,7 +8,7 @@ import { GameService } from '../game.service/game.service'
 import { GameCreateComponent } from '../game-create.component/game-create.component';
 import { GameDetailsCardComponent } from '../game-details-card.component/game-details-card.component';
 
-import { Game } from '../models';
+import { Game, GameState } from '../models';
 
 import { GamesPipeArgs } from '../games.pipe/games.pipe';
 
@@ -24,15 +24,16 @@ export class GameListComponent implements OnInit {
 
   private gamesPipeArgs: GamesPipeArgs;
 
+  private filter: String;
+  private gameStateFilter: GameState;
+
   constructor(private gameService: GameService, private route: ActivatedRoute, private dialog: MdDialog, private snackBar: MdSnackBar) {
     this.gamesPipeArgs = new GamesPipeArgs();
 
-    let stateFilter = route.snapshot.params['state'];
-    if (stateFilter != null) {
-      // let state = this.gameService.gameStateEnumFromString(stateFilter);
+    this.filter = route.snapshot.params['filter'];
 
-      this.gamesPipeArgs.filterStatesInverse = true;
-      this.gamesPipeArgs.filterStates.push(stateFilter);
+    if (this.filter == 'state') {
+      this.gameStateFilter = route.snapshot.params['state'];
     }
   }
 
