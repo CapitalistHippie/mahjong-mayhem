@@ -31,7 +31,7 @@ export class MahjongMayhemApiService {
       .catch(this.handleError);
   }
 
-  private authenticatedPost(uri: string, body: object, queryParameters?, headers?: Headers): Observable<any> {
+  private authenticatedPost(uri: string, body?: object, queryParameters?, headers?: Headers): Observable<any> {
     if (!this.isAuthenticated()) {
       throw new Error('Not authenticated.');
     }
@@ -43,13 +43,15 @@ export class MahjongMayhemApiService {
     if (headers == undefined) {
       headers = new Headers(this.defaultHeaders);
     }
+    let jsonBody = undefined
+    if(body != undefined){jsonBody = JSON.stringify(body);} 
 
     headers.append('x-username', this.getUsername());
     headers.append('x-token', this.getToken());
     headers.append('Content-Type', 'application/json');
 
     return this.http
-      .post(this.domain + uri, JSON.stringify(body), { headers: headers, params: queryParameters })
+      .post(this.domain + uri, jsonBody, { headers: headers, params: queryParameters })
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -128,6 +130,12 @@ export class MahjongMayhemApiService {
     let uri = `/games`;
 
     return this.authenticatedPost(uri, game);
+  }
+
+  public postPlayerToGame(gameId: string){
+    let uri = `/games/${gameId}/players`;
+
+    return this.authenticatedPost(uri, null);
   }
 
   public getGameTiles(gameId: string, matched: boolean = undefined): Observable<GameTile[]> {

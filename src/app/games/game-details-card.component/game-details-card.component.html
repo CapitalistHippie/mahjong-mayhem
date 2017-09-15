@@ -13,7 +13,7 @@
           <md-list-item>
             <md-icon md-list-icon>person</md-icon>
             <h4 md-line>{{player.name}}</h4>
-            <p md-line>{{player._id}}</p>
+            <p md-line>{{player._id}}</p> <!-- Dit field bestaat niet, bedoel je player.id? -->
           </md-list-item>
         </div>
 
@@ -25,8 +25,8 @@
 
     <md-card-actions>
       <button md-raised-button color="primary" (click)="onGameOpenClicked()">Open</button>
-
-      <div *ngIf="game.state == 'open' && !gameHasPlayer()">
+      
+      <div *ngIf="game.state == 'Open' && !gameHasPlayer()">
         <button md-raised-button [disabled]="isJoiningGame" color="primary" (click)="onGameJoinClicked()">Join</button>
       </div>
     </md-card-actions>

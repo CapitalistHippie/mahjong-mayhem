@@ -117,6 +117,26 @@ export class GameService {
     }
   }
 
+  getUsername(): string {
+    return this.mahjongMayhemApiService.getUsername();
+  }
+
+  getGameByGameId(gameId: string){
+    let observable = new Observable<Game>(observer => {
+      this.mahjongMayhemApiService.getGameByGameId(gameId).subscribe((game: ApiGame) => {
+        let mappedGame = this.mapApiGameToGame(game);
+
+        observer.next(mappedGame);
+        observer.complete();
+      }, error => {
+        observer.error(error);
+        observer.complete();
+      });
+    });
+
+    return observable;
+  }
+
   getGames(pageSize: number = undefined, pageIndex: number = undefined, createdBy: string = undefined, player: string = undefined, gameTemplate: string = undefined, state: GameState = undefined): Observable<Game[]> {
     let observable = new Observable<Game[]>(observer => {
       this.mahjongMayhemApiService.getGames(pageSize, pageIndex, createdBy, player, gameTemplate, state == null ? undefined : this.gameStateEnumToString(state)).subscribe((games: ApiGame[]) => {
@@ -161,6 +181,20 @@ export class GameService {
         let mappedGame = this.mapApiGameToGame(game);
 
         observer.next(mappedGame);
+        observer.complete();
+      }, error => {
+        observer.error(error);
+        observer.complete();
+      });
+    });
+
+    return observable;
+  }
+
+  addPlayerToGame(gameId: string): Observable<any> {
+    let observable = new Observable<any>(observer => {
+      this.mahjongMayhemApiService.postPlayerToGame(gameId).subscribe(() => {
+        observer.next();
         observer.complete();
       }, error => {
         observer.error(error);

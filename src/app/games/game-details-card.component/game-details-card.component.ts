@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 
 import { GameService } from '../game.service/game.service'
+import { Player } from '../models';
 
 import { Game } from '../models';
 
@@ -29,49 +30,47 @@ export class GameDetailsCardComponent implements OnInit {
   }
 
   private onGameJoinClicked(): void {
-    // this.isJoiningGame = true;
+    this.isJoiningGame = true;
 
-    // this.mahjongMayhemApiService.postGamesByGameIdPlayers(this.game.id).subscribe(
-    //   () => {
-    //     this.snackBar.open("Successfully joined the game!", "Close", {
-    //       duration: 3000
-    //     });
+    this.gameService.addPlayerToGame(this.game.id).subscribe(
+      () => {
+        this.snackBar.open("Successfully joined the game!", "Close", {
+          duration: 3000
+        });
 
-    //     this.update(() => {
-    //       this.gameJoined.emit(this.game);
-    //     });
-    //   },
-    //   error => {
-    //     this.snackBar.open("Something went wrong while trying to join the game.", "Close", {
-    //       duration: 3000
-    //     });
+        this.update(() => {
+          this.gameJoined.emit(this.game);
+        });
+      },
+      error => {
+        this.snackBar.open("Something went wrong while trying to join the game.", "Close", {
+          duration: 3000
+        });
 
-    //     this.isJoiningGame = false;
-    //   }
-    // );
+        this.isJoiningGame = false;
+      }
+    );
   }
 
   private update(callback: () => void): void {
-    // this.mahjongMayhemApiService.getGameByGameId(this.game.id).subscribe(
-    //   game => {
-    //     this.game = game;
-
-    //     callback();
-    //   },
-    //   error => {
-    //     this.snackBar.open("Something went wrong while trying to update the game.", "Close", {
-    //       duration: 3000
-    //     });
-    //   }
-    // );
+    this.gameService.getGameByGameId(this.game.id).subscribe(
+      game => {
+        this.game = game;
+        callback();
+      },
+      error => {
+        this.snackBar.open("Something went wrong while trying to update the game.", "Close", {
+          duration: 3000
+        });
+      }
+    );
   }
 
   private gameHasPlayer(): boolean {
-    // let playerUsername = this.mahjongMayhemApiService.getUsername();
+    let playerUsername = this.gameService.getUsername();
 
-    // return this.game.players.some(function (user: User): boolean {
-    //   return user._id == playerUsername;
-    // });
-    return true;
+    return this.game.players.some(function (player: Player): boolean {
+      return player.id == playerUsername;
+    });
   }
 }
