@@ -45,7 +45,7 @@ export class GameListComponent implements OnInit {
   refreshGames(): void {
     this.isLoadingGames = true;
 
-    let player = this.routeFilter == "mine" ? this.authService.getUsername() : null;
+    let player = this.routeFilter == "mine" ? this.authService.getUserId() : null;
 
     this.gameService.getGames(null, null, null, player, null, this.routeGameStateFilter).subscribe(
       (games: Game[]) => {

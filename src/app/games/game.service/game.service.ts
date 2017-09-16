@@ -117,11 +117,7 @@ export class GameService {
     }
   }
 
-  getUsername(): string {
-    return this.mahjongMayhemApiService.getUsername();
-  }
-
-  getGameByGameId(gameId: string){
+  getGameByGameId(gameId: string) {
     let observable = new Observable<Game>(observer => {
       this.mahjongMayhemApiService.getGameByGameId(gameId).subscribe((game: ApiGame) => {
         let mappedGame = this.mapApiGameToGame(game);

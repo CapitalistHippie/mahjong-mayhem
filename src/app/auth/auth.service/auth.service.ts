@@ -20,7 +20,7 @@ export class AuthService {
     return this.mahjongMayhemApiService.isAuthenticated();
   }
 
-  public getUsername(): string {
+  public getUserId(): string {
     return this.mahjongMayhemApiService.getUsername();
   }
 }

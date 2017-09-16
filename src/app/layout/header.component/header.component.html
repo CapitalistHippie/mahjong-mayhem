@@ -29,7 +29,7 @@
       </div>
 
       <div *ngIf="authService.isAuthenticated()">
-        <button md-button><md-icon>account_circle</md-icon> Account ({{authService.getUsername()}})</button>
+        <button md-button><md-icon>account_circle</md-icon> Account ({{authService.getUserId()}})</button>
       </div>
     </div>
   </md-toolbar>
