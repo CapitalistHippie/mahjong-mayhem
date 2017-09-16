@@ -26,9 +26,8 @@
     <md-card-actions>
       <button md-raised-button color="primary" (click)="onGameOpenClicked()">Open</button>
       
-      <div *ngIf="game.state == 'Open' && !gameHasPlayer()">
-        <button md-raised-button [disabled]="isJoiningGame" color="primary" (click)="onGameJoinClicked()">Join</button>
-      </div>
+      <button *ngIf="game.state == 'Open' && !gameHasPlayer()" md-raised-button [disabled]="isJoiningGame" 
+        color="primary" (click)="onGameJoinClicked()">Join</button>
     </md-card-actions>
   </md-card>
 </div>

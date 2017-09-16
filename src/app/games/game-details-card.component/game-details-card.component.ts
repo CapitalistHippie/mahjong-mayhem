@@ -2,9 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 
 import { GameService } from '../game.service/game.service'
-import { Player } from '../models';
-
-import { Game } from '../models';
+import { Game, Player } from '../models';
 
 @Component({
   selector: 'app-game-details-card',
