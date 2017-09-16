@@ -11,7 +11,7 @@ declare var io: any;
 export class SelectGameListComponent extends GameObserver{
 
   constructor() {
-    super('59bbca4d5805970011dd6126')
+    super('59bbca4d5805970011dd6126') // TODO remove hardcoding
   }
 
   // TODO Move this to somewhere appropriate and implement logic for these functions

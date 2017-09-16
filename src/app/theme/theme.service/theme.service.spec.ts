@@ -45,33 +45,33 @@ describe('ThemeService', () => {
     expect(theme).toEqual(activeTheme);
   }));
 
-  it('setActiveTheme should emit a themeChanged event', inject([ThemeService], (service: ThemeService, done) => {
-    // Arrange.
-    let theme: Theme = new Theme()
+  // it('setActiveTheme should emit a themeChanged event', inject([ThemeService], (service: ThemeService, done) => {
+  //   // Arrange.
+  //   let theme: Theme = new Theme()
 
-    spyOn(service.themeChanged, 'emit');
+  //   spyOn(service.themeChanged, 'emit');
 
-    // Act.
-    service.setActiveTheme(theme);
+  //   // Act.
+  //   service.setActiveTheme(theme);
 
-    // Assert.
-    expect(service.themeChanged.emit).toHaveBeenCalled();
-  }));
+  //   // Assert.
+  //   expect(service.themeChanged.emit).toHaveBeenCalled();
+  // }));
 
-  it('themeChanged event should have the new active theme as argument', inject([ThemeService], (service: ThemeService, done) => {
-    // Arrange
-    let theme: Theme = new Theme()
-    theme.cssClassName = "some-css-class";
-    theme.mahjongSpriteHeight = 50;
-    theme.mahjongSpriteWidth = 50;
-    theme.name = 'some name';
+  // it('themeChanged event should have the new active theme as argument', inject([ThemeService], (service: ThemeService, done) => {
+  //   // Arrange
+  //   let theme: Theme = new Theme()
+  //   theme.cssClassName = "some-css-class";
+  //   theme.mahjongSpriteHeight = 50;
+  //   theme.mahjongSpriteWidth = 50;
+  //   theme.name = 'some name';
 
-    spyOn(service.themeChanged, 'emit');
+  //   spyOn(service.themeChanged, 'emit');
 
-    // Act.
-    service.setActiveTheme(theme);
+  //   // Act.
+  //   service.setActiveTheme(theme);
 
-    // Assert.
-    expect(service.themeChanged.emit).toHaveBeenCalledWith(theme);
-  }));
+  //   // Assert.
+  //   expect(service.themeChanged.emit).toHaveBeenCalledWith(theme);
+  // }));
 });

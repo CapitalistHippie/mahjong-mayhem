@@ -1,6 +1,11 @@
 Wouter:
 - Multiplayer (sockets) 
-- Tile matching
+- Tile matching (gelijke suit?)
+- Tile selection (als een tile bij links EN rechts stenen heeft liggen mag hij niet geselecteerd worden)
+ => vinden of de volgende tiles bestaan
+  ==> xpos = x + 1; ypos = y; zpos = z; 
+  ==> xpos = x - 1; ypos = y; zpos = z;
+ => Als ze allebei bestaan => unable to click
 
 Simon:
 - Starten van game (en preview van het bord)

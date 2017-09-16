@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 declare var io: any;
 
 export abstract class GameObserver {
+
     protected socket: any
 
     private createObserver<T>(functionName: string, callback: (n: T) => void) {
