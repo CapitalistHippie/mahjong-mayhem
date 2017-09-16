@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 
 import { GameService } from '../game.service/game.service'
+import { AuthService } from '../../auth/auth.service/auth.service';
+
 import { Game, Player } from '../models';
 
 @Component({
@@ -17,7 +19,7 @@ export class GameDetailsCardComponent implements OnInit {
 
   isJoiningGame: boolean;
 
-  constructor(private gameService: GameService, private snackBar: MdSnackBar) {
+  constructor(private gameService: GameService, private authService: AuthService, private snackBar: MdSnackBar) {
     this.isJoiningGame = false;
   }
 
@@ -65,7 +67,7 @@ export class GameDetailsCardComponent implements OnInit {
   }
 
   private gameHasPlayer(): boolean {
-    let playerUsername = this.gameService.getUsername();
+    let playerUsername = this.authService.getUserId();
 
     return this.game.players.some(function (player: Player): boolean {
       return player.id == playerUsername;

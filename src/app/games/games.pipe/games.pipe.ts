@@ -31,14 +31,13 @@ export class GamesPipe implements PipeTransform {
     }
 
     if (this.authService.isAuthenticated()) {
-      // TODO: Get user ID instead of username.
-      let playerUsername = this.authService.getUsername();
+      let userId = this.authService.getUserId();
 
-      // Filter out all games which don't include the player.
+      // Filter out all games which don't include the user.
       if (args.filterPlayerGamesInverse) {
         games = games.filter(function (game: Game): boolean {
           return game.players.some(function (player: Player): boolean {
-            return player.id == playerUsername;
+            return player.id == userId;
           });
         });
       }
