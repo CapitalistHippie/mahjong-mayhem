@@ -1,0 +1,14 @@
+Wouter:
+- Multiplayer (sockets) 
+- Tile matching
+
+Simon:
+- Starten van game (en preview van het bord)
+- Visueel bord
+ => Als gebruiker wil ik een tab binnen een game zien met het gameboard
+ => Als gebruiker wil ik een tab binnen een game zien met alle gespeelde zetten
+
+Beide: 
+- Filters uitbreiden en fixen
+- e2e testing 
+- Unit testing
