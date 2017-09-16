@@ -42,17 +42,20 @@ export class MahjongBoardComponent implements OnInit {
     for (let boardTile of this.boardTiles) {
       let elementRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
       let instance = elementRef.instance;
-      let nativeElement = instance.elementRef.nativeElement;
-
-      instance.tile = boardTile.tile;
-      instance.update();
 
       let theme = this.themeService.getActiveTheme();
 
-      this.renderer.setElementStyle(nativeElement, 'position', 'absolute');
-      this.renderer.setElementStyle(nativeElement, 'left', boardTile.x * theme.mahjongSpriteWidth / 2 + 'px');
-      this.renderer.setElementStyle(nativeElement, 'top', boardTile.y * theme.mahjongSpriteHeight / 2 + 'px');
-      this.renderer.setElementStyle(nativeElement, 'z-index', boardTile.z.toString());
+      instance.tile = boardTile.tile;
+      instance.scaleDirection = 'vertically';
+      instance.width = theme.mahjongSpriteWidth;
+
+      // this.renderer.setElementStyle(elementRef, 'position', 'absolute');
+      // this.renderer.setElementStyle(elementRef, 'width', theme.mahjongSpriteWidth + 'px');
+      // this.renderer.setElementStyle(elementRef, 'left', boardTile.x * theme.mahjongSpriteWidth / 2 + 'px');
+      // this.renderer.setElementStyle(elementRef, 'top', boardTile.y * theme.mahjongSpriteHeight / 2 + 'px');
+      // this.renderer.setElementStyle(elementRef, 'z-index', boardTile.z.toString());
+
+      instance.update();
     }
   }
 }
