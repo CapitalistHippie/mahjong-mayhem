@@ -22,6 +22,7 @@ import { MahjongBoardHostDirective } from './mahjong-board-host.directive/mahjon
     MahjongBoardHostDirective
   ],
   exports: [
+    MahjongBoardComponent,
     MahjongTileComponent,
     MahjongBoardHostDirective
   ]

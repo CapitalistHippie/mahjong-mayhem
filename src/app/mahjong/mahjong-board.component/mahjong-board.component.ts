@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactory, ComponentFactoryResolver, Renderer } from '@angular/core';
 
+import { ThemeService } from '../../theme/theme.service/theme.service';
+
 import { MahjongTileComponent } from '../mahjong-tile.component/mahjong-tile.component';
 
 import { MahjongBoardHostDirective } from '../mahjong-board-host.directive/mahjong-board-host.directive';
 
-import { Tile } from '../models';
+import { BoardTile } from '../models';
 
 @Component({
   selector: 'app-mahjong-board',
@@ -13,13 +15,13 @@ import { Tile } from '../models';
   entryComponents: [MahjongTileComponent]
 })
 export class MahjongBoardComponent implements OnInit {
-  @Input() tiles: Tile[];
+  @Input() boardTiles: BoardTile[];
 
   @ViewChild(MahjongBoardHostDirective) mahjongBoardHost: MahjongBoardHostDirective;
 
   private mahjongTilecomponentFactory: ComponentFactory<MahjongTileComponent>;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver, private renderer: Renderer) {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private renderer: Renderer, private themeService: ThemeService) {
     this.mahjongTilecomponentFactory = this.componentFactoryResolver.resolveComponentFactory(MahjongTileComponent);
   }
 
@@ -35,20 +37,22 @@ export class MahjongBoardComponent implements OnInit {
 
     viewContainerRef.clear();
 
-    console.log(this.tiles);
+    console.log(this.boardTiles);
 
-    for (let tile of this.tiles) {
+    for (let boardTile of this.boardTiles) {
       let elementRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
       let instance = elementRef.instance;
       let nativeElement = instance.elementRef.nativeElement;
 
-      instance.tile = tile;
+      instance.tile = boardTile.tile;
       instance.update();
 
-      // this.renderer.setElementStyle(nativeElement, 'position', 'absolute');
-      // this.renderer.setElementStyle(nativeElement, 'left', gameTile.xPos * 349 / 2 + 'px');
-      // this.renderer.setElementStyle(nativeElement, 'top', gameTile.yPos * 480 / 2 + 'px');
-      // this.renderer.setElementStyle(nativeElement, 'z-index', gameTile.zPos.toString());
+      let theme = this.themeService.getActiveTheme();
+
+      this.renderer.setElementStyle(nativeElement, 'position', 'absolute');
+      this.renderer.setElementStyle(nativeElement, 'left', boardTile.x * theme.mahjongSpriteWidth / 2 + 'px');
+      this.renderer.setElementStyle(nativeElement, 'top', boardTile.y * theme.mahjongSpriteHeight / 2 + 'px');
+      this.renderer.setElementStyle(nativeElement, 'z-index', boardTile.z.toString());
     }
   }
 }

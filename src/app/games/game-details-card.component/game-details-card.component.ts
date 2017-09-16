@@ -27,6 +27,7 @@ export class GameDetailsCardComponent implements OnInit {
   }
 
   private onGameOpenClicked(): void {
+
   }
 
   private onGameJoinClicked(): void {

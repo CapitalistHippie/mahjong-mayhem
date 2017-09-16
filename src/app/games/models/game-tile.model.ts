@@ -1,7 +1,6 @@
-import { Tile } from '../../mahjong/models';
+import { BoardTile } from '../../mahjong/models';
 
 export class GameTile {
 	id: string;
-	tile: Tile;
-	matchesWholeSuit: boolean;
+	boardTile: BoardTile = new BoardTile;
 }

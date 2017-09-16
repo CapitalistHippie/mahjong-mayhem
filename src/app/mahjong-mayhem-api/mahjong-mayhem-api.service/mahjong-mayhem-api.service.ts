@@ -121,7 +121,7 @@ export class MahjongMayhemApiService {
   }
 
   public getGameByGameId(gameId: string): Observable<Game> {
-    let uri = '/games/${gameId}';
+    let uri = '/games/' + gameId;
 
     return this.get(uri);
   }
@@ -133,7 +133,7 @@ export class MahjongMayhemApiService {
   }
 
   public postPlayerToGame(gameId: string) {
-    let uri = '/games/${gameId}/players';
+    let uri = '/games/' + gameId + '/players';
 
     return this.authenticatedPost(uri, null);
   }
@@ -145,7 +145,7 @@ export class MahjongMayhemApiService {
       queryParameters['matched'] = matched;
     }
 
-    let uri = '/games/${gameId}/tiles';
+    let uri = '/games/' + gameId + '/tiles';
 
     return this.get(uri, queryParameters);
   }
@@ -160,7 +160,7 @@ export class MahjongMayhemApiService {
     if (error instanceof Response) {
       const body = error.json() || '';
       const err = body.error || JSON.stringify(body);
-      errorMessage = '${error.status} - ${error.statusText || ""} ${err}';
+      errorMessage = error.status + ' - ' + error.statusText || err;
     } else {
       errorMessage = error.message ? error.message : error.toString();
     }

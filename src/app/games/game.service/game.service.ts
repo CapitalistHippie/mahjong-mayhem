@@ -11,6 +11,7 @@ import { Game as ApiGame } from '../../mahjong-mayhem-api/models';
 import { GamePost as ApiGamePost } from '../../mahjong-mayhem-api/models';
 import { GameTemplate as ApiGameTemplate } from '../../mahjong-mayhem-api/models';
 import { GameTemplateTile as ApiGameTemplateTile } from '../../mahjong-mayhem-api/models';
+import { GameTile as ApiGameTile } from '../../mahjong-mayhem-api/models';
 import { User as ApiUser } from '../../mahjong-mayhem-api/models';
 import { Tile as ApiTile } from '../../mahjong-mayhem-api/models';
 
@@ -71,14 +72,16 @@ export class GameService {
     return player;
   }
 
-  private mapApiTileToTile(apiTile: ApiTile): GameTile {
-    let tile = new GameTile();
-    tile.id = apiTile.id;
-    tile.matchesWholeSuit = apiTile.matchesWholeSuit;
-    tile.tile.name = apiTile.name;
-    tile.tile.suit = this.mapApiSuitToTileSuit(apiTile.suit);
+  private mapApiGameTileToGameTile(apiGameTile: ApiGameTile): GameTile {
+    let gameTile = new GameTile();
+    gameTile.id = apiGameTile._id
+    gameTile.boardTile.tile.name = apiGameTile.tile.name;
+    gameTile.boardTile.tile.suit = this.mapApiSuitToTileSuit(apiGameTile.tile.suit);
+    gameTile.boardTile.x = apiGameTile.xPos;
+    gameTile.boardTile.y = apiGameTile.yPos;
+    gameTile.boardTile.z = apiGameTile.zPos;
 
-    return tile;
+    return gameTile;
   }
 
   private mapApiGameTemplateTileToTemplateTile(apiGameTemplateTile: ApiGameTemplateTile): GameTemplateTile {
@@ -177,6 +180,25 @@ export class GameService {
         let mappedGame = this.mapApiGameToGame(game);
 
         observer.next(mappedGame);
+        observer.complete();
+      }, error => {
+        observer.error(error);
+        observer.complete();
+      });
+    });
+
+    return observable;
+  }
+
+  getGameTiles(gameId: string): Observable<GameTile[]> {
+    let observable = new Observable<GameTile[]>(observer => {
+      this.mahjongMayhemApiService.getGameTiles(gameId).subscribe((apiGameTiles: ApiGameTile[]) => {
+        console.log(apiGameTiles);
+        let mappedGameTiles = apiGameTiles.map((gameTile: ApiGameTile) => {
+          return this.mapApiGameTileToGameTile(gameTile);
+        });
+
+        observer.next(mappedGameTiles);
         observer.complete();
       }, error => {
         observer.error(error);
