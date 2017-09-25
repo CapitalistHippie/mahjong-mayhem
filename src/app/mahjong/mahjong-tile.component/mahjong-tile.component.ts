@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ThemeService } from '../../theme/theme.service/theme.service';
@@ -10,7 +10,7 @@ import { Tile } from '../models';
   templateUrl: './mahjong-tile.component.html',
   styleUrls: ['./mahjong-tile.component.scss']
 })
-export class MahjongTileComponent implements OnInit, OnChanges {
+export class MahjongTileComponent implements OnInit, OnDestroy {
   @Input() tile: Tile;
   @Input() scaleDirection: string;
 
@@ -28,8 +28,8 @@ export class MahjongTileComponent implements OnInit, OnChanges {
     this.update();
   }
 
-  ngOnChanges() {
-    this.update();
+  ngOnDestroy() {
+    this.themeSubscription.unsubscribe();
   }
 
   public update(): void {
@@ -45,6 +45,8 @@ export class MahjongTileComponent implements OnInit, OnChanges {
         let spriteWidth = activeTheme.mahjongSpriteWidth;
         let spriteHeight = activeTheme.mahjongSpriteHeight;
         let spriteRatio = spriteWidth / spriteHeight;
+
+        this.renderer.data
 
         let height = parseInt(window.getComputedStyle(this.elementRef.nativeElement).height.match(/\d+/)[0]);
         let heightType = window.getComputedStyle(this.elementRef.nativeElement).height.match(/\D+/)[0];
@@ -63,6 +65,9 @@ export class MahjongTileComponent implements OnInit, OnChanges {
 
         console.log(this.elementRef.nativeElement);
         console.log(window.getComputedStyle(this.elementRef.nativeElement));
+        setTimeout(() => {
+          console.log(window.getComputedStyle(this.elementRef.nativeElement));
+        }, 10);
 
         let width = parseInt(window.getComputedStyle(this.elementRef.nativeElement).width.match(/\d+/)[0]);
         let widthType = window.getComputedStyle(this.elementRef.nativeElement).width.match(/\D+/)[0];
