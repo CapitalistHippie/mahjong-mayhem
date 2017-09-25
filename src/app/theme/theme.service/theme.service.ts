@@ -1,19 +1,30 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 import { Theme } from '../theme.model';
 
 @Injectable()
 export class ThemeService {
-  private themeChanged = new BehaviorSubject<Theme>(this.getDefaultTheme());
+  private readonly localStorageThemeKey: string;
 
-  themeChanged$ = this.themeChanged.asObservable();
+  private themeChanged: BehaviorSubject<Theme>;
+  themeChanged$: Observable<Theme>;
 
   constructor() {
+    this.localStorageThemeKey = 'theme';
+
+    let localStorageTheme = localStorage.getItem(this.localStorageThemeKey);
+    let activeTheme = localStorageTheme == null ? this.getDefaultTheme() : JSON.parse(localStorageTheme);
+
+    this.themeChanged = new BehaviorSubject<Theme>(activeTheme);
+    this.themeChanged$ = this.themeChanged.asObservable();
   }
 
   setActiveTheme(theme: Theme): void {
     this.themeChanged.next(theme);
+
+    localStorage.setItem(this.localStorageThemeKey, JSON.stringify(theme));
   }
 
   getThemes(): Theme[] {

@@ -46,10 +46,8 @@ export class MahjongTileComponent implements OnInit, OnDestroy {
         let spriteHeight = activeTheme.mahjongSpriteHeight;
         let spriteRatio = spriteWidth / spriteHeight;
 
-        this.renderer.data
-
-        let height = parseInt(window.getComputedStyle(this.elementRef.nativeElement).height.match(/\d+/)[0]);
-        let heightType = window.getComputedStyle(this.elementRef.nativeElement).height.match(/\D+/)[0];
+        let height = parseFloat(window.getComputedStyle(this.elementRef.nativeElement).height.match(/[\.\d]+/)[0]);
+        let heightType = window.getComputedStyle(this.elementRef.nativeElement).height.match(/[^\.\d]+/)[0];
         let width = Math.round(height * spriteRatio);
 
         this.renderer.setStyle(this.elementRef.nativeElement, 'width', width + heightType);
@@ -63,8 +61,8 @@ export class MahjongTileComponent implements OnInit, OnDestroy {
         let spriteHeight = activeTheme.mahjongSpriteHeight;
         let spriteRatio = spriteHeight / spriteWidth;
 
-        let width = parseInt(window.getComputedStyle(this.elementRef.nativeElement).width.match(/\d+/)[0]);
-        let widthType = window.getComputedStyle(this.elementRef.nativeElement).width.match(/\D+/)[0];
+        let width = parseFloat(window.getComputedStyle(this.elementRef.nativeElement).width.match(/[\.\d]+/)[0]);
+        let widthType = window.getComputedStyle(this.elementRef.nativeElement).width.match(/[^\.\d]+/)[0];
         let height = Math.round(width * spriteRatio);
 
         this.renderer.setStyle(this.elementRef.nativeElement, 'height', height + widthType);
