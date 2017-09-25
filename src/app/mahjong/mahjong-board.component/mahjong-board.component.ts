@@ -37,8 +37,6 @@ export class MahjongBoardComponent implements OnInit {
 
     viewContainerRef.clear();
 
-    console.log(this.boardTiles);
-
     for (let boardTile of this.boardTiles) {
       let componentRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
       let elementRef = componentRef.location;

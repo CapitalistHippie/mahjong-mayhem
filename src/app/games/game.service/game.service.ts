@@ -193,7 +193,6 @@ export class GameService {
   getGameTiles(gameId: string): Observable<GameTile[]> {
     let observable = new Observable<GameTile[]>(observer => {
       this.mahjongMayhemApiService.getGameTiles(gameId).subscribe((apiGameTiles: ApiGameTile[]) => {
-        console.log(apiGameTiles);
         let mappedGameTiles = apiGameTiles.map((gameTile: ApiGameTile) => {
           return this.mapApiGameTileToGameTile(gameTile);
         });
