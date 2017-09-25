@@ -63,12 +63,6 @@ export class MahjongTileComponent implements OnInit, OnDestroy {
         let spriteHeight = activeTheme.mahjongSpriteHeight;
         let spriteRatio = spriteHeight / spriteWidth;
 
-        console.log(this.elementRef.nativeElement);
-        console.log(window.getComputedStyle(this.elementRef.nativeElement));
-        setTimeout(() => {
-          console.log(window.getComputedStyle(this.elementRef.nativeElement));
-        }, 10);
-
         let width = parseInt(window.getComputedStyle(this.elementRef.nativeElement).width.match(/\d+/)[0]);
         let widthType = window.getComputedStyle(this.elementRef.nativeElement).width.match(/\D+/)[0];
         let height = Math.round(width * spriteRatio);
