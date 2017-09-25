@@ -13,13 +13,12 @@ import { Tile } from '../models';
 export class MahjongTileComponent implements OnInit, OnChanges {
   @Input() tile: Tile;
   @Input() scaleDirection: string;
-  @Input() width: number;
 
-  // @ViewChild('tile') elementRef: ElementRef;
+  @ViewChild('tile') elementRef: ElementRef;
 
   private themeSubscription: Subscription;
 
-  constructor(private renderer: Renderer, private elementRef: ElementRef, private themeService: ThemeService) {
+  constructor(private renderer: Renderer, private themeService: ThemeService) {
     this.themeSubscription = this.themeService.themeChanged$.subscribe((theme) => {
       this.update();
     });
@@ -55,23 +54,18 @@ export class MahjongTileComponent implements OnInit, OnChanges {
         break;
       }
       case 'vertically': {
-        // this.renderer.setElementStyle(this.elementRef.nativeElement, 'width', 'inherit');
+        this.renderer.setElementStyle(this.elementRef.nativeElement, 'width', 'inherit');
 
         let activeTheme = this.themeService.getActiveTheme();
         let spriteWidth = activeTheme.mahjongSpriteWidth;
         let spriteHeight = activeTheme.mahjongSpriteHeight;
         let spriteRatio = spriteHeight / spriteWidth;
 
-        // let width = parseInt(window.getComputedStyle(this.elementRef.nativeElement).width.match(/\d+/)[0]);
-        let width = this.width;
-        // let widthType = window.getComputedStyle(this.elementRef.nativeElement).width.match(/\D+/)[0];
-        let widthType = 'px';
+        let width = parseInt(window.getComputedStyle(this.elementRef.nativeElement).width.match(/\d+/)[0]);
+        let widthType = window.getComputedStyle(this.elementRef.nativeElement).width.match(/\D+/)[0];
         let height = Math.round(width * spriteRatio);
 
-        this.renderer.setElementStyle(this.elementRef.nativeElement, 'width', width + widthType);
         this.renderer.setElementStyle(this.elementRef.nativeElement, 'height', height + widthType);
-
-        console.log(width);
 
         break;
       }

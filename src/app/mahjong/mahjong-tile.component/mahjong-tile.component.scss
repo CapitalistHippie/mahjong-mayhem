@@ -32,8 +32,6 @@
     background-image: $mahjongTilesSpriteSheetUrl;
     background-size: $mahjongTilesSpriteSheetSpriteCountHorizontal * 100% $mahjongTilesSpriteSheetSpriteCountVertical * 100%;
     background-repeat: no-repeat;
-    width: inherit;
-    height: inherit;
 
     @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, bamboo), 'bamboo');
     @include app-mahjong-tile-component-create-tile-set-classes(map-get($mahjongTileSprites, characters), 'character');
