@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ComponentFactory, ComponentFactoryResolver, Renderer } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ComponentFactory, ComponentFactoryResolver, Renderer2 } from '@angular/core';
 
 import { ThemeService } from '../../theme/theme.service/theme.service';
 
@@ -21,7 +21,7 @@ export class MahjongBoardComponent implements OnInit {
 
   private mahjongTilecomponentFactory: ComponentFactory<MahjongTileComponent>;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver, private renderer: Renderer, private themeService: ThemeService) {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private renderer: Renderer2, private themeService: ThemeService) {
     this.mahjongTilecomponentFactory = this.componentFactoryResolver.resolveComponentFactory(MahjongTileComponent);
   }
 
@@ -40,19 +40,23 @@ export class MahjongBoardComponent implements OnInit {
     console.log(this.boardTiles);
 
     for (let boardTile of this.boardTiles) {
-      let elementRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
-      let instance = elementRef.instance;
-      let nativeElement = instance.elementRef.nativeElement;
+      let componentRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
+      let elementRef = componentRef.location;
+      let nativeElement = elementRef.nativeElement;
+      let instance = componentRef.instance;
 
       instance.tile = boardTile.tile;
-      instance.update();
+      instance.scaleDirection = 'vertically';
 
       let theme = this.themeService.getActiveTheme();
 
-      this.renderer.setElementStyle(nativeElement, 'position', 'absolute');
-      this.renderer.setElementStyle(nativeElement, 'left', boardTile.x * theme.mahjongSpriteWidth / 2 + 'px');
-      this.renderer.setElementStyle(nativeElement, 'top', boardTile.y * theme.mahjongSpriteHeight / 2 + 'px');
-      this.renderer.setElementStyle(nativeElement, 'z-index', boardTile.z.toString());
+      this.renderer.setStyle(nativeElement, 'position', 'absolute');
+      this.renderer.setStyle(nativeElement, 'width', theme.mahjongSpriteWidth + 'px');
+      this.renderer.setStyle(nativeElement, 'left', boardTile.x * theme.mahjongSpriteWidth / 2 + 'px');
+      this.renderer.setStyle(nativeElement, 'top', boardTile.y * theme.mahjongSpriteHeight / 2 + 'px');
+      this.renderer.setStyle(nativeElement, 'z-index', boardTile.z.toString());
+
+      instance.update();
     }
   }
 }
