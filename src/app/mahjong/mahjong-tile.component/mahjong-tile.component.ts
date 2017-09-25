@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ThemeService } from '../../theme/theme.service/theme.service';
@@ -18,7 +18,7 @@ export class MahjongTileComponent implements OnInit, OnChanges {
 
   private themeSubscription: Subscription;
 
-  constructor(private renderer: Renderer, private themeService: ThemeService) {
+  constructor(private renderer: Renderer2, private themeService: ThemeService) {
     this.themeSubscription = this.themeService.themeChanged$.subscribe((theme) => {
       this.update();
     });
@@ -39,7 +39,7 @@ export class MahjongTileComponent implements OnInit, OnChanges {
 
     switch (this.scaleDirection) {
       case 'horizontally': {
-        this.renderer.setElementStyle(this.elementRef.nativeElement, 'height', 'inherit');
+        this.renderer.setStyle(this.elementRef.nativeElement, 'height', 'inherit');
 
         let activeTheme = this.themeService.getActiveTheme();
         let spriteWidth = activeTheme.mahjongSpriteWidth;
@@ -50,34 +50,37 @@ export class MahjongTileComponent implements OnInit, OnChanges {
         let heightType = window.getComputedStyle(this.elementRef.nativeElement).height.match(/\D+/)[0];
         let width = Math.round(height * spriteRatio);
 
-        this.renderer.setElementStyle(this.elementRef.nativeElement, 'width', width + heightType);
+        this.renderer.setStyle(this.elementRef.nativeElement, 'width', width + heightType);
         break;
       }
       case 'vertically': {
-        this.renderer.setElementStyle(this.elementRef.nativeElement, 'width', 'inherit');
+        this.renderer.setStyle(this.elementRef.nativeElement, 'width', 'inherit');
 
         let activeTheme = this.themeService.getActiveTheme();
         let spriteWidth = activeTheme.mahjongSpriteWidth;
         let spriteHeight = activeTheme.mahjongSpriteHeight;
         let spriteRatio = spriteHeight / spriteWidth;
 
+        console.log(this.elementRef.nativeElement);
+        console.log(window.getComputedStyle(this.elementRef.nativeElement));
+
         let width = parseInt(window.getComputedStyle(this.elementRef.nativeElement).width.match(/\d+/)[0]);
         let widthType = window.getComputedStyle(this.elementRef.nativeElement).width.match(/\D+/)[0];
         let height = Math.round(width * spriteRatio);
 
-        this.renderer.setElementStyle(this.elementRef.nativeElement, 'height', height + widthType);
+        this.renderer.setStyle(this.elementRef.nativeElement, 'height', height + widthType);
 
         break;
       }
       case 'none':
       default: {
-        this.renderer.setElementStyle(this.elementRef.nativeElement, 'width', 'inherit');
-        this.renderer.setElementStyle(this.elementRef.nativeElement, 'height', 'inherit');
+        this.renderer.setStyle(this.elementRef.nativeElement, 'width', 'inherit');
+        this.renderer.setStyle(this.elementRef.nativeElement, 'height', 'inherit');
         break;
       }
     }
 
-    this.renderer.setElementAttribute(this.elementRef.nativeElement, 'class', '');
-    this.renderer.setElementClass(this.elementRef.nativeElement, this.tile.suit.toLowerCase() + '-' + this.tile.name.toLowerCase(), true);
+    this.renderer.setAttribute(this.elementRef.nativeElement, 'class', '');
+    this.renderer.addClass(this.elementRef.nativeElement, this.tile.suit.toLowerCase() + '-' + this.tile.name.toLowerCase());
   }
 }
