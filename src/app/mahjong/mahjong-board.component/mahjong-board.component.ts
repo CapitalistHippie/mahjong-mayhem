@@ -42,6 +42,11 @@ export class MahjongBoardComponent implements OnInit {
     let x = elementRect.left;
     let y = elementRect.top;
 
+    let theme = this.themeService.getActiveTheme();
+    let spriteRatio = theme.mahjongSpriteHeight / theme.mahjongSpriteWidth;
+    let spriteWidth = 50;
+    let spriteHeight = spriteWidth * spriteRatio;
+
     for (let boardTile of this.boardTiles) {
       let componentRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
       let elementRef = componentRef.location;
@@ -51,14 +56,12 @@ export class MahjongBoardComponent implements OnInit {
       instance.tile = boardTile.tile;
       instance.scaleDirection = 'vertically';
 
-      let theme = this.themeService.getActiveTheme();
-
       this.renderer.setStyle(nativeElement, 'position', 'absolute');
-      this.renderer.setStyle(nativeElement, 'width', theme.mahjongSpriteWidth + 'px');
+      this.renderer.setStyle(nativeElement, 'width', spriteWidth + 'px');
 
       // Board tile x and y indexes start at 1 so to not offset too much we reduce that by one.
-      this.renderer.setStyle(nativeElement, 'left', x + (boardTile.x - 1) * theme.mahjongSpriteWidth / 2 + 'px');
-      this.renderer.setStyle(nativeElement, 'top', y + (boardTile.y - 1) * theme.mahjongSpriteHeight / 2 + 'px');
+      this.renderer.setStyle(nativeElement, 'left', x + (boardTile.x - 1) * spriteWidth / 2 + 'px');
+      this.renderer.setStyle(nativeElement, 'top', y + (boardTile.y - 1) * spriteHeight / 2 + 'px');
       this.renderer.setStyle(nativeElement, 'z-index', boardTile.z.toString());
 
       instance.update();
