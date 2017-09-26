@@ -44,10 +44,7 @@ import { GamesPipe } from './games.pipe/games.pipe';
     GamesPipe
   ],
   providers: [
-    AuthService,
-    GameService,
-    MahjongService,
-    MahjongMayhemApiService
+    GameService
   ]
 })
 export class GamesModule { }

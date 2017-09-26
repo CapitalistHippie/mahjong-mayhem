@@ -7,9 +7,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { LayoutRoutingModule } from './layout-routing.module';
 import { ThemeModule } from '../theme/theme.module';
 
-import { AuthService } from '../auth/auth.service/auth.service';
-import { ThemeService } from '../theme/theme.service/theme.service';
-
 import { HeaderComponent } from './header.component/header.component';
 import { LayoutComponent } from './layout.component/layout.component';
 
@@ -25,10 +22,6 @@ import { LayoutComponent } from './layout.component/layout.component';
   declarations: [
     HeaderComponent,
     LayoutComponent
-  ],
-  providers: [
-    AuthService,
-    ThemeService
   ]
 })
 export class LayoutModule { }

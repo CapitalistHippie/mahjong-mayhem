@@ -8,9 +8,6 @@ import { MahjongModule } from '../mahjong/mahjong.module';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { ThemeModule } from '../theme/theme.module';
 
-import { MahjongService } from '../mahjong/mahjong.service/mahjong.service';
-import { ThemeService } from '../theme/theme.service/theme.service';
-
 import { SettingsComponent } from './settings.component/settings.component';
 
 @NgModule({
@@ -25,10 +22,6 @@ import { SettingsComponent } from './settings.component/settings.component';
   ],
   declarations: [
     SettingsComponent
-  ],
-  providers: [
-    MahjongService,
-    ThemeService
   ]
 })
 export class SettingsModule { }
