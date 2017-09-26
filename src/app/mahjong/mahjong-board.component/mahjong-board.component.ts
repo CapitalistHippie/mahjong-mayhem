@@ -53,7 +53,7 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
   }
 
   public resize(): void {
-    // Get element location so we can offset the tile elements their locations.
+    // Get element location so we can offset the tile elements their locations. TODO: Add extra in case the offset + depth illusion offset goes beyond the border.
     let elementRect = this.elementRef.nativeElement.getBoundingClientRect();
     let elementX = elementRect.left;
     let elementY = elementRect.top;
@@ -62,7 +62,7 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
     let theme = this.themeService.getActiveTheme();
     let spriteRatio = theme.mahjongSpriteHeight / theme.mahjongSpriteWidth;
 
-    // Calculate the amount of sprites over the width.
+    // Get the amount of sprites over the width.
     let amountOfSpritesOverWidth = Math.max.apply(null, this.tileComponentRefs.map(item => {
       return item[1].x;
     }));
@@ -70,6 +70,10 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
     // Calculate the width and height the sprites should be based on the space we got and the amount of tiles over the width.
     let spriteWidth = elementWidth / ((amountOfSpritesOverWidth + 1) / 2);
     let spriteHeight = spriteWidth * spriteRatio;
+
+    // Calculate extra x and y offset for depth illusion.
+    let depthIllusionOffsetX = spriteWidth * theme.mahjongSpriteDepthIllusionOffsetX;
+    let depthIllusionOffsetY = spriteHeight * theme.mahjongSpriteDepthIllusionOffsetY;
 
     for (let tileComponentRefsTuple of this.tileComponentRefs) {
       let tileComponentRef = tileComponentRefsTuple[0];
@@ -80,8 +84,8 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
       let tileInstance = tileComponentRef.instance;
 
       // Board tile x and y indexes start at 1 so to not offset too much we reduce the indexes by 1.
-      this.renderer.setStyle(tileNativeElement, 'left', elementX + (boardTile.x - 1) * spriteWidth / 2 + 'px');
-      this.renderer.setStyle(tileNativeElement, 'top', elementY + (boardTile.y - 1) * spriteHeight / 2 + 'px');
+      this.renderer.setStyle(tileNativeElement, 'left', elementX + (boardTile.x - 1) * spriteWidth / 2 + boardTile.z * depthIllusionOffsetX + 'px');
+      this.renderer.setStyle(tileNativeElement, 'top', elementY + (boardTile.y - 1) * spriteHeight / 2 + boardTile.z * depthIllusionOffsetY + 'px');
       this.renderer.setStyle(tileNativeElement, 'width', spriteWidth + 'px');
 
       tileInstance.update();
@@ -103,6 +107,7 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
       instance.scaleDirection = 'vertically';
 
       this.renderer.setStyle(nativeElement, 'position', 'absolute');
+      this.renderer.setStyle(nativeElement, 'z-index', boardTile.z);
 
       this.tileComponentRefs.push([componentRef, boardTile]);
     }

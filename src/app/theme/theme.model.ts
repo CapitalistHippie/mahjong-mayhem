@@ -3,4 +3,6 @@ export class Theme {
     cssClassName: string;
     mahjongSpriteWidth: number;
     mahjongSpriteHeight: number;
+    mahjongSpriteDepthIllusionOffsetX: number;
+    mahjongSpriteDepthIllusionOffsetY: number;
 }

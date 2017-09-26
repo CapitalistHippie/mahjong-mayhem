@@ -35,6 +35,8 @@ export class ThemeService {
     theme1.cssClassName = 'app-theme-1';
     theme1.mahjongSpriteWidth = 349;
     theme1.mahjongSpriteHeight = 480;
+    theme1.mahjongSpriteDepthIllusionOffsetX = 0.125;
+    theme1.mahjongSpriteDepthIllusionOffsetY = -0.085;
     themes.push(theme1);
 
     let theme2 = new Theme();
@@ -42,6 +44,8 @@ export class ThemeService {
     theme2.cssClassName = 'app-theme-2';
     theme2.mahjongSpriteWidth = 73.14285714285714;
     theme2.mahjongSpriteHeight = 90.33333333333333;
+    theme2.mahjongSpriteDepthIllusionOffsetX = -0.08;
+    theme2.mahjongSpriteDepthIllusionOffsetY = -0.03;
     themes.push(theme2);
 
     return themes;
