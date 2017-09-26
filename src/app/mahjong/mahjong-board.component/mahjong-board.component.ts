@@ -62,8 +62,13 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
     let theme = this.themeService.getActiveTheme();
     let spriteRatio = theme.mahjongSpriteHeight / theme.mahjongSpriteWidth;
 
-    // TODO: calculate the amount of sprites over the width. Is now a static 15.
-    let spriteWidth = elementWidth / 15;
+    // Calculate the amount of sprites over the width.
+    let amountOfSpritesOverWidth = Math.max.apply(null, this.tileComponentRefs.map(item => {
+      return item[1].x;
+    }));
+
+    // Calculate the width and height the sprites should be based on the space we got and the amount of tiles over the width.
+    let spriteWidth = elementWidth / ((amountOfSpritesOverWidth + 1) / 2);
     let spriteHeight = spriteWidth * spriteRatio;
 
     for (let tileComponentRefsTuple of this.tileComponentRefs) {
