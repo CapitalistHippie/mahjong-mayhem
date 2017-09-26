@@ -1,4 +1,8 @@
-import { Component, OnInit, Input, ViewChild, ComponentFactory, ComponentFactoryResolver, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ComponentFactory, ComponentFactoryResolver, Renderer2, ElementRef, ComponentRef } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime';
 
 import { ThemeService } from '../../theme/theme.service/theme.service';
 
@@ -14,38 +18,75 @@ import { BoardTile } from '../models';
   styleUrls: ['./mahjong-board.component.scss'],
   entryComponents: [MahjongTileComponent]
 })
-export class MahjongBoardComponent implements OnInit {
+export class MahjongBoardComponent implements OnInit, OnDestroy {
+
   @Input() boardTiles: BoardTile[];
 
   @ViewChild(MahjongBoardHostDirective) mahjongBoardHost: MahjongBoardHostDirective;
 
   private mahjongTilecomponentFactory: ComponentFactory<MahjongTileComponent>;
 
+  private tileComponentRefs: [ComponentRef<MahjongTileComponent>, BoardTile][];
+
+  private resizeSubscription: Subscription;
+
   constructor(private componentFactoryResolver: ComponentFactoryResolver, private renderer: Renderer2, private elementRef: ElementRef, private themeService: ThemeService) {
     this.mahjongTilecomponentFactory = this.componentFactoryResolver.resolveComponentFactory(MahjongTileComponent);
+    this.tileComponentRefs = [];
+
+    let $resizeEvent = Observable.fromEvent(window, 'resize').debounceTime(10);
+
+    this.resizeSubscription = $resizeEvent.subscribe(() => {
+      this.resize();
+    });
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.resizeSubscription.unsubscribe();
   }
 
   public update(): void {
     this.drawBoard();
   }
 
+  public resize(): void {
+    // Get element location so we can offset the tile elements their locations.
+    let elementRect = this.elementRef.nativeElement.getBoundingClientRect();
+    let elementX = elementRect.left;
+    let elementY = elementRect.top;
+    let elementWidth = this.elementRef.nativeElement.offsetWidth;
+
+    let theme = this.themeService.getActiveTheme();
+    let spriteRatio = theme.mahjongSpriteHeight / theme.mahjongSpriteWidth;
+
+    // TODO: calculate the amount of sprites over the width. Is now a static 15.
+    let spriteWidth = elementWidth / 15;
+    let spriteHeight = spriteWidth * spriteRatio;
+
+    for (let tileComponentRefsTuple of this.tileComponentRefs) {
+      let tileComponentRef = tileComponentRefsTuple[0];
+      let boardTile = tileComponentRefsTuple[1];
+
+      let tileElementRef = tileComponentRef.location;
+      let tileNativeElement = tileElementRef.nativeElement as MahjongTileComponent;
+      let tileInstance = tileComponentRef.instance;
+
+      // Board tile x and y indexes start at 1 so to not offset too much we reduce the indexes by 1.
+      this.renderer.setStyle(tileNativeElement, 'left', elementX + (boardTile.x - 1) * spriteWidth / 2 + 'px');
+      this.renderer.setStyle(tileNativeElement, 'top', elementY + (boardTile.y - 1) * spriteHeight / 2 + 'px');
+      this.renderer.setStyle(tileNativeElement, 'width', spriteWidth + 'px');
+
+      tileInstance.update();
+    }
+  }
+
   private drawBoard(): void {
     let viewContainerRef = this.mahjongBoardHost.viewContainerRef;
 
     viewContainerRef.clear();
-
-    // Get element location so we can offset the tile elements their locations.
-    let elementRect = this.elementRef.nativeElement.getBoundingClientRect();
-    let x = elementRect.left;
-    let y = elementRect.top;
-
-    let theme = this.themeService.getActiveTheme();
-    let spriteRatio = theme.mahjongSpriteHeight / theme.mahjongSpriteWidth;
-    let spriteWidth = 50;
-    let spriteHeight = spriteWidth * spriteRatio;
 
     for (let boardTile of this.boardTiles) {
       let componentRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
@@ -57,14 +98,10 @@ export class MahjongBoardComponent implements OnInit {
       instance.scaleDirection = 'vertically';
 
       this.renderer.setStyle(nativeElement, 'position', 'absolute');
-      this.renderer.setStyle(nativeElement, 'width', spriteWidth + 'px');
 
-      // Board tile x and y indexes start at 1 so to not offset too much we reduce that by one.
-      this.renderer.setStyle(nativeElement, 'left', x + (boardTile.x - 1) * spriteWidth / 2 + 'px');
-      this.renderer.setStyle(nativeElement, 'top', y + (boardTile.y - 1) * spriteHeight / 2 + 'px');
-      this.renderer.setStyle(nativeElement, 'z-index', boardTile.z.toString());
-
-      instance.update();
+      this.tileComponentRefs.push([componentRef, boardTile]);
     }
+
+    this.resize();
   }
 }

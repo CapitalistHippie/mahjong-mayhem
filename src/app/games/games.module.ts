@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
-import { AuthModule } from '../auth/auth.module';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule } from '@angular/forms';
@@ -26,7 +25,6 @@ import { GamesPipe } from './games.pipe/games.pipe';
 @NgModule({
   imports: [
     AngularMaterialModule,
-    // AuthModule, // NOTE: Somehow causes a stack overflow.
     CommonModule,
     FlexLayoutModule,
     FormsModule,

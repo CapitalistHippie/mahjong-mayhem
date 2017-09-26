@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Renderer2, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ThemeService } from '../theme.service/theme.service';
@@ -8,7 +8,7 @@ import { Theme } from '../theme.model';
 @Directive({
   selector: '[appTheme]'
 })
-export class ThemeDirective {
+export class ThemeDirective implements OnDestroy {
   private theme: Theme;
   private themeSubscription: Subscription;
 
@@ -18,6 +18,10 @@ export class ThemeDirective {
     this.themeSubscription = this.themeService.themeChanged$.subscribe((theme) => {
       this.setTheme(theme);
     });
+  }
+
+  ngOnDestroy() {
+    this.themeSubscription.unsubscribe();
   }
 
   private setTheme(theme: Theme): void {
