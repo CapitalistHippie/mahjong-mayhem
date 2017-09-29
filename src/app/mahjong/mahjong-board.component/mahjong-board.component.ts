@@ -10,7 +10,7 @@ import { MahjongTileComponent } from '../mahjong-tile.component/mahjong-tile.com
 
 import { MahjongBoardHostDirective } from '../mahjong-board-host.directive/mahjong-board-host.directive';
 
-import { BoardTile } from '../models';
+import { BoardTile, Tile } from '../models';
 
 @Component({
   selector: 'app-mahjong-board',
@@ -21,6 +21,8 @@ import { BoardTile } from '../models';
 export class MahjongBoardComponent implements OnInit, OnDestroy {
 
   @Input() boardTiles: BoardTile[];
+
+  private selectedTile: MahjongTileComponent;
 
   @ViewChild(MahjongBoardHostDirective) mahjongBoardHost: MahjongBoardHostDirective;
 
@@ -92,6 +94,32 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
     }
   }
 
+  public onTileClick(componentRef: MahjongTileComponent): void {
+    if(this.selectedTile == componentRef){ // Clicked on the same thing -> deselect
+      this.selectedTile.isSelected = false;
+      this.selectedTile = null;
+    }
+    else if(this.selectedTile){ // We have a selected tile: compare!
+      if(this.selectedTile.tile.name == componentRef.tile.name && this.selectedTile.tile.suit == componentRef.tile.suit){
+        this.handleTileMatch(this.selectedTile.tile, componentRef.tile);
+      }
+      this.selectedTile.isSelected = false;
+      this.selectedTile = null;
+    }
+    else{ // No tiles selected yet, mark as selected
+      this.selectedTile = componentRef;
+      componentRef.isSelected = !componentRef.isSelected    
+    }
+  }
+
+  private handleTileMatch(tile1: Tile, tile2: Tile): void {
+    console.log("IT MATCHES?!!!1!!11");
+    this.tileComponentRefs = this.tileComponentRefs.filter( ref => {
+      ref[0].instance.tile != tile1 && ref[0].instance.tile != tile2;
+    })
+    this.update();
+  }
+
   private drawBoard(): void {
     let viewContainerRef = this.mahjongBoardHost.viewContainerRef;
 
@@ -102,6 +130,8 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
       let elementRef = componentRef.location;
       let nativeElement = elementRef.nativeElement;
       let instance = componentRef.instance;
+
+      componentRef.instance.onSelected.subscribe(tile => this.onTileClick(tile))
 
       instance.tile = boardTile.tile;
       instance.scaleDirection = 'vertically';

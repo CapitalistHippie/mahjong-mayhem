@@ -6,6 +6,10 @@
   height: inherit;
 }
 
+.selected {
+  filter: invert(100%);
+}
+
 @mixin app-mahjong-tile-component-create-tile-set-classes($set, $setClassName) {
   @each $tile in $set {
     $tileName: map-get($tile, name);

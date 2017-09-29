@@ -1,6 +1,6 @@
 <div appTheme class="app-theme-div">
     <div class="app-mahjong-tile-sprite">
-        <div #tile>
+        <div #tile [class.selected]="isSelected" (click)="onClick()">
         </div>
     </div>
 </div>

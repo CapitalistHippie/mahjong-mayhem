@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, Input, ViewChild, EventEmitter, ElementRef, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ThemeService } from '../../theme/theme.service/theme.service';
@@ -14,7 +14,11 @@ export class MahjongTileComponent implements OnInit, OnDestroy {
   @Input() tile: Tile;
   @Input() scaleDirection: string;
 
+  @Output() onSelected: EventEmitter<MahjongTileComponent> = new EventEmitter<MahjongTileComponent>();
+
   @ViewChild('tile') elementRef: ElementRef;
+
+  isSelected = false;
 
   private themeSubscription: Subscription;
 
@@ -30,6 +34,10 @@ export class MahjongTileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.themeSubscription.unsubscribe();
+  }
+
+  onClick(): void {
+      this.onSelected.emit(this);
   }
 
   public update(): void {
