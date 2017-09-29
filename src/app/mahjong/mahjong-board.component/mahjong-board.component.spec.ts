@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MahjongBoardComponent } from './mahjong-board.component';
+import { MahjongTileComponent } from '../mahjong-tile.component/mahjong-tile.component';
+
+import { ThemeService } from '../../theme/theme.service/theme.service';
 
 describe('MahjongBoardComponent', () => {
   let component: MahjongBoardComponent;
@@ -8,7 +11,13 @@ describe('MahjongBoardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MahjongBoardComponent ]
+      providers:[
+        ThemeService
+      ],
+      declarations: [ 
+        MahjongBoardComponent,
+        MahjongTileComponent
+      ]
     })
     .compileComponents();
   }));

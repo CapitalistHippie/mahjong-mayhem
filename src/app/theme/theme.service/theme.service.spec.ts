@@ -9,7 +9,8 @@ describe('ThemeService', () => {
     TestBed.configureTestingModule({
       providers: [ThemeService]
     });
-  });
+    localStorage.removeItem("theme");
+  },);
 
   it('should be created', inject([ThemeService], (service: ThemeService) => {
     expect(service).toBeTruthy();
@@ -35,6 +36,8 @@ describe('ThemeService', () => {
     theme.cssClassName = "some-css-class";
     theme.mahjongSpriteHeight = 50;
     theme.mahjongSpriteWidth = 50;
+    theme.mahjongSpriteDepthIllusionOffsetX = 0.125;
+    theme.mahjongSpriteDepthIllusionOffsetY = -0.085;
     theme.name = 'some name';
 
     // Act.

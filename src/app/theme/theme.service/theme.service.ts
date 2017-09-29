@@ -15,6 +15,7 @@ export class ThemeService {
     this.localStorageThemeKey = 'theme';
 
     let localStorageTheme = localStorage.getItem(this.localStorageThemeKey);
+
     let activeTheme = localStorageTheme == null ? this.getDefaultTheme() : JSON.parse(localStorageTheme);
 
     this.themeChanged = new BehaviorSubject<Theme>(activeTheme);
