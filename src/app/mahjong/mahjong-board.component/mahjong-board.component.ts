@@ -94,12 +94,75 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
     }
   }
 
+  private isTileClickValid(ref: MahjongTileComponent): Boolean {
+    
+    let tileComp = this.tileComponentRefs.find(r => {
+      return r[0].instance == ref
+    });
+    
+    let clickedTile = tileComp[1];
+
+    // Find the nearest tiles, so we don't have to do multiple searches over the entire board. ^^
+    let vicinityTiles = this.tileComponentRefs.filter(r => {
+      let distY = (r[1].y > clickedTile.y)? r[1].y - clickedTile.y : clickedTile.y - r[1].y
+      let distX = (r[1].x > clickedTile.x)? r[1].x - clickedTile.x : clickedTile.x - r[1].x
+
+      let nearY = Math.abs(distY) <= 2
+      let nearX = Math.abs(distX) <= 2
+
+      return nearY && nearX;
+    })
+    
+    let overLapTile = vicinityTiles.find(r => {
+      let onTop = false;
+      let intersectX = false;
+      let intersectY = false;
+      intersectX = Math.abs(r[1].x - clickedTile.x) <= 1
+      intersectY = Math.abs(r[1].y - clickedTile.y) <= 1
+      onTop      = r[1].z > clickedTile.z
+      
+      return onTop && intersectX && intersectY;;
+    })
+    if(overLapTile){
+      // This tile is below another one
+      return false;
+    }
+    
+    let leftOfTile = vicinityTiles.find(r => {
+      return clickedTile.x + 2 == r[1].x && r[1].y == clickedTile.y && r[1].z == clickedTile.z      
+    })
+    let rightOfTile = vicinityTiles.find(r => {
+      return clickedTile.x - 2 == r[1].x && r[1].y == clickedTile.y && r[1].z == clickedTile.z      
+    })
+    if(leftOfTile && rightOfTile){
+      // This tile is inbetween 2 tiles (on the x-axis)
+      return false;
+    }
+
+    let aboveTile = vicinityTiles.find(r => {
+      return clickedTile.y + 2 == r[1].y && r[1].x == clickedTile.x && r[1].z == clickedTile.z      
+    })
+    let belowTile = vicinityTiles.find(r => {
+      return clickedTile.y - 2 == r[1].y && r[1].x == clickedTile.x && r[1].z == clickedTile.z      
+    })
+    if(aboveTile && belowTile){
+       // This tile is inbetween 2 tiles (on the y-axis)
+       return false;
+    }
+
+    return true;
+  }
+
   public onTileClick(componentRef: MahjongTileComponent): void {
+    if(!this.isTileClickValid(componentRef)){
+      return;
+    }
     if(this.selectedTile == componentRef){ // Clicked on the same thing -> deselect
       this.selectedTile.isSelected = false;
       this.selectedTile = null;
     }
     else if(this.selectedTile){ // We have a selected tile: compare!
+      console.log(this.selectedTile.tile.name + " vs " + componentRef.tile.name + " and " + this.selectedTile.tile.suit + " vs " + componentRef.tile.suit)
       if(this.selectedTile.tile.name == componentRef.tile.name && this.selectedTile.tile.suit == componentRef.tile.suit){
         this.handleTileMatch(this.selectedTile.tile, componentRef.tile);
       }
@@ -113,9 +176,21 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
   }
 
   private handleTileMatch(tile1: Tile, tile2: Tile): void {
-    console.log("IT MATCHES?!!!1!!11");
+    console.log("MATCH");
+    let tilesToRemove = this.tileComponentRefs.filter( ref => {
+      return ref[0].instance.tile == tile1 || ref[0].instance.tile == tile2
+    })
+    if(tilesToRemove.length > 2){
+      alert("I will not remove more than 2 tiles at a time!");
+      return
+    }
+
+    this.boardTiles = this.boardTiles.filter(t => {
+      return !tilesToRemove.find(f => f[1].tile == t.tile)
+    })
+
     this.tileComponentRefs = this.tileComponentRefs.filter( ref => {
-      ref[0].instance.tile != tile1 && ref[0].instance.tile != tile2;
+      return ref[0].instance.tile != tile1 && ref[0].instance.tile != tile2;
     })
     this.update();
   }
@@ -124,8 +199,10 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
     let viewContainerRef = this.mahjongBoardHost.viewContainerRef;
 
     viewContainerRef.clear();
+    this.tileComponentRefs = [];
 
     for (let boardTile of this.boardTiles) {
+      // For every update recreate all components? =/
       let componentRef = viewContainerRef.createComponent(this.mahjongTilecomponentFactory);
       let elementRef = componentRef.location;
       let nativeElement = elementRef.nativeElement;
