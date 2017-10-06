@@ -14,6 +14,7 @@ import { Game, Player } from '../models';
 export class GameDetailsCardComponent implements OnInit {
 
   @Output() gameJoined: EventEmitter<Game> = new EventEmitter<Game>();
+  @Output() gameDeleted: EventEmitter<Game> = new EventEmitter<Game>();
 
   @Input() game: Game;
 
@@ -53,6 +54,26 @@ export class GameDetailsCardComponent implements OnInit {
     );
   }
 
+  private onDeleteGameClicked(): void {
+    if(this.authService.getUserId() != this.game.createdBy.id){
+      alert("You can not delete this game!")
+    }
+
+    this.gameService.deleteGame(this.game.id).subscribe(
+      () => {
+        this.snackBar.open("Successfully deleted the game!", "Close", {
+          duration: 3000
+        });
+        this.gameDeleted.emit(this.game);
+      },
+      error => {
+        this.snackBar.open("Something went wrong while trying to delete the game.", "Close", {
+          duration: 3000
+        });
+      }
+    );
+  }
+
   private update(callback: () => void): void {
     this.gameService.getGameByGameId(this.game.id).subscribe(
       game => {
@@ -65,6 +86,10 @@ export class GameDetailsCardComponent implements OnInit {
         });
       }
     );
+  }
+
+  private getCurrentPlayerId(): String {
+    return this.authService.getUserId();
   }
 
   private gameHasPlayer(): boolean {

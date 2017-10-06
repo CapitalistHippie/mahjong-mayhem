@@ -30,7 +30,7 @@
       <div class="app-games-row" fxFlexLayout="row" fxLayoutWrap fxLayoutAlign="center" fxLayoutGap="10px">
         <div *ngFor="let game of games | games:gamesPipeArgs" fxFlex="350px">
           <div>
-            <app-game-details-card [game]="game" (gameJoined)="onGameJoined($event)">
+            <app-game-details-card [game]="game" (gameJoined)="onGameJoined($event)" (gameDeleted)="onGameDeleted($event)">
             </app-game-details-card>
           </div>
         </div>

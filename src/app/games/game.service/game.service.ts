@@ -221,4 +221,18 @@ export class GameService {
 
     return observable;
   }
+
+  deleteGame(gameId: string): Observable<any> {
+    let observable = new Observable<any>(observer => {
+      this.mahjongMayhemApiService.deleteGame(gameId).subscribe(() => {
+        observer.next();
+        observer.complete();
+      }, error => {
+        observer.error(error);
+        observer.complete();
+      });
+    });
+
+    return observable;
+  }
 }

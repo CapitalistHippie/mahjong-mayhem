@@ -72,9 +72,7 @@ export class GameListComponent implements OnInit {
 
   private onGameJoined(joinedGame: Game): void {
     let gameIndex = this.games.findIndex((game: Game) => {
-      if (game.id == joinedGame.id) {
-        return true;
-      }
+      return game.id == joinedGame.id
     });
 
     if (gameIndex == -1) {
@@ -82,5 +80,14 @@ export class GameListComponent implements OnInit {
     }
 
     this.games[gameIndex] = joinedGame;
+  }
+
+  private onGameDeleted(deletedGame: Game): void {
+    console.log("Delete :" + this.games.length)
+    this.games = this.games.filter(game => {
+      return game.id != deletedGame.id
+    })
+    console.log("And then :" + this.games.length)
+    this.refreshGames()
   }
 }

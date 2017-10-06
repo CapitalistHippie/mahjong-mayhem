@@ -56,6 +56,25 @@ export class MahjongMayhemApiService {
       .catch(this.handleError);
   }
 
+  private authenticatedDelete(uri: string, headers?: Headers): Observable<any> {
+    if (!this.isAuthenticated()) {
+      throw new Error('Not authenticated.');
+    }
+
+    if (headers == undefined) {
+      headers = new Headers(this.defaultHeaders);
+    }
+
+    headers.append('x-username', this.getUsername());
+    headers.append('x-token', this.getToken());
+    headers.append('Content-Type', 'application/json');
+
+    return this.http
+      .delete(this.domain + uri, { headers: headers })
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   public getAuthenticationUri(): string {
     return this.domain + '/auth/avans?callbackUrl=http://localhost:4200/authcallback';
   }
@@ -136,6 +155,12 @@ export class MahjongMayhemApiService {
     let uri = '/games/' + gameId + '/players';
 
     return this.authenticatedPost(uri, null);
+  }
+
+  public deleteGame(gameId: string) {
+    let uri = '/games/' + gameId
+
+    return this.authenticatedDelete(uri)
   }
 
   public getGameTiles(gameId: string, matched: boolean = undefined): Observable<GameTile[]> {

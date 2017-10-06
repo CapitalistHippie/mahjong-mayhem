@@ -13,8 +13,7 @@
           <md-list-item>
             <md-icon md-list-icon>person</md-icon>
             <h4 md-line>{{player.name}}</h4>
-            <p md-line>{{player._id}}</p>
-            <!-- Dit field bestaat niet, bedoel je player.id? -->
+            <p md-line>{{player.id}}</p>
           </md-list-item>
         </div>
 
@@ -28,6 +27,7 @@
       <a md-raised-button color="primary" [routerLink]="['/games/view', game.id]">Open</a>
 
       <button *ngIf="game.state == 'Open' && !gameHasPlayer()" md-raised-button [disabled]="isJoiningGame" color="primary" (click)="onGameJoinClicked()">Join</button>
+      <button *ngIf="game.state != 'Playing' && game.createdBy.id == getCurrentPlayerId()" md-raised-button color="warn" (click)="onDeleteGameClicked()">Delete</button>      
     </md-card-actions>
   </md-card>
 </div>
