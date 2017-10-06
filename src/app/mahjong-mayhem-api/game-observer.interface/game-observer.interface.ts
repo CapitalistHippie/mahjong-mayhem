@@ -20,19 +20,13 @@ export abstract class GameObserver {
         );
     }
 
-    constructor(protected gameId: string) { 
-        this.socket = io.connect("http://mahjongmayhem.herokuapp.com?gameId=" + gameId);
-        
-        this.createObserver<void>('start', this.start);
-        this.createObserver<void>('end',   this.end);
-        this.createObserver<PlayerId>('playerJoined', this.playerJoined);
-        this.createObserver<MatchTile[]>('match', this.match);
+    protected connectToSocket(socketGameId: string) {
+        this.socket = io.connect("http://mahjongmayhem.herokuapp.com?gameId=" + socketGameId);
     }
 
-    abstract start() : void;
-    abstract end() : void;
-    abstract playerJoined(player : PlayerId) : void;
-    abstract match(matches : MatchTile[]) : void;
+    protected subscribeToMatch(callback: (matches: MatchTile[]) => void): void {
+        this.createObserver<MatchTile[]>('match', callback);
+    }
     abstract error(error: any): void;
 }
 

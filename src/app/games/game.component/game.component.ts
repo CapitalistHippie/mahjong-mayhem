@@ -7,12 +7,14 @@ import { MahjongBoardComponent } from '../../mahjong/mahjong-board.component/mah
 
 import { Game, GameTile } from '../models';
 
+import { GameObserver, MatchTile, PlayerId } from '../../mahjong-mayhem-api/game-observer.interface/game-observer.interface'
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent extends GameObserver implements OnInit {
 
   @ViewChild(MahjongBoardComponent) mahjongBoard: MahjongBoardComponent;
 
@@ -21,11 +23,13 @@ export class GameComponent implements OnInit {
   private gameTiles: GameTile[];
 
   constructor(private route: ActivatedRoute, private gameService: GameService) {
+    super()
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.gameId = params['id'];
+      this.connectToSocket(this.gameId)
 
       // Get the game.
       this.gameService.getGameByGameId(this.gameId).subscribe(game => {
@@ -42,5 +46,13 @@ export class GameComponent implements OnInit {
         this.mahjongBoard.update();
       });
     });
+
+    this.subscribeToMatch( matches => {
+      this.mahjongBoard.handleSocketMatch(matches);
+    })
+  }
+
+  error(error: any){
+    console.log("An error occurred: " + error);
   }
 }

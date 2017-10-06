@@ -12,13 +12,17 @@ import { MahjongBoardHostDirective } from '../mahjong-board-host.directive/mahjo
 
 import { BoardTile, Tile } from '../models';
 
+import { GameObserver, MatchTile, PlayerId } from '../../mahjong-mayhem-api/game-observer.interface/game-observer.interface'
+
+declare var io: any;
+
 @Component({
   selector: 'app-mahjong-board',
   templateUrl: './mahjong-board.component.html',
   styleUrls: ['./mahjong-board.component.scss'],
   entryComponents: [MahjongTileComponent]
 })
-export class MahjongBoardComponent implements OnInit, OnDestroy {
+export class MahjongBoardComponent implements OnInit, OnDestroy{
 
   @Input() boardTiles: BoardTile[];
 
@@ -33,6 +37,7 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
   private resizeSubscription: Subscription;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver, private renderer: Renderer2, private elementRef: ElementRef, private themeService: ThemeService) {
+    console.log(elementRef);
     this.mahjongTilecomponentFactory = this.componentFactoryResolver.resolveComponentFactory(MahjongTileComponent);
     this.tileComponentRefs = [];
 
@@ -48,6 +53,24 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.resizeSubscription.unsubscribe();
+  }
+
+  public handleSocketMatch(matches: MatchTile[]){
+    console.log(matches);
+    if(matches.length == 2){
+      console.log(this);
+      let tiles = this.tileComponentRefs.filter(t => {
+        let tile = t[1];
+        return (tile.x == matches[0].xPos && tile.y == matches[0].yPos && tile.z == matches[0].zPos) || 
+        (tile.x == matches[1].xPos && tile.y == matches[1].yPos && tile.z == matches[1].zPos)
+      });
+      if(tiles.length >= 2){
+        this.handleTileMatch(tiles[0][1].tile, tiles[1][1].tile);
+      }
+    }
+    else{
+      alert("An error occured, sorry :(");
+    }
   }
 
   public update(): void {
@@ -102,7 +125,7 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
     
     let clickedTile = tileComp[1];
 
-    // Find the nearest tiles, so we don't have to do multiple searches over the entire board. ^^
+    // Find the nearest tiles, so we don't have to do multiple searches over the entire board.
     let vicinityTiles = this.tileComponentRefs.filter(r => {
       let distY = (r[1].y > clickedTile.y)? r[1].y - clickedTile.y : clickedTile.y - r[1].y
       let distX = (r[1].x > clickedTile.x)? r[1].x - clickedTile.x : clickedTile.x - r[1].x
@@ -176,7 +199,6 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
   }
 
   private handleTileMatch(tile1: Tile, tile2: Tile): void {
-    console.log("MATCH");
     let tilesToRemove = this.tileComponentRefs.filter( ref => {
       return ref[0].instance.tile == tile1 || ref[0].instance.tile == tile2
     })
