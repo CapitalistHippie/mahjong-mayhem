@@ -24,10 +24,10 @@
     </md-card-content>
 
     <md-card-actions>
-      <a md-raised-button color="primary" [routerLink]="['/games/view', game.id]">Open</a>
-
+      <a *ngIf="canOpenGame()" md-raised-button color="primary" [routerLink]="['/games/view', game.id]">Open</a>
       <button *ngIf="game.state == 'Open' && !gameHasPlayer()" md-raised-button [disabled]="isJoiningGame" color="primary" (click)="onGameJoinClicked()">Join</button>
-      <button *ngIf="game.state != 'Playing' && game.createdBy.id == getCurrentPlayerId()" md-raised-button color="warn" (click)="onDeleteGameClicked()">Delete</button>      
+      <button *ngIf="canStartGame()" md-raised-button [disabled]="isStartingGame" color="primary" (click)="onStartGameClicked()">Start</button>
+      <button *ngIf="game.state != 'Playing' && game.createdBy.id == getCurrentPlayerId()" md-raised-button color="warn" (click)="onDeleteGameClicked()">Delete</button>
     </md-card-actions>
   </md-card>
 </div>

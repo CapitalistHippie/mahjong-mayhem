@@ -163,6 +163,12 @@ export class MahjongMayhemApiService {
     return this.authenticatedDelete(uri)
   }
 
+  public startGame(gameId: string) {
+    let uri = '/games/' + gameId + '/start'
+
+    return this.authenticatedPost(uri)
+  }
+
   public getGameTiles(gameId: string, matched: boolean = undefined): Observable<GameTile[]> {
     let queryParameters = {};
 

@@ -4,7 +4,7 @@ import { MdSnackBar } from '@angular/material';
 import { GameService } from '../game.service/game.service'
 import { AuthService } from '../../auth/auth.service/auth.service';
 
-import { Game, Player } from '../models';
+import { Game, GameState, Player } from '../models';
 
 @Component({
   selector: 'app-game-details-card',
@@ -15,20 +15,25 @@ export class GameDetailsCardComponent implements OnInit {
 
   @Output() gameJoined: EventEmitter<Game> = new EventEmitter<Game>();
   @Output() gameDeleted: EventEmitter<Game> = new EventEmitter<Game>();
+  @Output() gameStarted: EventEmitter<Game> = new EventEmitter<Game>();
 
   @Input() game: Game;
 
-  isJoiningGame: boolean;
+  private isJoiningGame: boolean;
+  private isStartingGame: boolean;
 
   constructor(private gameService: GameService, private authService: AuthService, private snackBar: MdSnackBar) {
     this.isJoiningGame = false;
+    this.isStartingGame = false;
   }
 
   ngOnInit() {
   }
 
-  private onGameOpenClicked(): void {
-
+  private showWarningMessage(warningMessage: string): void {
+    this.snackBar.open(warningMessage, "Close", {
+      duration: 3000
+    });
   }
 
   private onGameJoinClicked(): void {
@@ -45,9 +50,7 @@ export class GameDetailsCardComponent implements OnInit {
         });
       },
       error => {
-        this.snackBar.open("Something went wrong while trying to join the game.", "Close", {
-          duration: 3000
-        });
+        this.showWarningMessage("Something went wrong while trying to join the game.");
 
         this.isJoiningGame = false;
       }
@@ -55,7 +58,7 @@ export class GameDetailsCardComponent implements OnInit {
   }
 
   private onDeleteGameClicked(): void {
-    if(this.authService.getUserId() != this.game.createdBy.id){
+    if (this.authService.getUserId() != this.game.createdBy.id) {
       alert("You can not delete this game!")
     }
 
@@ -67,9 +70,7 @@ export class GameDetailsCardComponent implements OnInit {
         this.gameDeleted.emit(this.game);
       },
       error => {
-        this.snackBar.open("Something went wrong while trying to delete the game.", "Close", {
-          duration: 3000
-        });
+        this.showWarningMessage("Something went wrong while trying to delete the game.");
       }
     );
   }
@@ -81,9 +82,7 @@ export class GameDetailsCardComponent implements OnInit {
         callback();
       },
       error => {
-        this.snackBar.open("Something went wrong while trying to update the game.", "Close", {
-          duration: 3000
-        });
+        this.showWarningMessage("Something went wrong while trying to update the game.");
       }
     );
   }
@@ -97,6 +96,46 @@ export class GameDetailsCardComponent implements OnInit {
 
     return this.game.players.some(function (player: Player): boolean {
       return player.id == playerUsername;
+    });
+  }
+
+  private canOpenGame(): boolean {
+    if (this.game.state == GameState.Open) {
+      return false;
+    }
+
+    return true;
+  }
+
+  private canStartGame(): boolean {
+    return this.gameService.canStartGame(this.game);
+  }
+
+  private onStartGameClicked(): void {
+    this.startGame();
+  }
+
+  private startGame(): void {
+    if (this.isStartingGame) {
+      return;
+    }
+
+    if (!this.canStartGame()) {
+      this.showWarningMessage("This game can not be started.");
+    }
+
+    this.isStartingGame = true;
+
+    this.gameService.startGame(this.game.id).subscribe(result => {
+      this.update(() => {
+        this.gameStarted.emit(this.game);
+
+        this.isStartingGame = false;
+      });
+    }, error => {
+      this.showWarningMessage("Something went wrong while starting the game.");
+
+      this.isStartingGame = false;
     });
   }
 }

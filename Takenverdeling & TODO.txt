@@ -3,8 +3,7 @@ Wouter:
 - Tile matching (gelijke suit?)
 
 Simon:
-- Starten van game (en preview van het bord)
-- Visueel bord
+- preview van het bord (bij aanmaken nieuwe game?)
  => Als gebruiker wil ik een tab binnen een game zien met het gameboard
  => Als gebruiker wil ik een tab binnen een game zien met alle gespeelde zetten
 
@@ -12,4 +11,3 @@ Overig:
 - Filters uitbreiden en fixen
 - e2e testing 
 - Unit testing
-- Verwijderen van game

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { AuthService } from '../../auth/auth.service/auth.service';
 import { MahjongService } from '../../mahjong/mahjong.service/mahjong.service';
 import { MahjongMayhemApiService } from '../../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
 
@@ -18,7 +19,7 @@ import { Tile as ApiTile } from '../../mahjong-mayhem-api/models';
 @Injectable()
 export class GameService {
 
-  constructor(private mahjongService: MahjongService, private mahjongMayhemApiService: MahjongMayhemApiService) {
+  constructor(private mahjongService: MahjongService, private authService: AuthService, private mahjongMayhemApiService: MahjongMayhemApiService) {
   }
 
   private mapApiGameToGame(apiGame: ApiGame): Game {
@@ -225,6 +226,32 @@ export class GameService {
   deleteGame(gameId: string): Observable<any> {
     let observable = new Observable<any>(observer => {
       this.mahjongMayhemApiService.deleteGame(gameId).subscribe(() => {
+        observer.next();
+        observer.complete();
+      }, error => {
+        observer.error(error);
+        observer.complete();
+      });
+    });
+
+    return observable;
+  }
+
+  canStartGame(game: Game): boolean {
+    if (game.state != GameState.Open) {
+      return false;
+    }
+
+    if (game.createdBy.id != this.authService.getUserId()) {
+      return false;
+    }
+
+    return true;
+  }
+
+  startGame(gameId: string): Observable<any> {
+    let observable = new Observable<any>(observer => {
+      this.mahjongMayhemApiService.startGame(gameId).subscribe(() => {
         observer.next();
         observer.complete();
       }, error => {
