@@ -1,13 +1,9 @@
-Wouter:
-- Multiplayer (sockets) 
-- Tile matching (gelijke suit?)
-
-Simon:
-- preview van het bord (bij aanmaken nieuwe game?)
- => Als gebruiker wil ik een tab binnen een game zien met het gameboard
- => Als gebruiker wil ik een tab binnen een game zien met alle gespeelde zetten
-
-Overig: 
-- Filters uitbreiden en fixen
-- e2e testing 
-- Unit testing
+- Match history
+- Herschrijven van de sockets code
+- Live updaten van game (met de sockets)
+- Persisteren van tile match naar de server
+- Preview van het bord bij aanmaken nieuwe game
+- Filters voor de game lijst uitbreiden
+- E2e tests
+- Unit tests
+- Consistent afhandelen van errors (warning in UI en logging naar console)
