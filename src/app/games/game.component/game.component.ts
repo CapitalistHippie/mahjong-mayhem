@@ -7,14 +7,12 @@ import { MahjongBoardComponent } from '../../mahjong/mahjong-board.component/mah
 
 import { Game, GameTile } from '../models';
 
-import { GameObserver, MatchTile, PlayerId } from '../../mahjong-mayhem-api/game-observer.interface/game-observer.interface'
-
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent extends GameObserver implements OnInit {
+export class GameComponent implements OnInit {
 
   @ViewChild(MahjongBoardComponent) mahjongBoard: MahjongBoardComponent;
 
@@ -23,13 +21,11 @@ export class GameComponent extends GameObserver implements OnInit {
   private gameTiles: GameTile[];
 
   constructor(private route: ActivatedRoute, private gameService: GameService) {
-    super()
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.gameId = params['id'];
-      this.connectToSocket(this.gameId)
 
       // Get the game.
       this.gameService.getGameByGameId(this.gameId).subscribe(game => {
@@ -47,12 +43,15 @@ export class GameComponent extends GameObserver implements OnInit {
       });
     });
 
-    this.subscribeToMatch( matches => {
+    let gameObservable = this.gameService.observeGame(this.gameId);
+
+    gameObservable.subscribeMatchEvent(matches => {
+      // NOTE: TODO: Handelen van de socket match moet eigenlijk hier gebeuren. Niet in de board. Board zou niets te maken moeten hebben met game logica.
       this.mahjongBoard.handleSocketMatch(matches);
-    })
+    });
   }
 
-  error(error: any){
+  error(error: any) {
     console.log("An error occurred: " + error);
   }
 }

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from '../../auth/auth.service/auth.service';
 import { MahjongService } from '../../mahjong/mahjong.service/mahjong.service';
-import { MahjongMayhemApiService } from '../../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
+import { MahjongMayhemApiService, GameObservable } from '../../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
 
 // Models.
 import { Game, GameCreate, GameState, GameTemplate, GameTemplateTile, Player, GameTile } from '../models';
@@ -262,4 +262,9 @@ export class GameService {
 
     return observable;
   }
+
+  observeGame(gameId: string): GameObservable {
+    // TODO: Wrap the Mayhem API Service observable into one on this level.
+    return this.mahjongMayhemApiService.observeGame(gameId);
+  };
 }

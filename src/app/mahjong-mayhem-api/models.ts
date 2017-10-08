@@ -7,3 +7,5 @@ export { PostMatch } from './models/post-match.model';
 export { Tile } from './models/tile.model';
 export { User } from './models/user.model';
 export { UserInGame } from './models/user-in-game.model';
+export { MatchEvent } from './models/match-event.model';
+export { PlayerJoinedEvent } from './models/player-joined-event.model';

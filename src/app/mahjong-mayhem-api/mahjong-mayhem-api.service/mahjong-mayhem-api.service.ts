@@ -1,19 +1,78 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
-import { Game, GameTile, GameTemplate, Tile, User, UserInGame, GamePost, PostMatch } from '../models';
+
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+
+import { Game, GameTile, GameTemplate, Tile, User, UserInGame, GamePost, PostMatch, MatchEvent, PlayerJoinedEvent } from '../models';
+
+declare var io: any;
+
+// TODO: Should probably move this class to it's own file.
+export class GameObservable {
+
+  public readonly gameId: string;
+
+  private socket: any;
+
+  private startEvent: Observable<void>;
+  private endEvent: Observable<void>;
+  private playerJoinedEvent: Observable<MatchEvent>;
+  private matchEvent: Observable<PlayerJoinedEvent>;
+
+  constructor(gameId: string) {
+    this.gameId = gameId;
+    this.socket = io.connect("http://mahjongmayhem.herokuapp.com?gameId=" + gameId);
+
+    this.startEvent = this.createObservable<void>('start');
+    this.endEvent = this.createObservable<void>('end');
+    this.playerJoinedEvent = this.createObservable<MatchEvent>('playerJoined');
+    this.matchEvent = this.createObservable<PlayerJoinedEvent>('match');
+  }
+
+  private createObservable<T>(event: string) {
+    let observable = new Observable<T>(observer => {
+      this.socket.on(event, (obj: T) => {
+        observer.next(obj);
+      }, error => {
+        observer.error(error);
+      });
+    });
+
+    return observable;
+  }
+
+  public subscribeStartEvent(...args): Subscription {
+    return this.startEvent.subscribe(...args);
+  }
+
+  public subscribeEndEvent(...args): Subscription {
+    return this.endEvent.subscribe(...args);
+  }
+
+  public subscribePlayerJoinedEvent(...args): Subscription {
+    return this.playerJoinedEvent.subscribe(...args);
+  }
+
+  public subscribeMatchEvent(...args): Subscription {
+    return this.matchEvent.subscribe(...args);
+  }
+}
 
 @Injectable()
 export class MahjongMayhemApiService {
   public readonly domain: string;
   public readonly defaultHeaders: Headers;
 
+  private gameObservables: Map<string, GameObservable>;
+
   constructor(private http: Http) {
     this.domain = 'https://mahjongmayhem.herokuapp.com';
 
     this.defaultHeaders = new Headers();
+    this.gameObservables = new Map<string, GameObservable>();
   }
 
   private get(uri: string, queryParameters?, headers?: Headers | null): Observable<any> {
@@ -179,6 +238,17 @@ export class MahjongMayhemApiService {
     let uri = '/games/' + gameId + '/tiles';
 
     return this.get(uri, queryParameters);
+  }
+
+  public observeGame(gameId: string): GameObservable {
+    let gameObserver = this.gameObservables.get(gameId);
+
+    if (gameObserver == null) {
+      gameObserver = new GameObservable(gameId);
+      this.gameObservables.set(gameId, gameObserver);
+    }
+
+    return gameObserver;
   }
 
   private extractData(res: Response) {

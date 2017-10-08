@@ -12,7 +12,7 @@ import { MahjongBoardHostDirective } from '../mahjong-board-host.directive/mahjo
 
 import { BoardTile, Tile } from '../models';
 
-import { GameObserver, MatchTile, PlayerId } from '../../mahjong-mayhem-api/game-observer.interface/game-observer.interface'
+import { MatchEvent } from '../../mahjong-mayhem-api/models'
 
 declare var io: any;
 
@@ -22,7 +22,7 @@ declare var io: any;
   styleUrls: ['./mahjong-board.component.scss'],
   entryComponents: [MahjongTileComponent]
 })
-export class MahjongBoardComponent implements OnInit, OnDestroy{
+export class MahjongBoardComponent implements OnInit, OnDestroy {
 
   @Input() boardTiles: BoardTile[];
 
@@ -55,20 +55,20 @@ export class MahjongBoardComponent implements OnInit, OnDestroy{
     this.resizeSubscription.unsubscribe();
   }
 
-  public handleSocketMatch(matches: MatchTile[]){
+  public handleSocketMatch(matches: MatchEvent[]) {
     console.log(matches);
-    if(matches.length == 2){
+    if (matches.length == 2) {
       console.log(this);
       let tiles = this.tileComponentRefs.filter(t => {
         let tile = t[1];
-        return (tile.x == matches[0].xPos && tile.y == matches[0].yPos && tile.z == matches[0].zPos) || 
-        (tile.x == matches[1].xPos && tile.y == matches[1].yPos && tile.z == matches[1].zPos)
+        return (tile.x == matches[0].xPos && tile.y == matches[0].yPos && tile.z == matches[0].zPos) ||
+          (tile.x == matches[1].xPos && tile.y == matches[1].yPos && tile.z == matches[1].zPos)
       });
-      if(tiles.length >= 2){
+      if (tiles.length >= 2) {
         this.handleTileMatch(tiles[0][1].tile, tiles[1][1].tile);
       }
     }
-    else{
+    else {
       alert("An error occured, sorry :(");
     }
   }
@@ -118,91 +118,91 @@ export class MahjongBoardComponent implements OnInit, OnDestroy{
   }
 
   private isTileClickValid(ref: MahjongTileComponent): Boolean {
-    
+
     let tileComp = this.tileComponentRefs.find(r => {
       return r[0].instance == ref
     });
-    
+
     let clickedTile = tileComp[1];
 
     // Find the nearest tiles, so we don't have to do multiple searches over the entire board.
     let vicinityTiles = this.tileComponentRefs.filter(r => {
-      let distY = (r[1].y > clickedTile.y)? r[1].y - clickedTile.y : clickedTile.y - r[1].y
-      let distX = (r[1].x > clickedTile.x)? r[1].x - clickedTile.x : clickedTile.x - r[1].x
+      let distY = (r[1].y > clickedTile.y) ? r[1].y - clickedTile.y : clickedTile.y - r[1].y
+      let distX = (r[1].x > clickedTile.x) ? r[1].x - clickedTile.x : clickedTile.x - r[1].x
 
       let nearY = Math.abs(distY) <= 2
       let nearX = Math.abs(distX) <= 2
 
       return nearY && nearX;
     })
-    
+
     let overLapTile = vicinityTiles.find(r => {
       let onTop = false;
       let intersectX = false;
       let intersectY = false;
       intersectX = Math.abs(r[1].x - clickedTile.x) <= 1
       intersectY = Math.abs(r[1].y - clickedTile.y) <= 1
-      onTop      = r[1].z > clickedTile.z
-      
+      onTop = r[1].z > clickedTile.z
+
       return onTop && intersectX && intersectY;;
     })
-    if(overLapTile){
+    if (overLapTile) {
       // This tile is below another one
       return false;
     }
-    
+
     let leftOfTile = vicinityTiles.find(r => {
-      return clickedTile.x + 2 == r[1].x && r[1].y == clickedTile.y && r[1].z == clickedTile.z      
+      return clickedTile.x + 2 == r[1].x && r[1].y == clickedTile.y && r[1].z == clickedTile.z
     })
     let rightOfTile = vicinityTiles.find(r => {
-      return clickedTile.x - 2 == r[1].x && r[1].y == clickedTile.y && r[1].z == clickedTile.z      
+      return clickedTile.x - 2 == r[1].x && r[1].y == clickedTile.y && r[1].z == clickedTile.z
     })
-    if(leftOfTile && rightOfTile){
+    if (leftOfTile && rightOfTile) {
       // This tile is inbetween 2 tiles (on the x-axis)
       return false;
     }
 
     let aboveTile = vicinityTiles.find(r => {
-      return clickedTile.y + 2 == r[1].y && r[1].x == clickedTile.x && r[1].z == clickedTile.z      
+      return clickedTile.y + 2 == r[1].y && r[1].x == clickedTile.x && r[1].z == clickedTile.z
     })
     let belowTile = vicinityTiles.find(r => {
-      return clickedTile.y - 2 == r[1].y && r[1].x == clickedTile.x && r[1].z == clickedTile.z      
+      return clickedTile.y - 2 == r[1].y && r[1].x == clickedTile.x && r[1].z == clickedTile.z
     })
-    if(aboveTile && belowTile){
-       // This tile is inbetween 2 tiles (on the y-axis)
-       return false;
+    if (aboveTile && belowTile) {
+      // This tile is inbetween 2 tiles (on the y-axis)
+      return false;
     }
 
     return true;
   }
 
   public onTileClick(componentRef: MahjongTileComponent): void {
-    if(!this.isTileClickValid(componentRef)){
+    if (!this.isTileClickValid(componentRef)) {
       return;
     }
-    if(this.selectedTile == componentRef){ // Clicked on the same thing -> deselect
+    if (this.selectedTile == componentRef) { // Clicked on the same thing -> deselect
       this.selectedTile.isSelected = false;
       this.selectedTile = null;
     }
-    else if(this.selectedTile){ // We have a selected tile: compare!
+    else if (this.selectedTile) { // We have a selected tile: compare!
       console.log(this.selectedTile.tile.name + " vs " + componentRef.tile.name + " and " + this.selectedTile.tile.suit + " vs " + componentRef.tile.suit)
-      if(this.selectedTile.tile.name == componentRef.tile.name && this.selectedTile.tile.suit == componentRef.tile.suit){
+      if (this.selectedTile.tile.name == componentRef.tile.name && this.selectedTile.tile.suit == componentRef.tile.suit) {
         this.handleTileMatch(this.selectedTile.tile, componentRef.tile);
       }
       this.selectedTile.isSelected = false;
       this.selectedTile = null;
     }
-    else{ // No tiles selected yet, mark as selected
+    else { // No tiles selected yet, mark as selected
       this.selectedTile = componentRef;
-      componentRef.isSelected = !componentRef.isSelected    
+      componentRef.isSelected = !componentRef.isSelected
     }
   }
 
   private handleTileMatch(tile1: Tile, tile2: Tile): void {
-    let tilesToRemove = this.tileComponentRefs.filter( ref => {
+    let tilesToRemove = this.tileComponentRefs.filter(ref => {
       return ref[0].instance.tile == tile1 || ref[0].instance.tile == tile2
     })
-    if(tilesToRemove.length > 2){
+    if (tilesToRemove.length > 2) {
       alert("I will not remove more than 2 tiles at a time!");
       return
     }
@@ -211,7 +211,7 @@ export class MahjongBoardComponent implements OnInit, OnDestroy{
       return !tilesToRemove.find(f => f[1].tile == t.tile)
     })
 
-    this.tileComponentRefs = this.tileComponentRefs.filter( ref => {
+    this.tileComponentRefs = this.tileComponentRefs.filter(ref => {
       return ref[0].instance.tile != tile1 && ref[0].instance.tile != tile2;
     })
     this.update();
