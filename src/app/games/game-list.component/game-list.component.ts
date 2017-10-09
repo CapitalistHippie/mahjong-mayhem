@@ -83,11 +83,9 @@ export class GameListComponent implements OnInit {
   }
 
   private onGameDeleted(deletedGame: Game): void {
-    console.log("Delete :" + this.games.length)
     this.games = this.games.filter(game => {
       return game.id != deletedGame.id
     })
-    console.log("And then :" + this.games.length)
     this.refreshGames()
   }
 }

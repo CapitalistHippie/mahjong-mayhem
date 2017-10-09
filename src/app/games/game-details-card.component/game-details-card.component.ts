@@ -59,7 +59,9 @@ export class GameDetailsCardComponent implements OnInit {
 
   private onDeleteGameClicked(): void {
     if (this.authService.getUserId() != this.game.createdBy.id) {
-      alert("You can not delete this game!")
+      this.snackBar.open("You can not delete this game!", null, {
+        duration: 3000
+      });
     }
 
     this.gameService.deleteGame(this.game.id).subscribe(

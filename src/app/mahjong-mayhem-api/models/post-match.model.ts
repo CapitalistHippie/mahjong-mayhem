@@ -1,4 +1,4 @@
 export class PostMatch {
 	tile1Id: string;
-	tile2Id: number;
+	tile2Id: string;
 }

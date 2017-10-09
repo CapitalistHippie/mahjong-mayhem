@@ -15,6 +15,8 @@ import { GameTemplateTile as ApiGameTemplateTile } from '../../mahjong-mayhem-ap
 import { GameTile as ApiGameTile } from '../../mahjong-mayhem-api/models';
 import { User as ApiUser } from '../../mahjong-mayhem-api/models';
 import { Tile as ApiTile } from '../../mahjong-mayhem-api/models';
+import { PostMatch as ApiPostMatch } from '../../mahjong-mayhem-api/models';
+
 
 @Injectable()
 export class GameService {
@@ -191,9 +193,9 @@ export class GameService {
     return observable;
   }
 
-  getGameTiles(gameId: string): Observable<GameTile[]> {
+  getGameTiles(gameId: string, matched?: boolean): Observable<GameTile[]> {
     let observable = new Observable<GameTile[]>(observer => {
-      this.mahjongMayhemApiService.getGameTiles(gameId).subscribe((apiGameTiles: ApiGameTile[]) => {
+      this.mahjongMayhemApiService.getGameTiles(gameId, matched).subscribe((apiGameTiles: ApiGameTile[]) => {
         let mappedGameTiles = apiGameTiles.map((gameTile: ApiGameTile) => {
           return this.mapApiGameTileToGameTile(gameTile);
         });
@@ -267,4 +269,22 @@ export class GameService {
     // TODO: Wrap the Mayhem API Service observable into one on this level.
     return this.mahjongMayhemApiService.observeGame(gameId);
   };
+
+  submitMatch(gameId: string, tile1Id: string, tile2Id: string){
+    let postMatch = new ApiPostMatch()
+    postMatch.tile1Id = tile1Id
+    postMatch.tile2Id = tile2Id
+    
+    let observable = new Observable<any>(observer => {
+      this.mahjongMayhemApiService.submitMatch(gameId, postMatch).subscribe(() => {
+        observer.next();
+        observer.complete();
+      }, error => {
+        observer.error(error);
+        observer.complete();
+      });
+    });
+
+    return observable;
+  }
 }

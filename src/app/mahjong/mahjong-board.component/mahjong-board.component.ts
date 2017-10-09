@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ViewChild, ComponentFactory, ComponentFactoryResolver, Renderer2, ElementRef, ComponentRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, Input, EventEmitter, ViewChild, ComponentFactory, ComponentFactoryResolver, Renderer2, ElementRef, ComponentRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
@@ -26,18 +26,22 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
 
   @Input() boardTiles: BoardTile[];
 
+  @Output() onTwoTilesClicked: EventEmitter<[MahjongTileComponent]> = new EventEmitter<[MahjongTileComponent]>();
+  
   private selectedTile: MahjongTileComponent;
 
   @ViewChild(MahjongBoardHostDirective) mahjongBoardHost: MahjongBoardHostDirective;
 
   private mahjongTilecomponentFactory: ComponentFactory<MahjongTileComponent>;
 
-  private tileComponentRefs: [ComponentRef<MahjongTileComponent>, BoardTile][];
+  public tileComponentRefs: [ComponentRef<MahjongTileComponent>, BoardTile][];
 
   private resizeSubscription: Subscription;
 
+  public isLoading = false;
+  public isPlaying = true;
+
   constructor(private componentFactoryResolver: ComponentFactoryResolver, private renderer: Renderer2, private elementRef: ElementRef, private themeService: ThemeService) {
-    console.log(elementRef);
     this.mahjongTilecomponentFactory = this.componentFactoryResolver.resolveComponentFactory(MahjongTileComponent);
     this.tileComponentRefs = [];
 
@@ -53,24 +57,6 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.resizeSubscription.unsubscribe();
-  }
-
-  public handleSocketMatch(matches: MatchEvent[]) {
-    console.log(matches);
-    if (matches.length == 2) {
-      console.log(this);
-      let tiles = this.tileComponentRefs.filter(t => {
-        let tile = t[1];
-        return (tile.x == matches[0].xPos && tile.y == matches[0].yPos && tile.z == matches[0].zPos) ||
-          (tile.x == matches[1].xPos && tile.y == matches[1].yPos && tile.z == matches[1].zPos)
-      });
-      if (tiles.length >= 2) {
-        this.handleTileMatch(tiles[0][1].tile, tiles[1][1].tile);
-      }
-    }
-    else {
-      alert("An error occured, sorry :(");
-    }
   }
 
   public update(): void {
@@ -118,7 +104,6 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
   }
 
   private isTileClickValid(ref: MahjongTileComponent): Boolean {
-
     let tileComp = this.tileComponentRefs.find(r => {
       return r[0].instance == ref
     });
@@ -152,43 +137,40 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
     }
 
     let leftOfTile = vicinityTiles.find(r => {
-      return clickedTile.x + 2 == r[1].x && r[1].y == clickedTile.y && r[1].z == clickedTile.z
+      return clickedTile.x + 2 == r[1].x && this.isWithinDistanceOfTwo(clickedTile.y, r[1].y) && r[1].z == clickedTile.z
     })
     let rightOfTile = vicinityTiles.find(r => {
-      return clickedTile.x - 2 == r[1].x && r[1].y == clickedTile.y && r[1].z == clickedTile.z
+      return clickedTile.x - 2 == r[1].x && this.isWithinDistanceOfTwo(r[1].y, clickedTile.y) && r[1].z == clickedTile.z
     })
     if (leftOfTile && rightOfTile) {
       // This tile is inbetween 2 tiles (on the x-axis)
       return false;
     }
-
-    let aboveTile = vicinityTiles.find(r => {
-      return clickedTile.y + 2 == r[1].y && r[1].x == clickedTile.x && r[1].z == clickedTile.z
-    })
-    let belowTile = vicinityTiles.find(r => {
-      return clickedTile.y - 2 == r[1].y && r[1].x == clickedTile.x && r[1].z == clickedTile.z
-    })
-    if (aboveTile && belowTile) {
-      // This tile is inbetween 2 tiles (on the y-axis)
-      return false;
-    }
-
     return true;
   }
 
+  private isWithinDistanceOfTwo(first: number, second: number){
+    if(first == second){
+      return true;
+    }
+    else if(first > second){
+      return first == second + 1
+    }
+    else{ // first < second
+      return first == second - 1
+    }
+  }
+
   public onTileClick(componentRef: MahjongTileComponent): void {
-    if (!this.isTileClickValid(componentRef)) {
+    if (this.isLoading || !this.isPlaying || !this.isTileClickValid(componentRef)) {
       return;
     }
     if (this.selectedTile == componentRef) { // Clicked on the same thing -> deselect
       this.selectedTile.isSelected = false;
       this.selectedTile = null;
     }
-    else if (this.selectedTile) { // We have a selected tile: compare!
-      console.log(this.selectedTile.tile.name + " vs " + componentRef.tile.name + " and " + this.selectedTile.tile.suit + " vs " + componentRef.tile.suit)
-      if (this.selectedTile.tile.name == componentRef.tile.name && this.selectedTile.tile.suit == componentRef.tile.suit) {
-        this.handleTileMatch(this.selectedTile.tile, componentRef.tile);
-      }
+    else if (this.selectedTile) { // We have a selected tile: send event!
+      this.onTwoTilesClicked.emit([componentRef, this.selectedTile]);
       this.selectedTile.isSelected = false;
       this.selectedTile = null;
     }
@@ -198,12 +180,12 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  private handleTileMatch(tile1: Tile, tile2: Tile): void {
+  public removeTilesFromBoard(tile1: Tile, tile2: Tile): void {
     let tilesToRemove = this.tileComponentRefs.filter(ref => {
       return ref[0].instance.tile == tile1 || ref[0].instance.tile == tile2
     })
     if (tilesToRemove.length > 2) {
-      alert("I will not remove more than 2 tiles at a time!");
+      console.log("I will not remove more than 2 tiles at a time!");
       return
     }
 

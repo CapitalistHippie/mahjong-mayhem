@@ -5,8 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 
-import { Game, GameTile, GameTemplate, Tile, User, UserInGame, GamePost, PostMatch, MatchEvent, PlayerJoinedEvent } from '../models';
+import { Game, GameTile, GameTemplate, Tile, User, UserInGame, GamePost, PostMatch, MatchEvent, PlayerJoinedEvent, MatchPost} from '../models';
 
 declare var io: any;
 
@@ -249,6 +250,11 @@ export class MahjongMayhemApiService {
     }
 
     return gameObserver;
+  }
+
+  public submitMatch(gameId: string, match: MatchPost): Observable<any> {
+    let uri = '/games/' + gameId + '/tiles/matches'
+    return this.authenticatedPost(uri, match)
   }
 
   private extractData(res: Response) {

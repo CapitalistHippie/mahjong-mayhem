@@ -1,5 +1,6 @@
 export { Game } from './models/game.model';
 export { GamePost } from './models/game-post.model';
+export { MatchPost } from './models/match-post.model';
 export { GameTemplate } from './models/game-template.model';
 export { GameTemplateTile } from './models/game-template-tile.model'
 export { GameTile } from './models/game-tile.model';

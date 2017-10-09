@@ -1,3 +1,8 @@
+<div *ngIf="game"  fxLayout="row">
+  <div *ngIf="game.state == 'Finished'">
+    <h1>This game has finished</h1>
+  </div>
+</div>
 <div appTheme fxLayout="row">
   <app-mahjong-board fxFlex></app-mahjong-board>
 </div>
