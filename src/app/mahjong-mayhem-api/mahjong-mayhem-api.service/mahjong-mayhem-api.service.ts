@@ -136,7 +136,6 @@ export class MahjongMayhemApiService {
   }
 
   public getAuthenticationUri(): string {
-    console.log(this.domain + '/auth/avans?callbackUrl=' + window.location.origin + '/authcallback');
     return this.domain + '/auth/avans?callbackUrl=' + window.location.origin + '/authcallback';
   }
 
