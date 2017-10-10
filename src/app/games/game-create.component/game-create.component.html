@@ -1,31 +1,42 @@
-<div fxLayout="column">
-  <form (ngSubmit)="onSubmit()" #form>
-    <div fxLayout="row">
-      <md-input-container fxFlex="300px">
-        <input mdInput type="number" name="minPlayers" placeholder="Minimum amount of players." required [(ngModel)]="model.minPlayers">
-      </md-input-container>
-    </div>
+<div fxLayout="row" fxLayoutGap="20px">
+  <div fxFlex="300px">
+    <form (ngSubmit)="onSubmit()" #form>
+      <div fxLayout="column">
+        <div>
+          <md-input-container>
+            <input mdInput type="number" name="minPlayers" placeholder="Minimum amount of players." required [(ngModel)]="model.minPlayers">
+          </md-input-container>
+        </div>
 
-    <div fxLayout="row">
-      <md-input-container fxFlex="300px">
-        <input mdInput type="number" name="maxPlayers" placeholder="Maximum amount of players." required [(ngModel)]="model.maxPlayers">
-      </md-input-container>
-    </div>
+        <div>
+          <md-input-container>
+            <input mdInput type="number" name="maxPlayers" placeholder="Maximum amount of players." required [(ngModel)]="model.maxPlayers">
+          </md-input-container>
+        </div>
 
-    <div fxLayout="row">
-      <md-select mdInput name="templateName" placeholder="Template" required [(ngModel)]="model.templateName">
-        <md-option *ngFor="let gameTemplate of gameTemplates" [value]="gameTemplate.id">
-          {{ gameTemplate.id }}
-        </md-option>
-      </md-select>
+        <div fxLayout="row">
+          <div>
+            <md-select mdInput name="templateName" placeholder="Template" required [(ngModel)]="model.templateName" (change)="onTemplateSelected()">
+              <md-option *ngFor="let gameTemplate of gameTemplates" [value]="gameTemplate.id">
+                {{ gameTemplate.id }}
+              </md-option>
+            </md-select>
+          </div>
 
-      <div fxFlex></div>
+          <div fxFlex></div>
 
-      <div *ngIf="isCreatingGame">
-        <md-spinner style="height: 36px; width: 36px">Loading...</md-spinner>
+          <div>
+            <div *ngIf="isCreatingGame">
+              <md-spinner>Loading...</md-spinner>
+            </div>
+
+            <button md-raised-button id="submit" type="submit" [disabled]="isCreatingGame">Submit</button>
+          </div>
+        </div>
       </div>
+    </form>
+  </div>
 
-      <button md-raised-button id="submit" type="submit" [disabled]="isCreatingGame">Submit</button>
-    </div>
-  </form>
+  <app-mahjong-board fxFlex>
+  </app-mahjong-board>
 </div>

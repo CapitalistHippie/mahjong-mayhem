@@ -37,31 +37,31 @@ export class GameComponent implements OnInit {
         this.gameService.getGameByGameId(this.gameId),
         this.gameService.getGameTiles(this.gameId, false)
       )
-      .subscribe(result =>{
-        // Get the game.
-        this.game = result[0];
+        .subscribe(result => {
+          // Get the game.
+          this.game = result[0];
 
-        // Get the game tiles.
-        this.gameTiles = result[1];
+          // Get the game tiles.
+          this.gameTiles = result[1];
 
-        this.mahjongBoard.boardTiles = this.gameTiles.map(gameTile => gameTile.boardTile);;
-        this.mahjongBoard.update();
+          this.mahjongBoard.boardTiles = this.gameTiles.map(gameTile => gameTile.boardTile);
+          this.mahjongBoard.update();
 
-        if(this.game.state != GameState.Finished){
-          this.subscribeToWebsocket()
-        }
-        else{
-          this.mahjongBoard.isPlaying = false;
-        }
-      })
+          if (this.game.state != GameState.Finished) {
+            this.subscribeToWebsocket()
+          }
+          else {
+            this.mahjongBoard.isPlaying = false;
+          }
+        })
 
-      this.mahjongBoard.onTwoTilesClicked.subscribe(tileComponents => this.onTwoTilesClicked(tileComponents))      
+      this.mahjongBoard.onTwoTilesClicked.subscribe(tileComponents => this.onTwoTilesClicked(tileComponents))
     });
   }
 
-  private subscribeToWebsocket(){
+  private subscribeToWebsocket() {
     let gameObservable = this.gameService.observeGame(this.gameId);
-    
+
     gameObservable.subscribeMatchEvent(matches => {
       if (matches.length == 2) {
         let tiles = this.mahjongBoard.tileComponentRefs.filter(t => {
@@ -74,7 +74,7 @@ export class GameComponent implements OnInit {
         }
       }
       else {
-        console.error("Matches has a length of "  + matches.length + "! Expected: 2");
+        console.error("Matches has a length of " + matches.length + "! Expected: 2");
       }
     });
     gameObservable.subscribeEndEvent(result => {
@@ -84,7 +84,7 @@ export class GameComponent implements OnInit {
       this.mahjongBoard.isPlaying = false;
     })
     gameObservable.subscribeStartEvent(result => {
-      if(!this.mahjongBoard.isPlaying){
+      if (!this.mahjongBoard.isPlaying) {
         this.snackBar.open("The game has started!", "Close", {
           duration: 5000
         });
@@ -93,9 +93,9 @@ export class GameComponent implements OnInit {
     })
     gameObservable.subscribePlayerJoinedEvent(result => {
       let index = this.game.players.findIndex(p => p.id == result._id)
-      if(index != -1){ 
+      if (index != -1) {
         // Player already in game
-        return;  
+        return;
       }
       this.snackBar.open(result._id + " has joined the game!", "Close", {
         duration: 5000
@@ -108,12 +108,12 @@ export class GameComponent implements OnInit {
   }
 
   public onTwoTilesClicked(componentRefs: [MahjongTileComponent]): void {
-    if(componentRefs.length != 2){
+    if (componentRefs.length != 2) {
       return;
     }
     let userId = this.authService.getUserId();
     let playerIndex = this.game.players.findIndex(player => player.id == userId)
-    if(playerIndex == -1){
+    if (playerIndex == -1) {
       this.snackBar.open("You have not joined this game, so you are not allowed to make moves!", "Close", {
         duration: 5000
       });
