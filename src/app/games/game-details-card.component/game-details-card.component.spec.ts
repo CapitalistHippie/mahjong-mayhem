@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { Game, Player } from '../models';
+import { Game, Player, GameState } from '../models';
 import { GameTemplate } from '../models/game-template.model'
 
 describe('GameDetailsCardComponent', () => {
@@ -61,6 +61,7 @@ describe('GameDetailsCardComponent', () => {
     mockGame.gameTemplate = mockTemplate;
     mockGame.createdBy = mockPlayer;
     mockGame.players = [mockPlayer];
+    mockGame.state = GameState.Open
     component.game = mockGame;
 
     fixture.detectChanges();
@@ -69,4 +70,7 @@ describe('GameDetailsCardComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+  it('should not be able to be opened', () => {
+    expect(component.canOpenGame()).toBe(false)
+  })
 });

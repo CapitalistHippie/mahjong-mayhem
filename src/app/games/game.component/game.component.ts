@@ -11,7 +11,7 @@ import { AuthService } from '../../auth/auth.service/auth.service';
 import { MahjongBoardComponent } from '../../mahjong/mahjong-board.component/mahjong-board.component';
 import { MahjongTileComponent } from '../../mahjong/mahjong-tile.component/mahjong-tile.component';
 
-import { Game, GameTile, GameState } from '../models';
+import { Game, GameTile, GameState, Player } from '../models';
 
 @Component({
   selector: 'app-game',
@@ -90,6 +90,20 @@ export class GameComponent implements OnInit {
         });
         this.mahjongBoard.isPlaying = true;
       }
+    })
+    gameObservable.subscribePlayerJoinedEvent(result => {
+      let index = this.game.players.findIndex(p => p.id == result._id)
+      if(index != -1){ 
+        // Player already in game
+        return;  
+      }
+      this.snackBar.open(result._id + " has joined the game!", "Close", {
+        duration: 5000
+      });
+      let p = new Player()
+      p.id = result._id
+      p.name = ""
+      this.game.players = this.game.players.concat(p);
     })
   }
 

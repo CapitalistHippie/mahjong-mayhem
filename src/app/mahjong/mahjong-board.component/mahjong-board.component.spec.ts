@@ -1,9 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 
 import { MahjongBoardComponent } from './mahjong-board.component';
 import { MahjongTileComponent } from '../mahjong-tile.component/mahjong-tile.component';
 
 import { ThemeService } from '../../theme/theme.service/theme.service';
+
 
 describe('MahjongBoardComponent', () => {
   let component: MahjongBoardComponent;
@@ -11,6 +13,9 @@ describe('MahjongBoardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports:[
+        AngularMaterialModule
+      ],
       providers:[
         ThemeService
       ],

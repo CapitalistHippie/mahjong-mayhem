@@ -1,8 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SettingsComponent } from './settings.component';
-
 import { AngularMaterialModule } from '../../angular-material/angular-material.module';
+import { FormsModule } from '@angular/forms';
+
+import { MahjongService } from '../../mahjong/mahjong.service/mahjong.service';
+import { ThemeService } from '../../theme/theme.service/theme.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { SettingsComponent } from './settings.component';
+import { MahjongTileComponent } from '../../mahjong/mahjong-tile.component/mahjong-tile.component'
+
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -11,9 +18,18 @@ describe('SettingsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports:[
-        AngularMaterialModule
+        AngularMaterialModule,
+        FormsModule,
+        BrowserAnimationsModule
       ],
-      declarations: [SettingsComponent]
+      providers: [
+        MahjongService,
+        ThemeService
+      ],
+      declarations: [
+        SettingsComponent,
+        MahjongTileComponent
+      ]
     })
       .compileComponents();
   }));

@@ -3,6 +3,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 
 import { GameService } from './game.service';
+import { AuthService } from '../../auth/auth.service/auth.service';
 import { MahjongService } from '../../mahjong/mahjong.service/mahjong.service';
 import { MahjongMayhemApiService } from '../../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
 
@@ -13,6 +14,7 @@ describe('GameService', () => {
         HttpModule
       ],
       providers: [
+        AuthService,
         GameService,
         MahjongMayhemApiService,
         MahjongService

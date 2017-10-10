@@ -101,7 +101,7 @@ export class GameDetailsCardComponent implements OnInit {
     });
   }
 
-  private canOpenGame(): boolean {
+  public canOpenGame(): boolean {
     if (this.game.state == GameState.Open) {
       return false;
     }

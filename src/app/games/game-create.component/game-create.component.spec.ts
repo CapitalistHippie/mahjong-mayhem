@@ -5,8 +5,8 @@ import { MahjongService } from '../../mahjong/mahjong.service/mahjong.service';
 import { MahjongMayhemApiService } from '../../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
 
 import { GameCreateComponent } from './game-create.component';
+import { AuthService } from '../../auth/auth.service/auth.service';
 
-// import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../../angular-material/angular-material.module';
@@ -28,6 +28,7 @@ describe('GameCreateComponent', () => {
         GameCreateComponent,
       ],
       providers: [
+        AuthService,
         GameService,
         MahjongService,
         MahjongMayhemApiService

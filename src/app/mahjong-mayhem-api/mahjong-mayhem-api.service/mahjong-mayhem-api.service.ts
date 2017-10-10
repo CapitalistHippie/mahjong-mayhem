@@ -20,8 +20,8 @@ export class GameObservable {
 
   private startEvent: Observable<void>;
   private endEvent: Observable<void>;
-  private playerJoinedEvent: Observable<MatchEvent>;
-  private matchEvent: Observable<PlayerJoinedEvent>;
+  private playerJoinedEvent: Observable<PlayerJoinedEvent>;
+  private matchEvent: Observable<MatchEvent>;
 
   constructor(gameId: string) {
     this.gameId = gameId;
@@ -29,8 +29,8 @@ export class GameObservable {
 
     this.startEvent = this.createObservable<void>('start');
     this.endEvent = this.createObservable<void>('end');
-    this.playerJoinedEvent = this.createObservable<MatchEvent>('playerJoined');
-    this.matchEvent = this.createObservable<PlayerJoinedEvent>('match');
+    this.playerJoinedEvent = this.createObservable<PlayerJoinedEvent>('playerJoined');
+    this.matchEvent = this.createObservable<MatchEvent>('match');
   }
 
   private createObservable<T>(event: string) {

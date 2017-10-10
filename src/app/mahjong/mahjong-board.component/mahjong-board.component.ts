@@ -199,7 +199,7 @@ export class MahjongBoardComponent implements OnInit, OnDestroy {
     this.update();
   }
 
-  private drawBoard(): void {
+  public drawBoard(): void {
     let viewContainerRef = this.mahjongBoardHost.viewContainerRef;
 
     viewContainerRef.clear();

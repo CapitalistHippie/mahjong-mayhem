@@ -8,7 +8,9 @@ import { GameService } from '../game.service/game.service';
 import { MahjongService } from '../../mahjong/mahjong.service/mahjong.service';
 import { MahjongMayhemApiService } from '../../mahjong-mayhem-api/mahjong-mayhem-api.service/mahjong-mayhem-api.service';
 import { ThemeService } from '../../theme/theme.service/theme.service';
+import { AuthService } from '../../auth/auth.service/auth.service';
 
+import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing'
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
@@ -22,12 +24,14 @@ describe('GameComponent', () => {
       imports: [
         RouterTestingModule,
         HttpModule,
+        AngularMaterialModule,
       ],
       providers: [
         GameService,
         MahjongService,
         MahjongMayhemApiService,
-        ThemeService
+        ThemeService,
+        AuthService
       ],
       declarations: [
         GameComponent,
