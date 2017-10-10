@@ -1,15 +1,17 @@
-<div *ngIf="game" fxLayout="column">
-  <div *ngIf="game.state == 'Finished'">
-    <h2>This game has finished</h2>
-  </div>
-  <br>
-  <h1>Players in this game:</h1>
-  <ul>
-    <div fxFlex *ngFor="let player of game.players">
-      <li>{{player.id}}</li>
-    </div>
-</ul>
-</div>
 <div appTheme fxLayout="column">
+  <div>
+    <div *ngIf="game" fxLayout="column">
+      <div *ngIf="game.state == 'Finished'">
+        <h2>This game has finished</h2>
+      </div>
+      <br>
+      <h1>Players in this game:</h1>
+      <ul>
+        <div fxFlex *ngFor="let player of game.players">
+          <li>{{player.id}}</li>
+        </div>
+      </ul>
+    </div>
+  </div>
   <app-mahjong-board fxFlex></app-mahjong-board>
 </div>
