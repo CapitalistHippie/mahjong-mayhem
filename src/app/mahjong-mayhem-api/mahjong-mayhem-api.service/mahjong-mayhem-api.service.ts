@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
-import { Game, GameTile, GameTemplate, Tile, User, UserInGame, GamePost, PostMatch, MatchEvent, PlayerJoinedEvent, MatchPost} from '../models';
+import { Game, GameTile, GameTemplate, Tile, User, UserInGame, GamePost, PostMatch, MatchEvent, PlayerJoinedEvent, MatchPost } from '../models';
 
 declare var io: any;
 
@@ -136,7 +136,8 @@ export class MahjongMayhemApiService {
   }
 
   public getAuthenticationUri(): string {
-    return this.domain + '/auth/avans?callbackUrl=http://localhost:4200/authcallback';
+    console.log(this.domain + '/auth/avans?callbackUrl=' + window.location.origin + '/authcallback');
+    return this.domain + '/auth/avans?callbackUrl=' + window.location.origin + '/authcallback';
   }
 
   public authenticate(token: string, username: string): void {
